@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default';
 
 body {
     margin: 0px;
@@ -35,3 +37,4 @@ body {
   padding-right: 0;
   padding-left: 0;
 }
+

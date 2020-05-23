@@ -1,0 +1,31 @@
+.tuning-section{
+    padding: 100px 30px 30px 30px; 
+    width: 62%; 
+    margin: 0 auto; 
+    min-width: 800px;
+  }
+
+  /* TABLE */
+  
+.car-card{
+    height: 180px;
+    width: 200px;
+
+    border: 1px solid #CCC;
+    border-radius: 20px;
+    padding: 0px!important;
+    margin: 0px!important;
+
+    transition-timing-function: ease-in-out;
+    transition: 0.25s;
+}
+
+.car-card:hover {
+    border-color: red;
+}
+
+.car-table {
+    border-collapse: separate;
+    border-spacing: 30px;
+    width: 100%;
+}

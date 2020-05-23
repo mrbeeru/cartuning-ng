@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
-import { faCar, faMicrochip, faTachometerAlt, faCalendarCheck, faTools, faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faCar, faMicrochip, faTachometerAlt, faCalendarCheck, faTools, faChartLine, faStar, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-home',
@@ -17,10 +17,38 @@ export class HomeComponent implements OnInit {
   faCalendarCheck = faCalendarCheck;
   faTools = faTools;
   faChartLine = faChartLine;
-
+  faStar = faStar;
+  faExclamationCircle = faExclamationCircle;
+  
   constructor() { }
 
   ngOnInit(): void {
+ 
+  }
+
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: false
   }
 
 }

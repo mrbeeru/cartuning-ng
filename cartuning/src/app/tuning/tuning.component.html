@@ -1,0 +1,71 @@
+
+<div class="tuning-section">
+    <div>
+        
+        <mat-horizontal-stepper #stepper>
+            <mat-step>
+                <ng-template matStepLabel>Car brand</ng-template>
+                <table class="car-table">
+                    <tr *ngFor="let row of array" >
+                      <td *ngFor="let cell of row" (click)="log(row, cell)" class='car-card'>
+                          <div class="text-center"> 
+                              <img [src]="cell.icon" style="width: 102px; height: 102px; margin: 0">
+                          </div>
+                          <div class="text-center" style="font-size: 12px; margin-top: 25px">
+                              {{cell.name | uppercase}}
+                          </div>
+                      </td>
+                    </tr>
+                  </table>
+                <div>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Car model</ng-template>
+                You selected {{selectedCar?.name}}
+
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Car version</ng-template>
+                Choose car version
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                Done
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+          
+
+<!--
+        <table class="car-table">
+            <tr *ngFor="let row of array" >
+              <td *ngFor="let cell of row" (click)="log(row, cell)" class='car-card'>
+                  <div class="text-center"> 
+                      <img [src]="cell.icon" style="width: 102px; height: 102px; margin: 0">
+
+                  </div>
+                  <div class="text-center" style="font-size: 12px; margin-top: 25px">
+                      {{cell.name | uppercase}}
+                  </div>
+              </td>
+            </tr>
+          </table>
+-->
+    </div>
+</div>
+

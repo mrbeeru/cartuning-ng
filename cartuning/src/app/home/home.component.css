@@ -61,14 +61,15 @@
   display: inline-block;
 }
 
-.home-container-first {
+.home-container {
   background-color: rgba(0, 0, 0, 0.1);
   background: linear-gradient(90deg, rgba(170,170,170,0.6951155462184874) 0%, rgba(170,170,170,0.08167016806722693) 80%, rgba(2,0,36,0) 100%);
 }
 
 .home-section{
   padding: 100px 30px 30px 30px; 
-  width: 70%; 
+  width: 62%; 
+  min-width: 360px;
   margin: 0 auto; 
 }
 
@@ -140,4 +141,29 @@
   -o-transition: background-color 200ms ease-out;
   -ms-transition: background-color 200ms ease-out;
   transition: background-color 200ms ease-out;
+}
+
+.example-header-image {
+  background-image: url('https://mdn.mozillademos.org/files/7693/catfront.png');
+  height: 60px;
+  width: 60px;
+}
+
+
+/* HOME SECTION 2 */
+
+.quotes-card {
+  height: 100%;
+  border-radius: 0px;
+  box-shadow: none;
+  padding: 30px;
+  background-color: transparent;
+}
+
+.quotes-card-content{
+  margin-top: 20px;
+}
+
+.quote-card-subtitle {
+  min-width: 80px;
 }
