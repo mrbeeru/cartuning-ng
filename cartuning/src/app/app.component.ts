@@ -23,7 +23,7 @@ export class AppComponent {
     var matGroupHeader = this.matTab.nativeElement.childNodes[0];
 
     if ($event.target.scrollingElement.scrollTop < 40){
-      matGroupHeader.style.background='rgba(0, 0, 0, 0.2)';
+      matGroupHeader.style.background='rgba(0, 0, 0, 0.9)';
     } else {
       matGroupHeader.style.background='rgba(0, 0, 0, 0.9)';
     }

@@ -22,7 +22,7 @@ mat-tab-header {
 }
 
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-ba {
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .mat-tab-body-wrapper{
