@@ -21,6 +21,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { PageheaderComponent } from './pageheader/pageheader.component';
+import { ScrambletextComponent } from './scrambletext/scrambletext.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { PageheaderComponent } from './pageheader/pageheader.component';
     AppComponent,
     HomeComponent,
     TuningComponent,
-    PageheaderComponent
+    PageheaderComponent,
+    ScrambletextComponent,
+    AboutusComponent
   ],
 
   imports: [

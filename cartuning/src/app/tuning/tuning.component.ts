@@ -25,16 +25,17 @@ interface CarGeneration {
 
 interface CarEngine{
   name: string;
-  price: number;
   hp: number;
+  nm: number;
   stage1: CarEngineStage;
-  stage2: CarEngineStage;
-  stage3: CarEngineStage;
+  // stage2: CarEngineStage;
+  // stage3: CarEngineStage;
 }
 
 interface CarEngineStage {
   price: number;
   stageHp: number;
+  stageNm: number;
 }
 
 @Component({
@@ -65,6 +66,7 @@ export class TuningComponent implements OnInit {
   //#endregion
 
   constructor() { 
+    
   }
 
   applyFilter(event: Event) {
@@ -75,6 +77,7 @@ export class TuningComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildCarBrandTable();
+   
   }
 
   selectCar(c){
@@ -98,7 +101,7 @@ export class TuningComponent implements OnInit {
     this.dieselEngineSource = new MatTableDataSource(g.dieselEngines);
     this.petrolEngineSource = new MatTableDataSource(g.petrolEngines);
 
-    console.log(g);
+    this.applyFilters();
   }
 
   setIndex(event) {
@@ -121,6 +124,18 @@ export class TuningComponent implements OnInit {
       this.selectedCar = null;
     }
 
+  }
+
+  applyFilters(){
+    this.dieselEngineSource.filterPredicate = (data, filter) => {
+      const dataStr = data.name  + data.hp + data.nm + data.stage1.price + data.stage1.stageHp + data.stage1.stageNm;
+      return dataStr.indexOf(filter) != -1; 
+    }
+
+    this.petrolEngineSource.filterPredicate = (data, filter) => {
+      const dataStr = data.name  + data.hp + data.nm + data.stage1.price + data.stage1.stageHp + data.stage1.stageNm;
+      return dataStr.indexOf(filter) != -1; 
+    }
   }
 
   //#region table builder
@@ -4754,9 +4769,6 @@ var carMap = {
     lexus
   ],
 
-  findCar: function (){
-
-  }
 }
 
 //#endregion

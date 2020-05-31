@@ -23,11 +23,14 @@
 } 
 
 .banner-title{
-  font-size: 80px;
+  font-size: 100px;
+  text-transform: uppercase; 
+  font-weight: 700;
 }
 
 .banner-text {
   opacity: 0.8;
+  padding: 20px 0 0 0 ;
 }
 
 @media only screen and (max-width: 800px) {
