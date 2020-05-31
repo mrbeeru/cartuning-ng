@@ -1,15 +1,12 @@
 import { Component, ViewEncapsulation, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { faFacebookF, faYoutube, faInstagram } from '@fortawesome/free-brands-svg-icons'
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-
 
 export class AppComponent {
   title = 'cartuning';

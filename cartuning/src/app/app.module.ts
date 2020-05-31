@@ -13,19 +13,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'
 import { MatTableModule } from '@angular/material/table';
 
 import { FontAwesomeModule  } from '@fortawesome/angular-fontawesome';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { PageheaderComponent } from './pageheader/pageheader.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TuningComponent
+    TuningComponent,
+    PageheaderComponent
   ],
 
   imports: [
@@ -39,6 +42,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     MatCardModule,
     MatStepperModule,
     MatFormFieldModule,
+    MatInputModule,
     MatTableModule,
 
     FontAwesomeModule ,

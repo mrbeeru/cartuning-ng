@@ -1,45 +1,61 @@
 
 <!-- BANNER -->
-<div class='banner-area'>
-    <div class='banner-area-overlay'>
-        <div class='words-wrapper-container'>
-            <div class='words-wrapper-inner'>
-                <div class='cd-words-wrapper' id='ww'>
-                        <b id='w1' class="is-visible">Solutii profesionale &nbsp;</b>
-                        <b id='w2' class="is-hidden">Rapiditate &nbsp;</b>
-                        <b id='w3' class="is-hidden">Incredere &nbsp;</b>
+    <div class='banner-area'>
+        <div class='banner-area-overlay'>
+            <div class='banner-area-container text-center'>
+                <div>
+                    <span style="color:#E81C2E; font-weight: 800; letter-spacing: 8px;">PRECISE TUNNING</span>
                 </div>
-            </div>
-            
-            <div style='color: white; margin-top: 40px;' >
-                    <div style='text-transform: uppercase; font-size: 55px; font-weight: 700;'>
-
-                        <i>ETS </i><i style="color:#EB502F">Performance</i> <br> Remapping, <br> Chiptunning, Solutii
-                    </div>
-            </div>
-
-            <div style='color: white; margin-top: 40px; font-style: italic;'>
-                Mai jos puteti regasi motivele pentru care ar trebui sa alegeti serviciile noaste!
+                <div class='banner-title' >
+                        <div style='text-transform: uppercase; font-weight: 700;'>
+                            <i>ETS </i><i style="color:#E81C2E">Performance</i>
+                        </div>
+                </div>
+                <div class='banner-text'>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lorem,<br>
+                    fficitur eget erat ac, consectetur porttitor nunc.
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+        
 
 <div class='home-container'>
     
-    <!-- First section -->
-    <div class='row no-gutters home-section'>
-            <div class='col-lg-8' style="justify-content: center; align-items: center; margin:auto auto">
-                <div style="font-size: 42px; font-weight: bolder;">
-                    PRECISE TUNNING<br>
-                    FOR BETTER CARS
+    <!-- 6 section -->
+    <div class='row no-gutter home-section-full'  style="background-image: url(../../assets/dotted-world-map.png); background-size: contain; background-repeat: no-repeat;">
+        <div class="row no-gutter home-section" >
+            <div class='col-lg-8' style="justify-content: center; align-items: center; margin:0 auto">
+                <div style="font-size: 42px; font-weight: bold;">
+                    Precise <i style="color: #E81C2E;">tunning</i><br>
+                    for better cars.
                 </div>
-                <div style="font-size:20px; word-wrap: break-word; margin: 40px 0px;">
-                    Vrei sa-ti fuga masina ca un lamborghini?<br>
-                    Acum este momentul! Nu ezita sa ne contactati 
+                <div style="font-size:20px; word-wrap: break-word; margin: 20px 0px;">
+                    <mat-list>
+                        <mat-list-item style="padding: 10px 0">
+                            <span><fa-icon [icon]='faCheckCircle' style="color: #E81C2E; padding:0 20px 0 0"></fa-icon></span>    
+                            <span> Vrei sa-ti fuga masina ca un lamborghini?</span>
+                        </mat-list-item>
+                        <mat-list-item style="padding: 10px 0">
+                            <span><fa-icon [icon]='faCheckCircle' style="color: #E81C2E;padding:0 20px 0 0"></fa-icon></span>    
+                            <span> Nu esti multumit cu masina, si vrei sa o strici de tot?</span>
+                        </mat-list-item>
+                        <mat-list-item style="padding: 10px 0">
+                            <span><fa-icon [icon]='faCheckCircle' style="color: #E81C2E;padding:0 20px 0 0"></fa-icon></span>    
+                            <span> Acum este momentul! Nu ezita sa ne contactati  </span>
+                        </mat-list-item>
+                        <mat-list-item style="padding: 10px 0">
+                            <span><fa-icon [icon]='faCheckCircle' style="color: #E81C2E;padding:0 20px 0 0"></fa-icon></span>    
+                            <span> Da da  </span>
+                        </mat-list-item>
+                    </mat-list>
+                    
                 </div>
-                <button type="button" class="btn btn-primary btn-lg"> Get Started</button>
+                <button type="button" class="btn btn-primary btn-lg btn-main btn-hover-black shadow-none"> 
+                    Get Started
+                    <mat-icon>play_circle_outline</mat-icon>
+                </button>
             </div>
             <div class='col-lg-4 home-items'>
                 <div class='home-item'>
@@ -61,283 +77,237 @@
                     <fa-icon [icon]='faCalendarCheck'></fa-icon>
                 </div>
             </div>
+        </div>
+
+        <div class='row no-gutter home-section' style="margin-bottom: 60px;">
+            <div class='col-lg-3 col-md-6 service-card'>
+                <fa-icon [icon]='faCar' style="color: #E81C2E; font-size: 80px;"></fa-icon>
+                <div class="service-card-title"> Remap </div>
+                <div> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+            <div class='col-lg-3 col-md-6 service-card'>
+                <fa-icon [icon]='faCar' style="color: #E81C2E; font-size: 80px;"></fa-icon>
+                <div class="service-card-title"> Chiptunning </div>
+                <div> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+            <div class='col-lg-3 col-md-6 service-card'>
+                <fa-icon [icon]='faCar' style="color: #E81C2E; font-size: 80px;"></fa-icon>
+                <div class="service-card-title"> Diagnoza </div>
+                <div> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+            <div class='col-lg-3 col-md-6 service-card'>
+                <fa-icon [icon]='faCar' style="color: #E81C2E; font-size: 80px;"></fa-icon>
+                <div class="service-card-title"> Egr / Dpf off </div>
+                <div> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+    </div>
+
+
+   <!-- SERVICIU CHIPTUNNING section -->
+    <div class='row no-gutter home-section-full' style="background-color: #19191B; color: white;">
+        <div class='row no-gutter'>
+     
+            <div class='col-lg-4 align-self-center' style="padding: 0px 40px 100px 40px">
+            
+                <div class="row no-gutter">
+                    <div class='col-2'>
+                    </div>
+                    <div class="col ">
+                        <div class='row '>
+                            <span style="font-weight: bolder; font-size: 28px;"> Ne ocupam de orice problema </span>
+                        </div>
+                        <br>
+                        <div class='row '>
+                            <span> Procesul nostru este unul destul de simplu.</span>
+                        </div>
+                        <br>
+                        <div class='row'>
+                            <button type="button" 
+                                class="btn btn-primary btn-lg btn-main btn-hover-white shadow-none" > 
+                                Afla mai multe
+                                <mat-icon >play_circle_outline</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+               
+               
+            </div>
+            <div class='col-lg-4 align-self-center' style="padding: 0px 40px 100px 40px">
+                <div class='row no-gutter' style="margin-bottom: 40px;">
+                    <div class='col-2 text-center'>
+                        <fa-icon [icon]='faExclamationCircle' style="font-size: 60px;"></fa-icon>
+                    </div>
+                    <div class='col'>
+                        <h2>
+                            Serviciu
+                        </h2>
+                        <span style="color: #bbb;">
+                            Echipa noastra ofera o optimizare software a sistemului de injectie ce aduce imbunatatirea performantelor dinamice,
+                             a randamentului si a eficientei motorului. Optimizarea aduce crestere de putere si cuplu motor precum 
+                             si reducerea consumului de carburant si a emisiilor poluante impunand noi standarde in materie de Chiptuning prin eficienta, 
+                             economie de carburant si ecologie. Utilizand o platforma software mai sanatoasa si mai corecta pentru motor, avantajele concrete sunt urmatoarele:
+                        </span>
+                    </div>
+                </div>
+                
+                <div class='row no-gutter'>
+                    <div class='col-2 text-center'>
+                        <fa-icon [icon]='faExclamationCircle' style="font-size: 60px;"></fa-icon>
+                    </div>
+                    <div class='col'>
+                        <h2>
+                            Chiptunning
+                        </h2>
+                        <span style="color: #bbb;">
+                            Operatia de chiptuning poate fi facuta in functie de autoturismul dumneavoastra prin doua metode. 
+                            Prima prin citirea direct pe mufa de diagnoza a acestui soft original (port OBD) sau prin scoaterea ECU-ului 
+                            de pe masina si citirea acestuia pe bench (BDM sau Boot) ore.      
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class='col-lg-4' style="background-image: url(../../assets/capota_ridicata.jpg); background-size: cover; min-height: 560px;">
+            </div>
+        </div>
+
+        <div class='row no-gutter' style="width: 100%">
+            <svg style="width:400px; height:40px; margin: 0 auto" > 
+                <path style="fill: #e81c2e; " d="M 0 40 L 2 39.9843 L 4 39.9816 L 6 39.9785 L 8 39.9749 L 10 39.9707 L 12 39.9659 L 14 39.9605 L 16 39.9541 L 18 39.9469 L 20 39.9386 L 22 39.9292 L 24 39.9184 L 26 39.9062 L 28 39.8922 L 30 39.8765 L 32 39.8586 L 34 39.8383 L 36 39.8155 L 38 39.7898 L 40 39.761 L 42 39.7285 L 44 39.6922 L 46 39.6516 L 48 39.6062 L 50 39.5556 L 52 39.4994 L 54 39.4369 L 56 39.3677 L 58 39.291 L 60 39.2064 L 62 39.113 L 64 39.0103 L 66 38.8974 L 68 38.7736 L 70 38.6381 L 72 38.49 L 74 38.3286 L 76 38.1528 L 78 37.9618 L 80 37.7546 L 82 37.5303 L 84 37.288 L 86 37.0267 L 88 36.7454 L 90 36.4431 L 92 36.1191 L 94 35.7722 L 96 35.4017 L 98 35.0068 L 100 34.5866 L 102 34.1404 L 104 33.6676 L 106 33.1676 L 108 32.6399 L 110 32.0841 L 112 31.4999 L 114 30.8872 L 116 30.246 L 118 29.5763 L 120 28.8785 L 122 28.1529 L 124 27.4002 L 126 26.6211 L 128 25.8165 L 130 24.9876 L 132 24.1356 L 134 23.262 L 136 22.3686 L 138 21.4572 L 140 20.5299 L 142 19.5889 L 144 18.6366 L 146 17.6756 L 148 16.7087 L 150 15.7388 L 152 14.7688 L 154 13.8021 L 156 12.8418 L 158 11.8913 L 160 10.954 L 162 10.0335 L 164 9.1333 L 166 8.2568 L 168 7.4076 L 170 6.5892 L 172 5.805 L 174 5.0584 L 176 4.3525 L 178 3.6905 L 180 3.0753 L 182 2.5098 L 184 1.9965 L 186 1.5377 L 188 1.1356 L 190 0.7921 L 192 0.5087 L 194 0.287 L 196 0.1278 L 198 0.032 L 200 0 L 202 0.032 L 204 0.1278 L 206 0.287 L 208 0.5087 L 210 0.7921 L 212 1.1356 L 214 1.5377 L 216 1.9965 L 218 2.5098 L 220 3.0753 L 222 3.6905 L 224 4.3525 L 226 5.0584 L 228 5.805 L 230 6.5892 L 232 7.4076 L 234 8.2568 L 236 9.1333 L 238 10.0335 L 240 10.954 L 242 11.8913 L 244 12.8418 L 246 13.8021 L 248 14.7688 L 250 15.7388 L 252 16.7087 L 254 17.6756 L 256 18.6366 L 258 19.5889 L 260 20.5299 L 262 21.4572 L 264 22.3686 L 266 23.262 L 268 24.1356 L 270 24.9876 L 272 25.8165 L 274 26.6211 L 276 27.4002 L 278 28.1529 L 280 28.8785 L 282 29.5763 L 284 30.246 L 286 30.8872 L 288 31.4999 L 290 32.0841 L 292 32.6399 L 294 33.1676 L 296 33.6676 L 298 34.1404 L 300 34.5866 L 302 35.0068 L 304 35.4017 L 306 35.7722 L 308 36.1191 L 310 36.4431 L 312 36.7454 L 314 37.0267 L 316 37.288 L 318 37.5303 L 320 37.7546 L 322 37.9618 L 324 38.1528 L 326 38.3286 L 328 38.49 L 330 38.6381 L 332 38.7736 L 334 38.8974 L 336 39.0103 L 338 39.113 L 340 39.2064 L 342 39.291 L 344 39.3677 L 346 39.4369 L 348 39.4994 L 350 39.5556 L 352 39.6062 L 354 39.6516 L 356 39.6922 L 358 39.7285 L 360 39.761 L 362 39.7898 L 364 39.8155 L 366 39.8383 L 368 39.8586 L 370 39.8765 L 372 39.8922 L 374 39.9062 L 376 39.9184 L 378 39.9292 L 380 39.9386 L 382 39.9469 L 384 39.9541 L 386 39.9605 L 388 39.9659 L 390 39.9707 L 392 39.9749 L 394 39.9785 L 396 39.9816 L 398 39.9843 L 400 40 z" />
+            </svg>
+        
+        </div>
+        <div class='row no-gutter' style="height: 100px; background-color: #E81C2E; width: 100%;"></div>
     </div>
 
     <!-- Second section -->
-    <div class='row no-gutter home-section-full'>
-            <div class='col-lg-3 justify-content-center' style="margin-top: 30px;">
-                <mat-card class="services-card">
-                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                    <mat-card-header>
-                      <div mat-card-avatar class="example-header-image"></div>
-                      <mat-card-title>REMAP AND CHIPTUNNING</mat-card-title>
-                      <mat-card-subtitle>Proteina la masina</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <p>
-                        Serviicile pe care le oferim pentru sectiunea de Remap & Chiptunning, 
-                        consta in extragerea Flash-ului de pe ECU (a soft-ului, mape) prin intermediul port-ului OBD (o gama larga de masini), 
-                        sau detasand ECU la masinile care nu merg facute pe OBD, pe Bench si scrierea lui prin intermediul BDM / BOOTMODE.
-                      </p>
-                    </mat-card-content>
-                  </mat-card>
+    <!-- <div class='row no-gutter home-section-full'>
+        <div class='col p-0 '>
+            <div class="row no-gutter words-wrapper-container " style="background: linear-gradient(to right, #333 0%, #333 50%, #333 100%); color:white; font-size: 28px;">
+                <span style="padding:40px">Iata ce servicii va punem pe tava</span>
             </div>
-            <div class='col-lg-3 justify-content-center' style="margin-top: 30px;">
-                <mat-card class="services-card">
-                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                    <mat-card-header>
-                      <div mat-card-avatar class="example-header-image"></div>
-                      <mat-card-title>LOG</mat-card-title>
-                      <mat-card-subtitle>Diagnostic</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <p>
-                        Serviciile pe care le oferim la sectiunea LOG, 
-                        consta in diagnoza si testarea parametriilor masinii in toate conditiile necesare pentru a ajunge la perofrmanta dorita. 
-                        Log-ul se face pentru a stii exact cu ce lucram, 
-                        astfel incat sa nu iesim din anumiti paramtetrii pe care producatorul i-a stabilit.
-                      </p>
-                    </mat-card-content>
-                  </mat-card>
-            </div>
-            <div class='col-lg-3 justify-content-center' style="margin-top: 30px;">
-                <mat-card class="services-card">
-                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                    <mat-card-header>
-                      <div mat-card-avatar class="example-header-image"></div>
-                      <mat-card-title>DPF OFF / EGR OFF</mat-card-title>
-                      <mat-card-subtitle>Ilegalitati:))</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <p>
-                        <b>ATENTIE ACEST SERVICIU SE APLICA DOAR LA MASINIILE DE COMPETITIE</b>
-                        Serviciile pe care le oferim la sectiunea DPF OFF, consta in anularea din soft, a DPF-ului, respectiv EGR-ului
-                      </p>
-                    </mat-card-content>
-                  </mat-card>
-            </div>
-            <div class='col-lg-3 justify-content-center' style="margin-top: 30px;">
-                <mat-card class="services-card">
-                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                    <mat-card-header>
-                      <div mat-card-avatar class="example-header-image"></div>
-                      <mat-card-title>DPF OFF / EGR OFF</mat-card-title>
-                      <mat-card-subtitle>Ilegalitati:))</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <p>
-                        <b>ATENTIE ACEST SERVICIU SE APLICA DOAR LA MASINIILE DE COMPETITIE</b>
-                        Serviciile pe care le oferim la sectiunea DPF OFF, consta in anularea din soft, a DPF-ului, respectiv EGR-ului
-                      </p>
-                    </mat-card-content>
-                  </mat-card>
-            </div>
-    </div>
-
-    <!-- Third section -->
-    <div class='row no-gutter home-section'>
-        <div class='col '>
-            <div class='row no-gutter d-flex justify-content-center'>
-                <div style="font-size: 42px; font-weight: bold;">CE SPUN CLIENTII NOSTRII</div>
-            </div>
-
-            <div class='row no-gutter d-flex justify-content-center'>
-                <div style="font-size: 14px; margin-top: 20px;">Căteva cuvinte de la cei care ne-au trecut pragul, iar acum mașiniile lor arată uimitor</div>
-            </div>
-
-            <div class='row no-gutter d-flex justify-content-center'>
-                <div style="font-size: 14px;">sunt protejate și atrag toate privirile oriunde ar fi</div>
-            </div>
-
-            <div style="margin-top: 50px;">
-                <owl-carousel-o [options]="customOptions">
-                    <ng-template carouselSlide>
-                        <mat-card class="quotes-card">
-                           
-                            <mat-card-header>
-                                <div mat-card-avatar class="example-header-image"></div>
-                                <mat-card-title>Michael Jackson</mat-card-title>
-                                <mat-card-subtitle class='quote-card-subtitle'>
-                                    <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                    <fa-icon [icon]='faStar'></fa-icon>
-                                    <fa-icon [icon]='faStar'></fa-icon>
-                                    <fa-icon [icon]='faStar'></fa-icon>
-                                    <fa-icon [icon]='faStar'></fa-icon>
-                                </mat-card-subtitle>
-                            </mat-card-header>
-                            <mat-card-content class='quotes-card-content'>
-                                <p>
-                                    "Echipa profesionala și servicii profesionale. Totul sa realizat la standarde înalte și cu echipamente profesionale.Recomand!"
-                                </p>
-                              </mat-card-content>
-                          </mat-card>
-                    </ng-template>  
-
-                    <ng-template carouselSlide>
-                        <mat-card class="quotes-card">
-                            <mat-card-header>
-                              <div mat-card-avatar class="example-header-image"></div>
-                              <mat-card-title>John Cena</mat-card-title>
-                              <mat-card-subtitle class='quote-card-subtitle'>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                            </mat-card-subtitle>
-                            </mat-card-header>
-                            <mat-card-content class='quotes-card-content'>
-                                "Echipa profesionala și servicii profesionale. Totul sa realizat la standarde înalte și cu echipamente profesionale.Recomand!"
-                            </mat-card-content>
-                          </mat-card>
-                    </ng-template>  
-
-                    <ng-template carouselSlide>
-                        <mat-card class="quotes-card">
-                        <mat-card-header>
-                              <div mat-card-avatar class="example-header-image"></div>
-                              <mat-card-title>Le Loup</mat-card-title>
-                              <mat-card-subtitle class='quote-card-subtitle'>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                            </mat-card-subtitle>
-                            </mat-card-header>
-                            <mat-card-content class='quotes-card-content'>
-                                "Echipa profesionala și servicii profesionale. Totul sa realizat la standarde înalte și cu echipamente profesionale.Recomand!"
-                            </mat-card-content>
-                          </mat-card>
-                    </ng-template>  
-
-                    <ng-template carouselSlide>
-                        <mat-card class="quotes-card">
-                            <mat-card-header>
-                              <div mat-card-avatar class="example-header-image"></div>
-                              <mat-card-title>Le Urs</mat-card-title>
-                              <mat-card-subtitle class='quote-card-subtitle'>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                            </mat-card-subtitle>
-                            </mat-card-header>
-                            <mat-card-content class='quotes-card-content'>
-                              <p>
-                                Valoare
+            <div class="row no-gutter">
+                <div class="col-lg-4">
+                      <div class="hovereffect">
+                        <img class="img-responsive" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="">
+                        <div class="overlay">
+                            <h2>Remap & Chiptunning</h2>
+                            <p>
+                                Serviicile pe care le oferim pentru sectiunea de Remap & Chiptunning, 
+                                consta in extragerea Flash-ului de pe ECU (a soft-ului, mape) prin intermediul port-ului OBD (o gama larga de masini), 
+                                sau detasand ECU la masinile care nu merg facute pe OBD, pe Bench si scrierea lui prin intermediul BDM / BOOTMODE.
                               </p>
-                            </mat-card-content>
-                          </mat-card>
-                    </ng-template>  
-
-                    <ng-template carouselSlide>
-                        <mat-card class="quotes-card">
-                            <mat-card-header>
-                              <div mat-card-avatar class="example-header-image"></div>
-                              <mat-card-title>Nea Mircea</mat-card-title>
-                              <mat-card-subtitle class='quote-card-subtitle'>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                            </mat-card-subtitle>
-                            </mat-card-header>
-                            <mat-card-content class='quotes-card-content'>
-                                "Echipa profesionala și servicii profesionale. Totul sa realizat la standarde înalte și cu echipamente profesionale.Recomand!"
-                            </mat-card-content>
-                          </mat-card>
-                    </ng-template>  
-
-                    <ng-template carouselSlide>
-                        <mat-card class="quotes-card">
-                            <mat-card-header>
-                              <div mat-card-avatar class="example-header-image"></div>
-                              <mat-card-title>Random Dude</mat-card-title>
-                              <mat-card-subtitle class='quote-card-subtitle'>
-                                <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                                <fa-icon [icon]='faStar'></fa-icon>
-                            </mat-card-subtitle>
-                            </mat-card-header>
-                            <mat-card-content class='quotes-card-content'>
-                                "Echipa profesionala și servicii profesionale. Totul sa realizat la standarde înalte și cu echipamente profesionale.Recomand!"
-                            </mat-card-content>
-                          </mat-card>
-                    </ng-template>  
-                </owl-carousel-o>
+                        </div>
+                    </div>
+                </div>
+                <div  class="col-lg-4">
+                   
+                    <div class="hovereffect">
+                        <img class="img-responsive" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="">
+                        <div class="overlay">
+                            <h2>LOG</h2>
+                            <p>
+                                Serviciile pe care le oferim la sectiunea LOG, 
+                                consta in diagnoza si testarea parametriilor masinii in toate conditiile necesare pentru a ajunge la perofrmanta dorita. 
+                                Log-ul se face pentru a stii exact cu ce lucram, 
+                                astfel incat sa nu iesim din anumiti paramtetrii pe care producatorul i-a stabilit.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-4' >
+                   
+                      <div class="hovereffect">
+                        <img class="img-responsive" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="">
+                        <div class="overlay">
+                            <h2 >DPF / EGR OFF</h2>
+                            <p>
+                                <b>ATENTIE ACEST SERVICIU SE APLICA DOAR LA MASINIILE DE COMPETITIE</b>
+                                Serviciile pe care le oferim la sectiunea DPF OFF, consta in anularea din soft, a DPF-ului, respectiv EGR-ului
+                              </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Fourth section -->
-    <div class='row no-gutter home-section-full' style="background-color: #333; color: white;">
+    <!-- RECENZII section -->
+    <div class='row no-gutter home-section-full'>
+        <div class='col module'>
+            <div class='module-inside'>
+                <div class='row no-gutter d-flex justify-content-center'>
+                    <span style="color:#E81C2E; font-weight: 800; letter-spacing: 8px;">RECENZII</span>
+                </div>
+
+                    <div class='row no-gutter d-flex justify-content-center'>
+                        <div style="font-size: 42px; font-weight: bold;">Ce spun clientii nostri</div>
+                    </div>
         
-        <div class='col-lg-4' style="background-color: #f53d14; padding: 130px 40px;">
-            
-            <div class="row">
-                <div class="col-2"></div>
-            
-                <div class="col">
-                    <div class='row '>
-                        <span style="font-weight: bolder; font-size: 28px;"> Ne ocupam de orice problema </span>
+                    <div style="max-width: 60%; margin: 0 auto; min-width: 500px;">
+                        <owl-carousel-o [options]="customOptions">
+                            <ng-template carouselSlide>
+                                <div class='col'>
+                                    <div class='review-text'>
+                                        <fa-icon [icon]='faQuoteLeft' style="color: #E81C2E; font-size: 56px; margin-left: 60px;"></fa-icon>
+                                        <div class="text-center" style="padding: 0px 60px;">
+                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
+                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
+                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <img src='../../assets/car-brands/bmw_logo_thumbnail.png' style="width: 80px; height: 80px;">
+                                    </div>
+                                    <div class="text-center">
+                                        <div style="color: #E81C2E; font-weight: bold; margin-top: 20px;" >
+                                            Mr Beeru
+                                        </div>
+                                        <div >
+                                            <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </ng-template>  
+                            <ng-template carouselSlide>
+                                <div class='col'>
+                                    <div class='review-text'>
+                                        <fa-icon [icon]='faQuoteLeft' style="color: #E81C2E; font-size: 56px; margin-left: 60px;"></fa-icon>
+                                        <div class="text-center" style="padding: 0px 60px">
+                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <img src='../../assets/car-brands/bmw_logo_thumbnail.png' style="width: 80px; height: 80px;">
+                                    </div>
+                                    <div class="text-center">
+                                        <div style="color: #E81C2E; font-weight: bold; margin-top: 20px;" >
+                                            Mr Beeru
+                                        </div>
+                                        <div >
+                                            <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                            <fa-icon [icon]='faStar'></fa-icon>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </ng-template>  
+                        </owl-carousel-o>
                     </div>
-                    <br>
-                    <div class='row '>
-                        <span> Procesul nostru este unul destul de simplu.</span>
-                    </div>
-                    <br>
-                    <div class='row'>
-                        <button type="button" 
-                            class="btn btn-primary btn-lg bg-light text-dark border-0" 
-                            style="font-size: 14px; font-weight: bold;"> AFLA MAI MULTE</button>
-                    </div>
-                </div>
             </div>
-           
-           
-        </div>
-        <div class='col-lg-4' style="padding:50px 0px;">
-            <div class='row no-gutter'>
-                <div class='col-2 text-center'>
-                    <fa-icon [icon]='faExclamationCircle' style="font-size: 60px;"></fa-icon>
-                </div>
-                <div class='col'>
-                    <h2>
-                        Serviciu
-                    </h2>
-                    <span style="color: #bbb;">
-                        Echipa noastra ofera o optimizare software a sistemului de injectie ce aduce imbunatatirea performantelor dinamice,
-                         a randamentului si a eficientei motorului. Optimizarea aduce crestere de putere si cuplu motor precum 
-                         si reducerea consumului de carburant si a emisiilor poluante impunand noi standarde in materie de Chiptuning prin eficienta, 
-                         economie de carburant si ecologie. Utilizand o platforma software mai sanatoasa si mai corecta pentru motor, avantajele concrete sunt urmatoarele:
-                    </span>
-                </div>
-            </div>
-            <br><br><br>
-            <div class='row no-gutter'>
-                <div class='col-2 text-center'>
-                    <fa-icon [icon]='faExclamationCircle' style="font-size: 60px;"></fa-icon>
-                </div>
-                <div class='col'>
-                    <h2>
-                        Chiptunning
-                    </h2>
-                    <span style="color: #bbb;">
-                        Operatia de chiptuning poate fi facuta in functie de autoturismul dumneavoastra prin doua metode. 
-                        Prima prin citirea direct pe mufa de diagnoza a acestui soft original (port OBD) sau prin scoaterea ECU-ului 
-                        de pe masina si citirea acestuia pe bench (BDM sau Boot) ore.      
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class='col-lg-4' style="background-image: url(../../assets/capota_ridicata.jpg); background-size: cover; min-height: 560px;">
         </div>
     </div>
+
+ 
     
 </div>
 

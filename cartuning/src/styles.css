@@ -6,8 +6,14 @@
 
 body {
     margin: 0px;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    /* font-family: "Segoe UI","Roboto","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; */
 }
+
+*:not(mat-icon) {
+    font-family:"Segoe UI","Roboto","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif !important; 
+    /* Add !important to overwrite all elements */
+  }
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -27,6 +33,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(255, 34, 34); 
 }
+
+::-moz-selection { /* Code for Firefox */
+  background: #77777733;
+}
+
+::selection {
+  background: #77777733;
+}
   
 .no-gutter {
     margin-right: 0;
@@ -38,3 +52,38 @@ body {
   padding-left: 0;
 }
 
+
+/* BUTTONS */
+
+.btn-main {
+  background-color: #E81C2E;
+  border-color: transparent!important;
+  border-radius: 32px;
+  height: 64px;
+  width: 250px;
+  user-select: none;
+}
+
+.btn-main:focus{
+  background-color: #E81C2E;
+}
+
+.btn-main:active{
+  background-color: #E81C2E!important;
+}
+
+.btn-main > mat-icon {
+  width: 28px; 
+  height: 28px; 
+  vertical-align: middle;
+}
+
+.btn-hover-black:hover {
+  background-color: black;
+  color: white;
+}
+
+.btn-hover-white:hover {
+  background-color: white;
+  color: black;
+}

@@ -13,14 +13,20 @@
     <mat-tab label="Despre Noi">
       <div style="height: 80vh; background-color: rgba(44,44,44);"></div>
     </mat-tab>
-
   </mat-tab-group>
 
   <!-- Footer -->
   <footer >
     <div class='footer'>
+      <div style="width: 70%; height: 8px; margin: 0 auto; top:-4px; position: relative; z-index: 999; background-color: #E81C2E; border-radius: 4px; "></div>
+      <div class="text-center">
+        <img style=" width: 150px; margin-top: 20px;" src='../assets/ets-performance-logo.png'>
+      </div>
+      <div style="color: rgba(255, 255, 255, 0.55); font-size: 14px;"  class="text-center">
+        Etiam consequat sem ullamcorper, euismod metus sit amet, tristique justo.<br> Vestibulum mattis, nisi ut faucibus commodo, risus ex commodo.
+      </div>
       <div class='footer-overlay'>
-        <div class='footer-follow-us'>
+        <!-- <div class='footer-follow-us'>
           <span style="color:white; font-size: 20px; margin-right: 50px;">  FOLLOW US </span>
           <div class="footer-brands">
             <fa-icon [icon]="faFacebook"></fa-icon>
@@ -31,39 +37,49 @@
           <div class="footer-brands">
             <fa-icon [icon]="faInstagram"></fa-icon>
           </div>
-        </div>
+        </div> -->
 
         <div class='footer-container'>
-          
-          <mat-list role="list">
-            <mat-list-item role="listitem" style="color: #919496; font-weight: bolder;">CONTACT</mat-list-item>
-            
-            <mat-list-item role="listitem" style="color: white;">
-              <mat-icon  aria-hidden="false" aria-label="Example thumbs up SVG icon">home</mat-icon>
-              &nbsp;Dumbrava Timis, Romania
-            </mat-list-item>
 
-            <mat-list-item role="listitem" style="color: white;">
-              <mat-icon  aria-hidden="false" aria-label="Example thumbs up SVG icon">phone</mat-icon>
-              &nbsp;Tel: 0742164800
-            </mat-list-item>
-
-            <mat-list-item role="listitem" style="color: white;">
-              <mat-icon  aria-hidden="false" aria-label="Example thumbs up SVG icon">mail_outline</mat-icon>
-              &nbsp;Mail: ecutuningservices@gmail.com
-            </mat-list-item>
-
-         
-          </mat-list>
-
-          <mat-list role="list">
-            <mat-list-item role="listitem" style="color: #919496; font-weight: bolder;">LINK-URI</mat-list-item>
-            <mat-list-item role="listitem" style="color: white;">Item 2</mat-list-item>
-            <mat-list-item role="listitem" style="color: white;">Item 3</mat-list-item>
-          </mat-list>
+          <div class='row'>
+            <div class='col-lg-3 col-md-6 col-sm-6 text-center footer-icon-col' style="padding:30px">
+              <mat-icon class="footer-icon" aria-hidden="false" aria-label="Example thumbs up SVG icon">home</mat-icon>
+              <p style="font-size: 14px;">
+                Dumbrava Timis, Romania
+              </p>
+            </div>
+            <div class='col-lg-3 col-md-6 col-sm-6 text-center footer-icon-col' style="padding:30px">
+                <mat-icon class="footer-icon"  aria-hidden="false" aria-label="Example thumbs up SVG icon">phone</mat-icon>
+                <div style="font-size: 14px;">
+                  <div style="font-weight: 900; margin-bottom: 6px;">
+                    0742-164-800
+                  </div>
+                  <div style=" color: #E81C2E;">
+                    Contactati-ne!
+                  </div>
+                </div>
+            </div>
+            <div class='col-lg-3 col-md-6 col-sm-6 text-center footer-icon-col'  style="padding:30px">
+              <mat-icon class="footer-icon" aria-hidden="false" aria-label="Example thumbs up SVG icon">mail</mat-icon>
+              <p style="word-wrap: break-word; font-size: 14px;">
+                ecutuningservices@gmail.com
+              </p>
+            </div>
+            <div class='col-lg-3 col-md-6 col-sm-6 text-center footer-icon-col' style="padding:30px">
+              <mat-icon class="footer-icon" aria-hidden="false" aria-label="Example thumbs up SVG icon">access_time</mat-icon>
+              <div style="font-size: 14px;">
+                <div style="margin-bottom:6px;">
+                  <span style=" color: #E81C2E;">Mo-Sa: </span> <span style="font-weight: 900;">07:00 - 22:00</span>
+                </div>
+                <div>
+                  <span style=" color: #E81C2E;">Su: </span> <span style="font-weight: 900;">07:00 - 22:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="footer-end">
-          © 2019 Toate Drepturile Rezervate! ECU Tunning Services Romania
+          © 2020 Toate Drepturile Rezervate! - <span style="color: #E81C2E;">ECU Tunning Services</span> - Romania
         </div>
       </div>
     

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 interface CarBrand {
   name: string;
@@ -65,6 +67,12 @@ export class TuningComponent implements OnInit {
   constructor() { 
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dieselEngineSource.filter = filterValue.trim().toLowerCase();
+    this.petrolEngineSource.filter = filterValue.trim().toLowerCase();
+  }
+
   ngOnInit(): void {
     this.buildCarBrandTable();
   }
@@ -87,8 +95,8 @@ export class TuningComponent implements OnInit {
     this.selectedGeneration = g;
     this.stepper.selected.completed = true;
     this.stepper.next();
-    this.dieselEngineSource = g.dieselEngines;
-    this.petrolEngineSource = g.petrolEngines;
+    this.dieselEngineSource = new MatTableDataSource(g.dieselEngines);
+    this.petrolEngineSource = new MatTableDataSource(g.petrolEngines);
 
     console.log(g);
   }
@@ -115,7 +123,7 @@ export class TuningComponent implements OnInit {
 
   }
 
-  //#region table builders
+  //#region table builder
 
   buildCarBrandTable(){
     var colLen = 4;
@@ -191,7 +199,7 @@ export class TuningComponent implements OnInit {
         var test : CarGeneration = {
           startYear : currentCar.startYear,
           endYear : currentCar.endYear,
-          icon : "../../assets/car-brands/audi_logo_thumbnail.png",
+          icon : this.selectedModel.icon,
           dieselEngines: currentCar.dieselEngines,
           petrolEngines: currentCar.petrolEngines,
         }
@@ -199,10 +207,6 @@ export class TuningComponent implements OnInit {
         this.carGenerationTable[i][j] = test;
       }
     }
-  }
-
-  buildCarEnginesTable(){
-
   }
 
   //#endregion
@@ -259,6 +263,7 @@ var audi =
         }
       ]
     },
+    
     {
       name: "A3",
       icon: "../../assets/car-models/audi/audi_a3_small.png",
@@ -609,6 +614,7 @@ var audi =
         },
       ]
     },
+    
     {
       name: "A4",
       icon: "../../assets/car-models/audi/audi_a4_small.png",
@@ -1495,15 +1501,594 @@ var audi =
       icon: "../../assets/car-models/audi/audi_a6_small.png",
       generations: [
         {
-          startYear: 2000,
-          endYear: 2010,
+          startYear: 1997,
+          endYear: 2004,
           icon: "",
-          engines: [
+          dieselEngines: [
             {
-              price: 69,
+              name: "1.9 TDI",
+              hp: 110,
+              nm: 235,
+              stage1: {
+                price: 75,
+                stageHp: 140,
+                stageNm: 300,
+              }
+            },
+            {
+              name: "1.9 TDI",
+              hp: 115,
+              nm: 285,
+              stage1: {
+                price: 75,
+                stageHp: 150,
+                stageNm: 350,
+              }
+            },
+            {
+              name: "1.9 TDI",
+              hp: 130,
+              nm: 310,
+              stage1: {
+                price: 75,
+                stageHp: 160,
+                stageNm: 380,
+              }
+            },
+          ],
+          petrolEngines: [
+            {
+              name: "1.8 T",
               hp: 150,
-            }
+              nm: 210,
+              stage1: {
+                price: 200,
+                stageHp: 190,
+                stageNm: 320,
+              }
+            },
           ]
+        },
+        
+        {
+          startYear: 2004,
+          endYear: 2008,
+          icon: "",
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 140,
+              nm: 320,
+              stage1: {
+                price: 120,
+                stageHp: 180,
+                stageNm: 380,
+              }
+            },
+            {
+              name: "2.7 TDI",
+              hp: 163,
+              nm: 380,
+              stage1: {
+                price: 120,
+                stageHp: 220,
+                stageNm: 460,
+              }
+            },
+            {
+              name: "2.7 TDI",
+              hp: 180,
+              nm: 380,
+              stage1: {
+                price: 120,
+                stageHp: 220,
+                stageNm: 460,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 225,
+              nm: 450,
+              stage1: {
+                price: 120,
+                stageHp: 275,
+                stageNm: 540,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 233,
+              nm: 450,
+              stage1: {
+                price: 120,
+                stageHp: 275,
+                stageNm: 540,
+              }
+            },
+          ],
+          petrolEngines: [
+            {
+              name: "2.0 TFSI",
+              hp: 170,
+              nm: 280,
+              stage1: {
+                price: 250,
+                stageHp: 240,
+                stageNm: 360,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 200,
+              nm: 280,
+              stage1: {
+                price: 250,
+                stageHp: 240,
+                stageNm: 360,
+              }
+            },
+          ]
+        },
+        
+        {
+          startYear: 2008,
+          endYear: 2011,
+          icon: "",
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 140,
+              nm: 320,
+              stage1: {
+                price: 120,
+                stageHp: 180,
+                stageNm: 380,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 170,
+              nm: 350,
+              stage1: {
+                price: 150,
+                stageHp: 200,
+                stageNm: 420,
+              }
+            },
+            {
+              name: "2.7 TDI",
+              hp: 163,
+              nm: 450,
+              stage1: {
+                price: 150,
+                stageHp: 230,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "2.7 TDI",
+              hp: 190,
+              nm: 450,
+              stage1: {
+                price: 150,
+                stageHp: 230,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 500,
+              stage1: {
+                price: 180,
+                stageHp: 290,
+                stageNm: 580,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 240,
+              nm: 500,
+              stage1: {
+                price: 180,
+                stageHp: 290,
+                stageNm: 580,
+              }
+            },
+          ],
+          petrolEngines: [
+            {
+              name: "2.0 TFSI",
+              hp: 170,
+              nm: 280,
+              stage1: {
+                price: 250,
+                stageHp: 240,
+                stageNm: 360,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 290,
+              nm: 420,
+              stage1: {
+                price: 300,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+          ]
+        },
+        
+        {
+          startYear: 2011,
+          endYear: 2018,
+          icon: "",
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 136,
+              nm: 320,
+              stage1: {
+                price: 200,
+                stageHp: 185,
+                stageNm: 400,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 150,
+              nm: 350,
+              stage1: {
+                price: 200,
+                stageHp: 190,
+                stageNm: 420,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 163,
+              nm: 150,
+              stage1: {
+                price: 200,
+                stageHp: 210,
+                stageNm: 430,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 177,
+              nm: 380,
+              stage1: {
+                price: 200,
+                stageHp: 210,
+                stageNm: 430,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 190,
+              nm: 400,
+              stage1: {
+                price: 250,
+                stageHp: 220,
+                stageNm: 450,
+              }
+            },
+            
+
+            {
+              name: "3.0 TDI",
+              hp: 190,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 300,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 204,
+              nm: 400,
+              stage1: {
+                price: 250,
+                stageHp: 270,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 218,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 320,
+                stageNm: 620,
+              }
+            },
+
+            {
+              name: "3.0 TDI",
+              hp: 245,
+              nm: 500,
+              stage1: {
+                price: 200,
+                stageHp: 295,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 272,
+              nm: 580,
+              stage1: {
+                price: 250,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+            {
+              name: "3.0 BI TDI",
+              hp: 313,
+              nm: 650,
+              stage1: {
+                price: 300,
+                stageHp: 350,
+                stageNm: 720,
+              }
+            },
+            {
+              name: "3.0 BI TDI Competition",
+              hp: 326,
+              nm: 650,
+              stage1: {
+                price: 300,
+                stageHp: 400,
+                stageNm: 740,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 320,
+              nm: 650,
+              stage1: {
+                price: 300,
+                stageHp: 400,
+                stageNm: 750,
+              }
+            },
+          ],
+          petrolEngines: [
+            {
+              name: "1.8 TFSI",
+              hp: 190,
+              nm: 320,
+              stage1: {
+                price: 350,
+                stageHp: 220,
+                stageNm: 380,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 180,
+              nm: 320,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 420,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 252,
+              nm: 370,
+              stage1: {
+                price: 350,
+                stageHp: 300,
+                stageNm: 440,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 300,
+              nm: 440,
+              stage1: {
+                price: 500,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 310,
+              nm: 440,
+              stage1: {
+                price: 500,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 333,
+              nm: 440,
+              stage1: {
+                price: 500,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+          ]
+        },
+      ]
+    },
+
+    {
+      name: "A7",
+      icon: "../../assets/car-models/audi/audi_a7_small.png",
+      generations: [
+        {
+          startYear: 2010,
+          endYear: 2018,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "1.8 TFSI",
+              hp: 190,
+              nm: 320,
+              stage1: {
+                price: 350,
+                stageHp: 220,
+                stageNm: 380,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 252,
+              nm: 370,
+              stage1: {
+                price: 350,
+                stageHp: 300,
+                stageNm: 440,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 300,
+              nm: 440,
+              stage1: {
+                price: 500,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 310,
+              nm: 440,
+              stage1: {
+                price: 500,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 333,
+              nm: 440,
+              stage1: {
+                price: 500,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "3.0 TDI",
+              hp: 190,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 300,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 204,
+              nm: 400,
+              stage1: {
+                price: 250,
+                stageHp: 270,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 218,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 320,
+                stageNm: 620,
+              }
+            },
+
+            {
+              name: "3.0 TDI",
+              hp: 245,
+              nm: 500,
+              stage1: {
+                price: 200,
+                stageHp: 295,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 272,
+              nm: 580,
+              stage1: {
+                price: 250,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+            {
+              name: "3.0 BI TDI",
+              hp: 313,
+              nm: 650,
+              stage1: {
+                price: 300,
+                stageHp: 350,
+                stageNm: 720,
+              }
+            },
+            {
+              name: "3.0 BI TDI Competition",
+              hp: 326,
+              nm: 650,
+              stage1: {
+                price: 300,
+                stageHp: 400,
+                stageNm: 740,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 320,
+              nm: 650,
+              stage1: {
+                price: 300,
+                stageHp: 400,
+                stageNm: 750,
+              }
+            },
+          ],
+          
         }
       ]
     },
@@ -1513,14 +2098,359 @@ var audi =
       icon: "../../assets/car-models/audi/audi_a8_small.png",
       generations: [
         {
-          startYear: 2000,
+          startYear: 2003,
           endYear: 2010,
           icon: "",
-          engines: [
+          petrolEngines: [
+            
+          ],
+          dieselEngines: [
             {
-              price: 69,
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 450,
+              stage1: {
+                price: 180,
+                stageHp: 275,
+                stageNm: 540,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 233,
+              nm: 450,
+              stage1: {
+                price: 180,
+                stageHp: 275,
+                stageNm: 540,
+              }
+            },
+            {
+              name: "4.0 V8 TDI",
+              hp: 275,
+              nm: 650,
+              stage1: {
+                price: 200,
+                stageHp: 330,
+                stageNm: 670,
+              }
+            },
+          ],
+          
+        },
+        {
+          startYear: 2010,
+          endYear: 2016,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "3.0 TFSI",
+              hp: 290,
+              nm: 400,
+              stage1: {
+                price: 350,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 310,
+              nm: 440,
+              stage1: {
+                price: 350,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "4.0 TFSI",
+              hp: 420,
+              nm: 550,
+              stage1: {
+                price: 350,
+                stageHp: 540,
+                stageNm: 800,
+              }
+            },
+            {
+              name: "4.0 TFSI",
+              hp: 435,
+              nm: 600,
+              stage1: {
+                price: 400,
+                stageHp: 540,
+                stageNm: 800,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 550,
+              stage1: {
+                price: 300,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 250,
+              nm: 550,
+              stage1: {
+                price: 300,
+                stageHp: 310,
+                stageNm: 650,
+              },
+            },
+            {
+              name: "3.0 TDI",
+              hp: 258,
+              nm: 580,
+              stage1: {
+                price: 300,
+                stageHp: 310,
+                stageNm: 650,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 262,
+              nm: 580,
+              stage1: {
+                price: 300,
+                stageHp: 310,
+                stageNm: 650,
+              }
+            },
+            {
+              name: "3.0 V6 BI TDI",
+              hp: 313,
+              nm: 560,
+              stage1: {
+                price: 300,
+                stageHp: 350,
+                stageNm: 720,
+              }
+            },
+            
+            {
+              name: "4.2 V8 TDI",
+              hp: 350,
+              nm: 800,
+              stage1: {
+                price: 300,
+                stageHp: 400,
+                stageNm: 900,
+              }
+            },
+            {
+              name: "4.0 V8 TDI",
+              hp: 385,
+              nm: 850,
+              stage1: {
+                price: 300,
+                stageHp: 485,
+                stageNm: 950,
+              }
+            },
+          ],
+        },
+        {
+          startYear: 2016,
+          endYear: 2018,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "4.0 TFSI",
+              hp: 580,
+              nm: 800,
+              stage1: {
+                price: 650,
+                stageHp: 680,
+                stageNm: 900,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "3.0 TDI",
+              hp: 286,
+              nm: 600,
+              stage1: {
+                price: 450,
+                stageHp: 350,
+                stageNm: 720,
+              }
+            },
+          ],
+		    }
+      ]
+    },
+
+    {
+      name: "Q3",
+      icon: "../../assets/car-models/audi/audi_q3_small.png",
+      generations: [
+        {
+          startYear: 2011,
+          endYear: 2015,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "1.4 TFSI",
               hp: 150,
-            }
+              nm: 250,
+              stage1: {
+                price: 300,
+                stageHp: 170,
+                stageNm: 300,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 170,
+              nm: 280,
+              stage1: {
+                price: 300,
+                stageHp: 250,
+                stageNm: 400,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 211,
+              nm: 350,
+              stage1: {
+                price: 300,
+                stageHp: 250,
+                stageNm: 400,
+              }
+            },
+            
+          ],
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 136,
+              nm: 320,
+              stage1: {
+                price: 250,
+                stageHp: 185,
+                stageNm: 410,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 140,
+              nm: 320,
+              stage1: {
+                price: 250,
+                stageHp: 185,
+                stageNm: 410,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 163,
+              nm: 380,
+              stage1: {
+                price: 250,
+                stageHp: 210,
+                stageNm: 430,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 177,
+              nm: 380,
+              stage1: {
+                price: 250,
+                stageHp: 210,
+                stageNm: 430,
+              }
+            },
+			    ],
+        },
+        {
+          startYear: 2015,
+          endYear: 2018,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "1.4 TFSI",
+              hp: 125,
+              nm: 220,
+              stage1: {
+                price: 300,
+                stageHp: 170,
+                stageNm: 300,
+              }
+            },
+            {
+              name: "1.4 TFSI",
+              hp: 150,
+              nm: 250,
+              stage1: {
+                price: 300,
+                stageHp: 170,
+                stageNm: 300,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 180,
+              nm: 320,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 440,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 220,
+              nm: 350,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 440,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 120,
+              nm: 290,
+              stage1: {
+                price: 300,
+                stageHp: 185,
+                stageNm: 410,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 150,
+              nm: 340,
+              stage1: {
+                price: 300,
+                stageHp: 190,
+                stageNm: 400,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 184,
+              nm: 380,
+              stage1: {
+                price: 350,
+                stageHp: 220,
+                stageNm: 450,
+              }
+            },
           ]
         }
       ]
@@ -1531,14 +2461,233 @@ var audi =
       icon: "../../assets/car-models/audi/audi_q5_small.png",
       generations: [
         {
-          startYear: 2000,
-          endYear: 2010,
+          startYear: 2008,
+          endYear: 2012,
           icon: "",
-          engines: [
+          petrolEngines: [
             {
-              price: 69,
+              name: "2.0 TFSI",
+              hp: 180,
+              nm: 280,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 400,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 211,
+              nm: 350,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 400,
+              }
+            },
+            
+          ],
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 136,
+              nm: 320,
+              stage1: {
+                price: 250,
+                stageHp: 185,
+                stageNm: 410,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 143,
+              nm: 320,
+              stage1: {
+                price: 250,
+                stageHp: 185,
+                stageNm: 410,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 163,
+              nm: 350,
+              stage1: {
+                price: 250,
+                stageHp: 205,
+                stageNm: 420,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 170,
+              nm: 350,
+              stage1: {
+                price: 250,
+                stageHp: 205,
+                stageNm: 420,
+              }
+            },
+            {
+              name: "2.7 TDI",
+              hp: 163,
+              nm: 400,
+              stage1: {
+                price: 250,
+                stageHp: 230,
+                stageNm: 480,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 280,
+                stageNm: 580,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 240,
+              nm: 500,
+              stage1: {
+                price: 250,
+                stageHp: 290,
+                stageNm: 580,
+              }
+            },
+			    ],
+        },
+        
+        {
+          startYear: 2012,
+          endYear: 2016,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "1.4 TFSI",
               hp: 150,
-            }
+              nm: 250,
+              stage1: {
+                price: 300,
+                stageHp: 180,
+                stageNm: 300,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 180,
+              nm: 320,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 400,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 230,
+              nm: 350,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 400,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 272,
+              nm: 400,
+              stage1: {
+                price: 400,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 354,
+              nm: 470,
+              stage1: {
+                price: 400,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 143,
+              nm: 320,
+              stage1: {
+                price: 250,
+                stageHp: 185,
+                stageNm: 410,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 150,
+              nm: 320,
+              stage1: {
+                price: 250,
+                stageHp: 190,
+                stageNm: 400,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 163,
+              nm: 380,
+              stage1: {
+                price: 250,
+                stageHp: 210,
+                stageNm: 430,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 177,
+              nm: 380,
+              stage1: {
+                price: 250,
+                stageHp: 210,
+                stageNm: 430,
+              }
+            },
+            {
+              name: "2.0 TDI",
+              hp: 190,
+              nm: 400,
+              stage1: {
+                price: 300,
+                stageHp: 215,
+                stageNm: 450,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 245,
+              nm: 580,
+              stage1: {
+                price: 300,
+                stageHp: 290,
+                stageNm: 650,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 258,
+              nm: 580,
+              stage1: {
+                price: 300,
+                stageHp: 310,
+                stageNm: 650,
+              }
+            },
           ]
         }
       ]
@@ -1549,14 +2698,351 @@ var audi =
       icon: "../../assets/car-models/audi/audi_q7_small.png",
       generations: [
         {
-          startYear: 2000,
+          startYear: 2006,
           endYear: 2010,
           icon: "",
-          engines: [
+          petrolEngines: [
             {
-              price: 69,
+              name: "3.0 TFSI",
+              hp: 272,
+              nm: 400,
+              stage1: {
+                price: 400,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 333,
+              nm: 440,
+              stage1: {
+                price: 400,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 500,
+              stage1: {
+                price: 200,
+                stageHp: 280,
+                stageNm: 580,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 233,
+              nm: 500,
+              stage1: {
+                price: 200,
+                stageHp: 280,
+                stageNm: 580,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 240,
+              nm: 550,
+              stage1: {
+                price: 200,
+                stageHp: 290,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "4.2 TDI",
+              hp: 326,
+              nm: 760,
+              stage1: {
+                price: 250,
+                stageHp: 375,
+                stageNm: 880,
+              }
+            },
+            {
+              name: "6.0 TDI",
+              hp: 500,
+              nm: 1000,
+              stage1: {
+                price: 300,
+                stageHp: 600,
+                stageNm: 1200,
+              }
+            },
+          ]
+        },
+        
+        {
+          startYear: 2010,
+          endYear: 2015,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "3.0 TFSI",
+              hp: 272,
+              nm: 400,
+              stage1: {
+                price: 400,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            {
+              name: "3.0 TFSI",
+              hp: 333,
+              nm: 440,
+              stage1: {
+                price: 400,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "3.0 TDI",
+              hp: 204,
+              nm: 450,
+              stage1: {
+                price: 300,
+                stageHp: 270,
+                stageNm: 570,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 240,
+              nm: 550,
+              stage1: {
+                price: 300,
+                stageHp: 290,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 245,
+              nm: 500,
+              stage1: {
+                price: 300,
+                stageHp: 290,
+                stageNm: 600,
+              }
+            },
+            {
+              name: "4.2 TDI",
+              hp: 340,
+              nm: 760,
+              stage1: {
+                price: 300,
+                stageHp: 390,
+                stageNm: 880,
+              }
+            },
+            {
+              name: "6.0 TDI",
+              hp: 500,
+              nm: 1000,
+              stage1: {
+                price: 350,
+                stageHp: 600,
+                stageNm: 1200,
+              }
+            },
+          ]
+        },
+
+        {
+          startYear: 2015,
+          endYear: 2019,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "3.0 TFSI",
+              hp: 333,
+              nm: 440,
+              stage1: {
+                price: 600,
+                stageHp: 400,
+                stageNm: 520,
+              }
+            },
+            
+          ],
+          dieselEngines: [
+            {
+              name: "3.0 TDI",
+              hp: 211,
+              nm: 500,
+              stage1: {
+                price: 350,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 218,
+              nm: 500,
+              stage1: {
+                price: 350,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+            {
+              name: "3.0 TDI",
+              hp: 272,
+              nm: 600,
+              stage1: {
+                price: 350,
+                stageHp: 320,
+                stageNm: 680,
+              }
+            },
+          ]
+        }
+      ]
+    },
+
+    {
+      name: "TT",
+      icon: "../../assets/car-models/audi/audi_tt_small.png",
+      generations: [
+        {
+          startYear: 1997,
+          endYear: 2006,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "1.8 T",
               hp: 150,
-            }
+              nm: 210,
+              stage1: {
+                price: 200,
+                stageHp: 190,
+                stageNm: 320,
+              }
+            },
+            {
+              name: "1.8 T",
+              hp: 180,
+              nm: 235,
+              stage1: {
+                price: 200,
+                stageHp: 210,
+                stageNm: 340,
+              }
+            },
+            {
+              name: "1.8 T",
+              hp: 225,
+              nm: 280,
+              stage1: {
+                price: 250,
+                stageHp: 250,
+                stageNm: 350,
+              }
+            },
+          ],
+          dieselEngines: [
+           
+          ]
+        },
+        
+        {
+          startYear: 2006,
+          endYear: 2014,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "1.8 TFSI",
+              hp: 160,
+              nm: 250,
+              stage1: {
+                price: 300,
+                stageHp: 210,
+                stageNm: 320,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 200,
+              nm: 280,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 380,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 211,
+              nm: 350,
+              stage1: {
+                price: 350,
+                stageHp: 260,
+                stageNm: 380,
+              }
+            },
+          ],
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 170,
+              nm: 350,
+              stage1: {
+                price: 180,
+                stageHp: 205,
+                stageNm: 420,
+              }
+            },
+          ]
+        },
+
+        {
+          startYear: 2014,
+          endYear: 2018,
+          icon: "",
+          petrolEngines: [
+            {
+              name: "1.8 TFSI",
+              hp: 180,
+              nm: 250,
+              stage1: {
+                price: 400,
+                stageHp: 220,
+                stageNm: 380,
+              }
+            },
+            {
+              name: "2.0 TFSI",
+              hp: 230,
+              nm: 370,
+              stage1: {
+                price: 400,
+                stageHp: 300,
+                stageNm: 440,
+              }
+            },
+            
+          ],
+          dieselEngines: [
+            {
+              name: "2.0 TDI",
+              hp: 184,
+              nm: 380,
+              stage1: {
+                price: 300,
+                stageHp: 220,
+                stageNm: 450,
+              }
+            },
           ]
         }
       ]
@@ -3215,13 +4701,57 @@ var citroen =
   ]
 }
 
+var lexus = 
+{
+  name: "lexus",
+  icon: "../../assets/car-brands/lexus_logo_thumbnail.png",
+  models: [
+    {
+      name: "IS",
+      icon: "../../assets/car-models/lexus/lexus_is_small.png",
+      generations: [
+        {
+          startYear: 2005,
+          endYear: 2013,
+          icon: "../../assets/car-brands/lexus_logo_thumbnail.png",
+          petrolEngines: [
+       
+          ],
+          dieselEngines: [
+            {
+              name: "IS 200 D",
+              hp: 150,
+              nm: 340,
+              stage1: {
+                price: 300,
+                stageHp: 190,
+                stageNm: 440,
+              }
+            },
+            {
+              name: "IS 220 D",
+              hp: 177,
+              nm: 400,
+              stage1: {
+                price: 300,
+                stageHp: 190,
+                stageNm: 440,
+              }
+            },
+          ]
+        }
+      ]
+    },
+  ]
+}
 
 
 
 var carMap = {
   cars : [
     audi, bmw, renault, volkswagen, ford, opel, mercedes, alfaromeo,
-    dacia, peugeot, mazda, skoda, nissan, volvo, fiat, citroen
+    dacia, peugeot, mazda, skoda, nissan, volvo, fiat, citroen,
+    lexus
   ],
 
   findCar: function (){
