@@ -1,13 +1,13 @@
 div.mat-tab-label-content{
     font-size: 24px!important;
-    color: white;
+    color: black;
 }
 
 mat-tab-header {
     position: fixed!important;
-    width: 100%;
     z-index: 99999;
-    background-color: black;
+    background-color: #EEE;
+    width: 100%;
 
     -webkit-transition: background-color 500ms ease-in;
     -moz-transition: background-color 500ms ease-in;
@@ -29,91 +29,41 @@ mat-tab-header {
     margin-top: 0px;
 }
 
-
-
-
-/* FOOTER */
-
-
-.footer {
-    /*background-image:url('../assets/footer-background.jpg');*/
-    background-color: #19191B!important; 
-    background-image:url('../assets/carbon-bg.png');
-    
-}
-
-.footer-overlay
-{
-   
-    z-index: 2; 
-    width: 100%;
-}
-
-.footer-end{
-    background-color: rgb(0, 0, 0, 0.3);
-    color: #888;
-    align-items: center;
-    text-align: center;
-    padding: 25px 0px;
-    font-size: 14px;
-}
-
-.footer-container{
-    padding:40px 0px; 
-    display: flex; 
-    justify-content: center; 
-    color:white
-}
-
-.footer-container > .mat-list{
-    padding: 0px 40px;
-}
-
-
-.footer-follow-us {
-    display:flex;
-    flex-direction: row;
-    align-items: center;
+.mat-tab-labels {
     justify-content: center;
-    padding: 40px 0px 20px 0px;
+    margin: 0 auto;
+
 }
 
-.footer-brands {
-    width: 60px; 
-    height: 60px; 
-    color:white;
-    border-color: #555;
-    border-radius: 50%; 
-    border-width: 2px;
-    border-style: solid;
-    text-align: center; 
-    line-height: 60px;
-    margin-right: 20px;
+
+@media screen and (min-width: 1550px) {
+    .mat-tab-labels{
+      width: 1550px!important;
+    }
+  }
+  
+
+.mat-tab-label {
+    opacity: 1!important;
 }
 
-.footer-brands:hover{
-    color: white;
-    background-color:#555;
+
+.user-btn {
+    appearance: none!important; border-radius: 50%;
+    border: none!important;
 }
 
-.footer-brands > fa-icon {
-    font-size: 32px;
+.outline-none {
+    outline: none!important;
 }
 
-.footer-icon {
-    font-size: 42px; 
-    width: 42px!important;
-    height: 42px!important; 
-    color:#E81C2E;
-
-
-    -webkit-transition: color 100ms ease-in;
-    -moz-transition: color 100ms ease-in;
-    -o-transition: color 100ms ease-in;
-    -ms-transition: color 100ms ease-in;
-    transition: color 100ms ease-in;
+.mat-menu-content > button{
+    -webkit-transition: background-color 200ms ease;
+    -moz-transition: background-color 200ms ease;
+    -o-transition: background-color 200ms ease;
+    -ms-transition: background-color 200ms ease;
+    transition: background-color 200ms ease;
 }
-
-.footer-icon-col:hover > mat-icon{
-    color: white;
+.mat-menu-content > button:hover{
+    background-color: #E2e2e2!important;
 }

@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PageheaderComponent implements OnInit {
 
-  @Input() title: string;
+  @Input() pageTitle: string;
 
   constructor() { }
 

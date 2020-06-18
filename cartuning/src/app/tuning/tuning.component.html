@@ -1,8 +1,5 @@
-
-
-
-<div style="min-height: 100vh; margin-top:68px">
-    <app-pageheader title='Catalog Tuning'></app-pageheader>
+<div style="min-height: 100vh;">
+    <app-pageheader pageTitle='Catalog Tuning'></app-pageheader>
 
     <div class="tuning-section">
         <mat-horizontal-stepper #stepper  [linear]="true"  (selectionChange)="setIndex($event)">
@@ -177,4 +174,5 @@
           </mat-horizontal-stepper>
     </div>
 </div>
-
+    
+<app-footer></app-footer>

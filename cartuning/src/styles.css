@@ -4,6 +4,10 @@
 @import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default';
 
+:root{
+  --ets-red: #E81C2E;
+}
+
 body {
     margin: 0px;
     /* font-family: 'Roboto', sans-serif; */
@@ -31,7 +35,7 @@ body {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(255, 34, 34); 
+    background: var(--ets-red); 
 }
 
 ::-moz-selection { /* Code for Firefox */
@@ -56,7 +60,7 @@ body {
 /* BUTTONS */
 
 .btn-main {
-  background-color: #E81C2E;
+  background-color: var(--ets-red);
   border-color: transparent!important;
   border-radius: 32px;
   height: 64px;
@@ -65,11 +69,11 @@ body {
 }
 
 .btn-main:focus{
-  background-color: #E81C2E;
+  background-color: var(--ets-red);
 }
 
 .btn-main:active{
-  background-color: #E81C2E!important;
+  background-color: var(--ets-red)!important;
 }
 
 .btn-main > mat-icon {
@@ -79,11 +83,31 @@ body {
 }
 
 .btn-hover-black:hover {
-  background-color: black;
-  color: white;
+  background-color: black!important;
+  color: white!important;
 }
 
 .btn-hover-white:hover {
-  background-color: white;
-  color: black;
+  background-color: white!important;
+  color: black!important;
+}
+
+.header-fs {
+  font-size: 42px;
+}
+
+.header-fw {
+  font-weight: bold;
+}
+
+.section {
+  margin: 0 auto;
+  padding: 30px;
+  height: 100%;
+}
+
+@media screen and (min-width: 1550px) {
+  .section{
+    width: 1550px!important;
+  }
 }

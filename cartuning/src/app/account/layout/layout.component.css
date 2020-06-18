@@ -1,0 +1,6 @@
+.layout {
+    height: calc(100vh - 100px);
+    width: 100%;
+    /*  background-image: linear-gradient(to right, #3734b2 , #01c5fe); */
+    padding-top: 100px;
+}
