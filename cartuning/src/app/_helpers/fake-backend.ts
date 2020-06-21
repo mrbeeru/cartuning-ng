@@ -32,6 +32,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return updateUser();
                 case url.match(/\/users\/\d+$/) && method === 'DELETE':
                     return deleteUser();
+                case url.match('user/orders') && method === 'GET':
+                    return getOrders();
+                case url.match('user/place-order') && method === 'POST':
+                    return placeOrder();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -116,7 +120,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function unauthorized() {
-            return throwError({ status: 401, error: { message: 'Unauthorised' } });
+            return throwError({ status: 401, error: { message: 'Unauthorized' } });
         }
 
         function isLoggedIn() {
@@ -126,6 +130,27 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function idFromUrl() {
             const urlParts = url.split('/');
             return parseInt(urlParts[urlParts.length - 1]);
+        }
+
+        function getOrders(){
+            if (isLoggedIn()){
+                let user = users.find(x => x.id.toString() === headers.get('id'));
+                return of(new HttpResponse({ status: 200, body: user.orders }));
+            }
+
+            return unauthorized();
+        }
+
+        function placeOrder(){
+            if (isLoggedIn()){
+                let user = users.find(x => x.id.toString() === headers.get('id'));
+                console.log(body);
+                (user.orders = user.orders || []).push(body);
+                console.log(user);
+                return ok();
+            }
+
+            return unauthorized();
         }
     }
 }

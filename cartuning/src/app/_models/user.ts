@@ -6,4 +6,14 @@ export class User {
     lastName: string;
     token: string;
     avatar: string;
+    orders?: Order[];
+}
+
+export class Order {
+    brand: string;
+    model: string;
+    year: string;
+    engine: string;
+    clutch: string;
+    ecu: string;
 }

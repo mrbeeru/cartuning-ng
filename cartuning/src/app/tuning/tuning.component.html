@@ -1,8 +1,9 @@
-<div style="min-height: 100vh;">
+<div>
     <app-pageheader pageTitle='Catalog Tuning'></app-pageheader>
 
-    <div class="tuning-section">
+    <div class="tuning-section"  style="min-height: 100vh;">
         <mat-horizontal-stepper #stepper  [linear]="true"  (selectionChange)="setIndex($event)">
+
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Car Brand"}}</ng-template>
                 <table class="car-table">
@@ -171,6 +172,7 @@
                     <button (click)="stepper.reset()" class="btn btn-outline-primary btn-lg">Reset</button>
                 </div>
             </mat-step>
+            
           </mat-horizontal-stepper>
     </div>
 </div>

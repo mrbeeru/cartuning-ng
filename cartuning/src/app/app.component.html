@@ -1,13 +1,14 @@
 <div style="height: 100px;"></div>
-<alert></alert>
+<alert style="position: absolute; min-width: 300px; left:50%; top: 50px; z-index: 99999"></alert>
 
-<mat-toolbar style="position: fixed; top: 0; z-index: 999;">  
+<mat-toolbar style="position: fixed; top: 0; z-index: 99; box-shadow: 0px -3px 8px 0px; background-color: var(--ets-dark);">  
+  
   <mat-toolbar-row class="section" style="height: 100px;">
-    <img src="../assets/logocaretrebuie-sm.png" style="max-height: 64px;">
+    <img src="../assets/logocaretrebuie-white-sm.png" style="max-height: 64px;">
     <div style="flex: 1 1 auto"></div>
-    <a mat-button routerLink='home' style="font-weight: bold;">Home</a>
-    <a mat-button routerLink='tune' style="font-weight: bold;">Catalog Tuning</a>
-    <a mat-button routerLink='about' style="font-weight: bold;">About</a>
+    <a mat-button routerLink='home' style="font-weight: bold; color: white;">Home</a>
+    <a mat-button routerLink='tune' style="font-weight: bold;  color: white;">Catalog Tuning</a>
+    <a mat-button routerLink='about' style="font-weight: bold; color: white;">About</a>
     
     <!-- 
       <div style="margin-left:40px; ">
@@ -18,7 +19,7 @@
         <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' style="font-weight: bold;">{{"Hello, " + accountService.userValue?.firstName}}</a>
         <hr *ngIf='accountService.userValue != null' style="margin:0 auto">
 
-        <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/user'>Account</a>
+        <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/user/profile'>Account</a>
         <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/home' (click)='logout()'>Logout</a>
         
         <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/login">Login</a>
@@ -27,11 +28,10 @@
       
       <button [matMenuTriggerFor]="appMenu" class="user-btn shadow-none outline-none" style="background: transparent!important; margin-left: 40px;">
         <img src="{{(accountService.userValue?.avatar != null ? accountService.userValue.avatar : 'assets/testimonials.jpg')}} " style="width: 42px; height: 42px; border-radius: 50%;">
-        <span style="font-size: 16px; margin-left: 8px;">{{accountService.userValue?.username}}</span>
+        <span style="font-size: 16px; margin-left: 8px; color: white;">{{accountService.userValue?.username}}</span>
     </button>
 
   </mat-toolbar-row>
-  
 </mat-toolbar>
 
 <router-outlet></router-outlet>

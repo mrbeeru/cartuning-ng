@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'tune', component: TuningComponent },
   {path: 'about', component: AboutusComponent, canActivate: [AuthGuard]},
-  {path: 'user', loadChildren: userModule},
+  {path: 'user', loadChildren: userModule, canActivate: [AuthGuard]},
   {path: 'account', loadChildren: accountModule},
 
   // otherwise redirect to home

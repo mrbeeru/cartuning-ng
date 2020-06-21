@@ -25,7 +25,7 @@ export class AppComponent {
    */
   constructor(
     private router: Router, 
-    private accountService: AccountService) {
+    public accountService: AccountService) {
 
   }
 

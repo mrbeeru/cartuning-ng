@@ -19,8 +19,8 @@ export class ScrambletextComponent implements OnInit {
   scrambledText: string;
 
   @Input() phrases: string[];
-  @Input() scrambleTime: number = 60;
-  @Input() phraseTime: number = 5000;
+  @Input() scrambleDuration: number = 60;
+  @Input() phraseDuration: number = 5000;
 
   constructor() { 
   }
@@ -46,8 +46,8 @@ export class ScrambletextComponent implements OnInit {
     for (let i = 0; i < length; i++) {
       const from = oldText[i] || ''
       const to = newText[i] || ''
-      const start = Math.floor(Math.random() * this.scrambleTime)
-      const end = start + Math.floor(Math.random() * this.scrambleTime)
+      const start = Math.floor(Math.random() * this.scrambleDuration)
+      const end = start + Math.floor(Math.random() * this.scrambleDuration)
       this.queue.push({ from, to, start, end })
     }
 
@@ -55,7 +55,7 @@ export class ScrambletextComponent implements OnInit {
     this.frame = 0
     this.update();
     this.counter = (this.counter + 1) % this.phrases.length
-    setTimeout(this.next.bind(this), this.phraseTime)
+    setTimeout(this.next.bind(this), this.phraseDuration)
   }
 
   update() {

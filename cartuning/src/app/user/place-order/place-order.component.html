@@ -1,1 +1,57 @@
-<p>place-order works!</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+       <mat-form-field style="width: 100%;">
+         <mat-label>Brand</mat-label>
+         <input matInput required type="text" formControlName="brand">
+         <mat-error *ngIf="f.brand.hasError('required')">
+             Brand is <strong>required</strong>
+           </mat-error>
+       </mat-form-field>
+ 
+       <mat-form-field style="width: 100%;">
+         <mat-label>Model</mat-label>
+         <input matInput required type="text" formControlName="model">
+         <mat-error *ngIf="f.model.hasError('required')">
+             Model is <strong>required</strong>
+           </mat-error>
+       </mat-form-field>
+       
+       <mat-form-field style="width: 100%;">
+         <mat-label>Year</mat-label>
+         <input matInput required type="text" formControlName="year">
+         <mat-error *ngIf="f.year.hasError('required')">
+             Year is <strong>required</strong>
+           </mat-error>
+       </mat-form-field>
+ 
+       <mat-form-field style="width: 100%;">
+         <mat-label>Engine</mat-label>
+         <input matInput required type="text" formControlName="engine">
+         <mat-error *ngIf="f.engine.hasError('required')">
+             Engine is <strong>required</strong>
+           </mat-error>
+       </mat-form-field>
+ 
+       
+       <mat-form-field style="width: 100%;">
+         <mat-label>Clutch</mat-label>
+         <input matInput type="text" formControlName="clutch">
+       </mat-form-field>
+ 
+       
+       <mat-form-field style="width: 100%;">
+         <mat-label>ECU</mat-label>
+         <input matInput type="text" formControlName='ecu'>
+       </mat-form-field>
+ 
+     </div>
+    
+     <div class="form-group" style="margin-top: 20px;">
+         <button [disabled]="loading" class="btn btn-primary">
+             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+             Submit
+         </button>
+        </div>
+    </form>
+    

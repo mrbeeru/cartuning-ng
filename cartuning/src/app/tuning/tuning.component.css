@@ -21,7 +21,7 @@
 }
 
 .car-card:hover {
-    border-color: rgb(0, 102, 255);
+    border-color: var(--ets-blue);
 }
 
 .car-table {

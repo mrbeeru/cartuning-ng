@@ -1,12 +1,30 @@
 
 <div class="section">
-
-    <div class="row">
-        <div class="col-md-2">
-            <mat-nav-list>
-                <a mat-list-item routerLink="orders">Orders</a>
-                <a mat-list-item routerLink="place-order">Place Order</a>
-            </mat-nav-list>
+    <div class="row no-gutter">
+        <div class="col-lg-2" style="padding: 0px 15px 15px 15px">
+            <mat-expansion-panel [expanded]='true'>
+                <mat-expansion-panel-header>
+                  <mat-panel-title style="font-weight: bold; color: rgba(0,0,0,0.7);">
+                    User
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="profile" routerLinkActive="active">Profile</a>
+                    <a mat-list-item routerLinkActive="active">Settings</a>
+                </mat-nav-list>
+              </mat-expansion-panel>
+            <hr style="margin: 0px; border-top: 1px solid rgba(0,0,0,0.2)">
+            <mat-expansion-panel [expanded]='true'>
+                <mat-expansion-panel-header>
+                  <mat-panel-title style="font-weight: bold; color: rgba(0,0,0,0.7);">
+                   Orders
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="orders" routerLinkActive="active">Orders</a>
+                    <a mat-list-item routerLink="place-order" routerLinkActive="active">Place Order</a>
+                </mat-nav-list>
+              </mat-expansion-panel>
         </div>
         <div class="col">
             <router-outlet></router-outlet>

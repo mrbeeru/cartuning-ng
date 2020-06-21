@@ -19,8 +19,8 @@ interface CarGeneration {
   startYear: number;
   endYear : number;
   icon: string;
-  dieselEngines: CarEngine[];
-  petrolEngines: CarEngine[];
+  dieselEngines?: CarEngine[];
+  petrolEngines?: CarEngine[];
 }
 
 interface CarEngine{
@@ -237,7 +237,7 @@ var audi =
   models: [
     {
       name: "A2",
-      icon: "",
+      icon: "../../assets/car-models/audi/audi_a2_small.png",
       generations: [
         {
           startYear: 1999,
@@ -1189,7 +1189,7 @@ var audi =
 
     {
       name: "A5",
-      icon: "",
+      icon: "../../assets/car-models/audi/audi_a5_small.png",
       generations: [
         {
           startYear: 2007,
@@ -2312,7 +2312,7 @@ var audi =
         {
           startYear: 2011,
           endYear: 2015,
-          icon: "",
+          icon: "../../assets/car-models/audi/audi_q3_small.png",
           petrolEngines: [
             {
               name: "1.4 TFSI",
@@ -2932,7 +2932,7 @@ var audi =
         {
           startYear: 1997,
           endYear: 2006,
-          icon: "",
+          icon: "../../assets/car-models/audi/audi_tt_small.png",
           petrolEngines: [
             {
               name: "1.8 T",

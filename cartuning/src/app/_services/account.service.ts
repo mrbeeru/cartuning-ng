@@ -1,11 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 // import { environment } from '@environments/environment';
-import { User } from '../_models/user';
+import { User, Order } from '../_models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -62,6 +62,23 @@ export class AccountService {
 
     getById(id: string) {
         return this.http.get<User>(`${this.environment.apiUrl}/users/${id}`);
+    }
+
+    getOrders(){
+        const options = {
+            headers: new HttpHeaders().append('id', this.userValue.id.toString())
+                                    .append('Authorization', 'Bearer fake-jwt-token')
+        }
+
+        return this.http.get<any>(`${this.environment.apiUrl}/user/orders`, options);
+    }
+
+    placeOrder(order: Order){
+        const options = {
+            headers: new HttpHeaders().append('id', this.userValue.id.toString())
+                                    .append('Authorization', 'Bearer fake-jwt-token')}
+
+        return this.http.post(`${this.environment.apiUrl}/user/place-order`, order, options);
     }
 
     update(id, params) {

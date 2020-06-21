@@ -66,11 +66,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     MatMenuModule,
     MatToolbarModule,
     MatButtonModule,
-
     FontAwesomeModule ,
     CarouselModule,
   ],
 
+  exports: [
+    AlertComponent
+  ],
 
 
   bootstrap: [AppComponent],
