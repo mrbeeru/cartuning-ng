@@ -26,9 +26,10 @@
         <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/register">Register</a>
       </mat-menu>
       
-      <button [matMenuTriggerFor]="appMenu" class="user-btn shadow-none outline-none" style="background: transparent!important; margin-left: 40px;">
+      <button [matMenuTriggerFor]="appMenu" #t='matMenuTrigger' class="user-btn shadow-none outline-none " style="background: transparent!important; margin-left: 40px; ">
         <img src="{{(accountService.userValue?.avatar != null ? accountService.userValue.avatar : 'assets/testimonials.jpg')}} " style="width: 42px; height: 42px; border-radius: 50%;">
-        <span style="font-size: 16px; margin-left: 8px; color: white;">{{accountService.userValue?.username}}</span>
+        <span style="font-size: 16px; margin-left: 8px; color: white;">{{accountService.userValue ? accountService.userValue.username : "My Account"}}</span>
+        <mat-icon class="align-middle" style="color:#CCB686; font-size: 16px; width: 16px; height: 16px; transition: all 0.1s linear;" [ngClass]="{'clicked': t.menuOpen}">keyboard_arrow_right</mat-icon>
     </button>
 
   </mat-toolbar-row>

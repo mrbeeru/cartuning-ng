@@ -144,7 +144,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function placeOrder(){
             if (isLoggedIn()){
                 let user = users.find(x => x.id.toString() === headers.get('id'));
-                console.log(body);
+
+                body.id = 333;
+                body.createdAt = Date.now();
+                body.status = 'New';
+
                 (user.orders = user.orders || []).push(body);
                 console.log(user);
                 return ok();

@@ -67,3 +67,7 @@ mat-tab-header {
 .mat-menu-content > button:hover{
     background-color: #E2e2e2!important;
 }
+
+.clicked {
+    transform: rotate(90deg)
+}
