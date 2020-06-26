@@ -81,6 +81,14 @@ export class AccountService {
         return this.http.post(`${this.environment.apiUrl}/user/place-order`, order, options);
     }
 
+    deleteOrder(order: Order){
+        const options = {
+            headers: new HttpHeaders().append('id', this.userValue.id.toString())
+                                    .append('Authorization', 'Bearer fake-jwt-token')}
+
+        return this.http.delete(`${this.environment.apiUrl}/user/orders/${order.id}`, options);
+    }
+
     update(id, params) {
         return this.http.put(`${this.environment.apiUrl}/users/${id}`, params)
             .pipe(map(x => {

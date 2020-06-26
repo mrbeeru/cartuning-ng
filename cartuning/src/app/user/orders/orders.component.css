@@ -20,3 +20,7 @@ td.mat-cell {
     padding-top: 24px;
     padding-bottom: 24px;
 }
+
+.mat-snack-bar-container {
+    margin-top: 80px!important;
+ }

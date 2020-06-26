@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { getLocaleDateTimeFormat } from '@angular/common';
 
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
@@ -36,6 +37,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getOrders();
                 case url.match('user/place-order') && method === 'POST':
                     return placeOrder();
+                case url.match(/\/orders\/\d+$/) && method === 'DELETE':
+                    return deleteOrder();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -109,10 +112,58 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok();
         }
 
+        function getOrders(){
+            if (isLoggedIn()){
+                let user = users.find(x => x.id.toString() === headers.get('id'));
+                return of(new HttpResponse({ status: 200, body: user.orders }));
+            }
+
+            return unauthorized();
+        }
+
+        function placeOrder(){
+            if (!isLoggedIn())
+                return unauthorized();
+
+            let user = users.find(x => x.id.toString() === headers.get('id'));
+
+            let order = JSON.parse(JSON.stringify(body));
+
+            order.id = user.orders?.length > 0 ?  Math.max(...user.orders.map(x => x.id)) + 1 : 1;
+            order.createdAt = Date.now();
+            order.status = 'New';
+            (user.orders = user.orders || []).push(order);
+            
+            localStorage.setItem('users', JSON.stringify(users));
+            return ok();
+        }
+
+        function deleteOrder(){
+            if (!isLoggedIn()) 
+                return unauthorized();
+
+            let user = users.find(x => x.id.toString() === headers.get('id'));
+
+            const orderId = idFromUrl();
+            const idx = user.orders.findIndex(x => x.id == orderId);
+
+            if (idx >= 0){
+                user.orders.splice(idx, 1);
+                localStorage.setItem('users', JSON.stringify(users));
+                return ok();
+            }
+
+            return notFound();
+        }
+
         // helper functions
 
         function ok(body?) {
             return of(new HttpResponse({ status: 200, body }))
+        }
+
+        function notFound() {
+            return throwError({ status: 404, error: {message: 'Not found'} });
         }
 
         function error(message) {
@@ -132,30 +183,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return parseInt(urlParts[urlParts.length - 1]);
         }
 
-        function getOrders(){
-            if (isLoggedIn()){
-                let user = users.find(x => x.id.toString() === headers.get('id'));
-                return of(new HttpResponse({ status: 200, body: user.orders }));
-            }
-
-            return unauthorized();
-        }
-
-        function placeOrder(){
-            if (isLoggedIn()){
-                let user = users.find(x => x.id.toString() === headers.get('id'));
-
-                body.id = 333;
-                body.createdAt = Date.now();
-                body.status = 'New';
-
-                (user.orders = user.orders || []).push(body);
-                console.log(user);
-                return ok();
-            }
-
-            return unauthorized();
-        }
+      
     }
 }
 
