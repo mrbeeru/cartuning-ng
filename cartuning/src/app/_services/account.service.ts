@@ -25,7 +25,7 @@ export class AccountService {
         this.user = this.userSubject.asObservable();
 
         this.environment = {};
-        this.environment.apiUrl = 'http://localhost:1337';
+        this.environment.apiUrl = 'http://localhost:44444';
     }
 
     public get userValue(): User {
@@ -33,7 +33,7 @@ export class AccountService {
     }
 
     login(username, password) {
-        return this.http.post<User>(`${this.environment.apiUrl}/users/authenticate`, { username, password })
+        return this.http.post<User>(`${this.environment.apiUrl}/api/account/authenticate`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
@@ -53,7 +53,8 @@ export class AccountService {
     }
 
     register(user: User) {
-        return this.http.post(`${this.environment.apiUrl}/users/register`, user);
+        console.log(user);
+        return this.http.post(`${this.environment.apiUrl}/api/account/register`, user);
     }
 
     getAll() {
@@ -66,34 +67,34 @@ export class AccountService {
 
     getOrders(){
         const options = {
-            headers: new HttpHeaders().append('id', this.userValue.id.toString())
+            headers: new HttpHeaders().append('ownerid', this.userValue._id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
-        return this.http.get<any>(`${this.environment.apiUrl}/user/orders`, options);
+        return this.http.get<any>(`${this.environment.apiUrl}/api/user/orders`, options);
     }
 
     placeOrder(order: Order){
         const options = {
-            headers: new HttpHeaders().append('id', this.userValue.id.toString())
-                                    .append('Authorization', 'Bearer fake-jwt-token')}
-
-        return this.http.post(`${this.environment.apiUrl}/user/place-order`, order, options);
+            headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token')}
+        
+        order.ownerId = this.userValue._id;
+        return this.http.post(`${this.environment.apiUrl}/api/user/place-order`, order, options);
     }
 
     deleteOrder(order: Order){
         const options = {
-            headers: new HttpHeaders().append('id', this.userValue.id.toString())
+            headers: new HttpHeaders().append('id', this.userValue._id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')}
 
-        return this.http.delete(`${this.environment.apiUrl}/user/orders/${order.id}`, options);
+        return this.http.delete(`${this.environment.apiUrl}/api/user/orders/${order._id}`, options);
     }
 
     update(id, params) {
         return this.http.put(`${this.environment.apiUrl}/users/${id}`, params)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
-                if (id == this.userValue.id) {
+                if (id == this.userValue._id) {
                     // update local storage
                     const user = { ...this.userValue, ...params };
                     localStorage.setItem('user', JSON.stringify(user));
@@ -109,7 +110,7 @@ export class AccountService {
         return this.http.delete(`${this.environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
-                if (id == this.userValue.id) {
+                if (id == this.userValue._id) {
                     this.logout();
                 }
                 return x;

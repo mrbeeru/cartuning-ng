@@ -79,7 +79,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
   
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    fakeBackendProvider,
+     fakeBackendProvider,
   ],
 })
 export class AppModule { }

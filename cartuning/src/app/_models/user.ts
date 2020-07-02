@@ -1,7 +1,7 @@
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 export class User {
-    id: string;
+    _id: any;
     username: string;
     password: string;
     firstName: string;
@@ -12,14 +12,15 @@ export class User {
 }
 
 export class Order {
-    id: number;
+    _id: any;
     createdAt: Date;
     status: string;
 
     brand: string;
     model: string;
-    year: string;
+    year: number;
     engine: string;
     clutch: string;
     ecu: string;
+    ownerId: any;
 }

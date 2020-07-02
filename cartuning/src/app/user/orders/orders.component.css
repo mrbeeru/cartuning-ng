@@ -17,8 +17,8 @@ mat-basic-chip {
 }
 
 td.mat-cell {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: 18px!important;
+    padding-bottom: 18px!important;
 }
 
 .mat-snack-bar-container {

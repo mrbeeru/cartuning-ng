@@ -19,7 +19,7 @@
        
        <mat-form-field style="width: 100%;">
          <mat-label>Year</mat-label>
-         <input matInput required type="text" formControlName="year">
+         <input matInput required type="number" formControlName="year">
          <mat-error *ngIf="f.year.hasError('required')">
              Year is <strong>required</strong>
            </mat-error>

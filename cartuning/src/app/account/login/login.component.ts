@@ -57,13 +57,16 @@ ngOnInit() {
         .pipe(first())
         .subscribe(
             data => {
+              this.loading = false;
+              if(data)
                 this.router.navigate([this.returnUrl]);
+              
                 // this.router.navigate(['user/profile']);
             },
             error => {
                 console.log(error);
-                this.alertService.error(error.error.message);
                 this.loading = false;
+                this.alertService.error(error.error.message);
           });
   }
 

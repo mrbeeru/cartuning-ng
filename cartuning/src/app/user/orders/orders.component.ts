@@ -57,6 +57,7 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders(){
+    this.loading = true;
     this.accountService.getOrders().subscribe(x => {this.dataSource = new MatTableDataSource(x); this.loading = false;});
   }
 }
