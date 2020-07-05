@@ -33,6 +33,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JuxtaposeComponent } from './_components/juxtapose/juxtapose.component';
 
 
 
@@ -46,6 +47,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AboutusComponent,
     FooterComponent,
     AlertComponent,
+    JuxtaposeComponent,
   ],
 
   imports: [

@@ -25,9 +25,9 @@
 <div class='home-container'>
     
     <!-- 6 section -->
-    <div class='row no-gutter home-section-full'  style="background-image: url(../../assets/dotted-world-map.png); background-size: contain; background-repeat: no-repeat;">
+    <div class='row no-gutter'  style="background-image: url(../../assets/dotted-world-map.png); background-size: contain; background-repeat: no-repeat;">
         
-        <div class="section">
+        <div class="section" style="padding: 100px 0 0 0">
             <div class="row no-gutter" >
                 <div class='col-lg-8'>
                     <div style="font-size: 42px; font-weight: bold;">
@@ -109,7 +109,7 @@
 
 
    <!-- SERVICIU CHIPTUNNING section -->
-    <div class='row no-gutter home-section-full' style="background-color: #19191B; color: white;">
+    <div class='row no-gutter' style="background-color: #19191B; color: white; padding: 100px 0 0 0">
         <div class='row no-gutter'>
      
             <div class='col-lg-4 align-self-center' style="padding: 0px 40px 100px 40px">
@@ -249,8 +249,66 @@
         </div>
     </div> -->
 
+
+    <!-- COMPARISION section -->
+    <div class="row no-gutter section">
+        <div class="col-lg-3" style="padding: 10px">
+            <h6 class="subheader">COMPARISON</h6>
+            <h4 class="header">
+                Stock vs Stage 1
+            </h4>
+        </div>
+        <div class="col-lg-6 text-center" style="overflow: hidden;">
+            <app-juxtapose
+            beforeImageSrc='../../assets/tuning_before.jpg'
+            afterImageSrc='../../assets/tuning_after.jpg'
+            beforeCaption='Stock'
+            afterCaption='Stage 1'
+            snapPercent='2'
+            
+           >
+        </app-juxtapose>
+        </div>
+        <div class="col-lg-3" >
+            <div class="row no-gutter" style="height: 200px; padding-left: 40px;">
+                <div class='col-2 text-center'>
+                    <fa-icon [icon]='faDumbbell' style="font-size: 54px; "></fa-icon>
+                </div>
+                <div class='col' >
+                    <div style="padding: 0px 20px; margin-top: 10px;">
+                        <h2>
+                            Power
+                        </h2>
+                        <span style="color: #333; ">
+                            Measured in Nm or HPMeasured in Nm or HPMeasured in Nm or HPMeasured in Nm or HPMeasured in Nm or HP
+                        </span>
+                    </div>
+                   
+                </div>               
+            </div>
+
+            <div class="row no-gutter"  style="height: 200px; padding-left: 40px;">
+                <div class='col-2 text-center'>
+                    <!-- <fa-icon [icon]='faExclamationCircle' style="font-size: 60px;"></fa-icon> -->
+                    <mat-icon style="font-size: 64px; height: 64px; width: 64px;">speed</mat-icon>
+                </div>
+                <div class='col' >
+                    <div style="padding: 0px 20px;">
+                        <h2>
+                            Speed
+                        </h2>
+                        <span style="color: #333;">
+                            lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsumlorem ipsumlore m ipsumlorem ipsum
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- RECENZII section -->
-    <div class='row no-gutter home-section-full'>
+    <div class='row no-gutter'>
         <div class='col module'>
             <div class='module-inside'>
                 <div class='row no-gutter d-flex justify-content-center'>

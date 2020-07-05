@@ -3,7 +3,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 
 
 import { faCar, faMicrochip, faTachometerAlt, faCalendarCheck, faTools, faChartLine, faStar, 
-         faExclamationCircle, faCheckCircle, faArrowCircleRight, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
+         faExclamationCircle, faCheckCircle, faArrowCircleRight, faQuoteLeft, faQuoteRight, faDumbbell } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-home',
@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   faQuoteLeft = faQuoteLeft;
   faQuoteRight = faQuoteRight;
   faArrowRight = faArrowCircleRight;
+  faDumbbell = faDumbbell;
 
   constructor() { }
 

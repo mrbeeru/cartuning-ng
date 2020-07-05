@@ -1,0 +1,32 @@
+
+figure {
+    position: relative;
+    display: inline-block;
+    cursor: col-resize;
+}
+
+figcaption {
+    width: 30%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    border-right: 2px solid black;
+}
+
+
+figure > span {
+    position: absolute; 
+    right: 0;
+}
+
+figcaption > span {
+    position: absolute;
+}
+
+.juxtapose-caption {
+    font-weight: bold;
+    color: var(--ets-red);
+    font-size: 24px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
