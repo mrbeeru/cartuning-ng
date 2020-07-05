@@ -182,7 +182,7 @@
             </svg>
         
         </div>
-        <div class='row no-gutter' style="padding:60px; background-color: #E81C2E; width: 100%;">
+        <div class='row no-gutter' style="padding:40px; background-color: #E81C2E; width: 100%;">
             <div style="width: 70%; margin: 0 auto" class="text-center">
                 <span style="color: black;" class="header-fs header-fw">Hurry up and</span>
                 <span class="header-fs header-fw"> join us!</span>
@@ -249,6 +249,21 @@
         </div>
     </div> -->
 
+
+    <!-- CAR BRANDS section-->
+    <div class="row no-gutter">
+        <div class="col" style="background-color: #eee">
+            <owl-carousel-o [options]="brandCarouselOptions">
+                <ng-template carouselSlide *ngFor="let path of carLogoPaths">
+                    <div class='col'>
+                        <div class="d-flex justify-content-center" style="padding-top: 20px;">
+                            <img src='{{path}}' style="width: 4vw; height: 4vw; min-width: 64px; min-height: 64px;">
+                        </div>
+                    </div>
+                </ng-template>  
+            </owl-carousel-o>
+        </div>
+    </div>
 
     <!-- COMPARISION section -->
     <div class="row no-gutter section">

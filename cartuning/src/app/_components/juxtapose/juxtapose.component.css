@@ -17,16 +17,25 @@ figcaption {
 figure > span {
     position: absolute; 
     right: 0;
+    /* background-color: #1119; */
+    padding: 0px 10px;
+    border-radius: 10px;
+    color: transparent;
 }
 
 figcaption > span {
     position: absolute;
+    /* background-color: black; */
+    padding: 0px 10px;
+    border-radius: 10px;
+    color: transparent;
 }
 
 .juxtapose-caption {
     font-weight: bold;
-    color: var(--ets-red);
-    font-size: 24px;
+    color: var(--ets-dark);
+    font-size: 36px;
     text-transform: uppercase;
     white-space: nowrap;
+    -webkit-text-stroke: 1px #555;
 }
