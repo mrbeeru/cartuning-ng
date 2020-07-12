@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from 'src/app/_services/alert.service';
-import { AccountService } from 'src/app/_services/account.service';
+import { AlertService } from '../../_services/alert.service';
+import { AccountService } from '../../_services/account.service';
 import { first } from 'rxjs/internal/operators/first';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -56,6 +56,8 @@ export class PlaceOrderComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
+              console.log(data);
+
                 // this.alertService.success('Order placed', { keepAfterRouteChange: false, autoClose: true });
                 this.snackBar.open('Order successfully placed!', 'x', {
                   duration: 3000,

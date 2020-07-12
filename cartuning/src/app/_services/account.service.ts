@@ -76,7 +76,9 @@ export class AccountService {
 
     placeOrder(order: Order){
         const options = {
-            headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token')}
+            headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
+            reportProgress: true,
+        }
         
         order.ownerId = this.userValue._id;
         return this.http.post(`${this.environment.apiUrl}/api/user/place-order`, order, options);

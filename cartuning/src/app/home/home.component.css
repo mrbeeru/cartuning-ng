@@ -303,6 +303,10 @@
 }
 
 
+.owl-item:active {
+  background-color: transparent;
+}
+
 /* HOME SECTION 3 */
 
 .module {
