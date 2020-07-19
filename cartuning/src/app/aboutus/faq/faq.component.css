@@ -3,7 +3,7 @@ mat-expansion-panel {
 }
 
 mat-expansion-panel-header {
-    height: 64px!important;
+    height: 80px!important;
     
     /* background-color: var(--ets-blue); */
 }

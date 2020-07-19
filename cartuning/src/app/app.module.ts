@@ -78,6 +78,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     FontAwesomeModule ,
     MatExpansionModule,
     CarouselModule,
+    MatCardModule,
   ],
 
   exports: [
