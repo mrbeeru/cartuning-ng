@@ -8,28 +8,35 @@
     <div style="flex: 1 1 auto"></div>
     <a mat-button routerLink='home' style="font-weight: bold; color: white;">Home</a>
     <a mat-button routerLink='tune' style="font-weight: bold;  color: white;">Catalog Tuning</a>
-    <a mat-button routerLink='about' style="font-weight: bold; color: white;">About</a>
-    
-    <!-- 
-      <div style="margin-left:40px; ">
-        <img src="../assets/profile.jpg" style="width: 42px; height: 42px; border-radius: 50%;">
-        <mat-icon style="font-size: 42px; width: 42px; height: 42px;">account_circle</mat-icon>
-      </div> -->
-      <mat-menu #appMenu="matMenu">
-        <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' style="font-weight: bold;">{{"Hello, " + accountService.userValue?.firstName}}</a>
-        <hr *ngIf='accountService.userValue != null' style="margin:0 auto">
+    <!-- <a mat-button routerLink='about' style="font-weight: bold; color: white;">About</a> -->
 
-        <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/user/profile'>Account</a>
-        <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/home' (click)='logout()'>Logout</a>
-        
-        <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/login">Login</a>
-        <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/register">Register</a>
-      </mat-menu>
+
+    <mat-menu #aboutMenu="matMenu">
+      <a mat-menu-item class='outline-none' routerLink='/about/faq'>FAQ</a>
+      <a mat-menu-item class='outline-none' routerLink='/about/experience'>Experience</a>
+      <a mat-menu-item class='outline-none' routerLink='/about/contact'>Contact</a>
+    </mat-menu>
+
+    <button [matMenuTriggerFor]="aboutMenu" #tb='matMenuTrigger' class="user-btn shadow-none outline-none " style="background: transparent!important;">
+      <span style="font-size: 16px; margin-left: 8px; color: white; font-weight: bold;">About</span>
+      <mat-icon class="align-middle" style="color:#CCB686; font-size: 16px; width: 16px; height: 16px; transition: all 0.1s linear;" [ngClass]="{'clicked': tb.menuOpen}">keyboard_arrow_right</mat-icon>
+    </button>
+
+
+    <mat-menu #accountMenu="matMenu">
+      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' style="font-weight: bold;">{{"Hello, " + accountService.userValue?.firstName}}</a>
+      <hr *ngIf='accountService.userValue != null' style="margin:0 auto">
+      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/user/profile'>Account</a>
+      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/home' (click)='logout()'>Logout</a>
       
-      <button [matMenuTriggerFor]="appMenu" #t='matMenuTrigger' class="user-btn shadow-none outline-none " style="background: transparent!important; margin-left: 40px; ">
-        <img src="{{(accountService.userValue?.avatar != null ? accountService.userValue.avatar : 'assets/testimonials.jpg')}} " style="width: 42px; height: 42px; border-radius: 50%;">
-        <span style="font-size: 16px; margin-left: 8px; color: white;">{{accountService.userValue ? accountService.userValue.username : "My Account"}}</span>
-        <mat-icon class="align-middle" style="color:#CCB686; font-size: 16px; width: 16px; height: 16px; transition: all 0.1s linear;" [ngClass]="{'clicked': t.menuOpen}">keyboard_arrow_right</mat-icon>
+      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/login">Login</a>
+      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/register">Register</a>
+    </mat-menu>
+      
+    <button [matMenuTriggerFor]="accountMenu" #ta='matMenuTrigger' class="user-btn shadow-none outline-none " style="background: transparent!important; margin-left: 40px; ">
+      <img src="{{(accountService.userValue?.avatar != null ? accountService.userValue.avatar : 'assets/testimonials.jpg')}} " style="width: 42px; height: 42px; border-radius: 50%;">
+      <span style="font-size: 16px; margin-left: 8px; color: white;">{{accountService.userValue ? accountService.userValue.username : "My Account"}}</span>
+      <mat-icon class="align-middle" style="color:#CCB686; font-size: 16px; width: 16px; height: 16px; transition: all 0.1s linear;" [ngClass]="{'clicked': ta.menuOpen}">keyboard_arrow_right</mat-icon>
     </button>
 
   </mat-toolbar-row>

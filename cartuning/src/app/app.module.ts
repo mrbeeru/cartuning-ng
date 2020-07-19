@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { TuningComponent } from './tuning/tuning.component';
 import { AlertComponent } from './_components/alert.component'
-import { PageheaderComponent } from './pageheader/pageheader.component';
-import { ScrambletextComponent } from './scrambletext/scrambletext.component';
+import { PageheaderComponent } from './_components/pageheader/pageheader.component';
+import { ScrambletextComponent } from './_components/scrambletext/scrambletext.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -34,6 +34,10 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JuxtaposeComponent } from './_components/juxtapose/juxtapose.component';
+import { ContactComponent } from './aboutus/contact/contact.component';
+import { FaqComponent } from './aboutus/faq/faq.component';
+import { ExperienceComponent } from './aboutus/experience/experience.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 
@@ -48,6 +52,9 @@ import { JuxtaposeComponent } from './_components/juxtapose/juxtapose.component'
     FooterComponent,
     AlertComponent,
     JuxtaposeComponent,
+    ContactComponent,
+    FaqComponent,
+    ExperienceComponent,
   ],
 
   imports: [
@@ -69,6 +76,7 @@ import { JuxtaposeComponent } from './_components/juxtapose/juxtapose.component'
     MatToolbarModule,
     MatButtonModule,
     FontAwesomeModule ,
+    MatExpansionModule,
     CarouselModule,
   ],
 

@@ -1,7 +1,7 @@
 .background {
     height: 355px; 
     
-    background-image: url('../../assets/page-header.jpg'); 
+    background-image: url('../../../assets/page-header.jpg'); 
     background-repeat: no-repeat; 
     background-size: cover; 
     background-attachment: fixed;
