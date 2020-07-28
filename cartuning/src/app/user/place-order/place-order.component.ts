@@ -4,6 +4,8 @@ import { AlertService } from '../../_services/alert.service';
 import { AccountService } from '../../_services/account.service';
 import { first } from 'rxjs/internal/operators/first';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Console } from 'console';
+import { HttpEventType } from '@angular/common/http';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class PlaceOrderComponent implements OnInit {
       engine: ['', Validators.required],
       clutch: [''],
       ecu: [''],
+      file: [''],
     });
   }
 
@@ -52,26 +55,35 @@ export class PlaceOrderComponent implements OnInit {
     }
 
     this.loading = true;
-    this.accountService.placeOrder(this.form.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-              console.log(data);
 
-                // this.alertService.success('Order placed', { keepAfterRouteChange: false, autoClose: true });
-                this.snackBar.open('Order successfully placed!', 'x', {
-                  duration: 3000,
-                  verticalPosition: 'top'
-                })
+    this.accountService.placeOrder(this.form.value).subscribe(
+      data => {
+        console.log(data);
 
-                this.loading = false;
-            },
-            error => {
-              console.log(error);
-                // this.alertService.error(error);
-                this.loading = false;
-            });
-     
+        if (data.type === HttpEventType.UploadProgress) {
+          var progress = Math.round(100 * data.loaded / data.total);
+          console.log("prog ", progress);
+        }
+
+        if (data.type === HttpEventType.Response){
+          if (data.status == 200){
+              this.snackBar.open('Order successfully placed!', 'x', {
+              duration: 3000,
+              verticalPosition: 'top'
+            })
+          } 
+
+          this.loading = false;
+        }
+      },
+      error => {
+        console.log(error);
+        this.snackBar.open(error.error.message, 'x', {
+          duration: 3000,
+          verticalPosition: 'top'
+        })
+          // this.alertService.error(error);
+          this.loading = false;
+    });
    }
-
 }

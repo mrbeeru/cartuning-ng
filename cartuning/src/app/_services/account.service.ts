@@ -75,13 +75,23 @@ export class AccountService {
     }
 
     placeOrder(order: Order){
-        const options = {
-            headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
-            reportProgress: true,
-        }
+        
+        // Typescript needs to be able to infer the observe and responseType values statically, 
+        // in order to choose the correct return type for get(). 
+        // If you pass in an improperly typed options object, it can't infer the right return type.
+        
+        // const options = {
+        //     headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
+        //     reportProgress: true,
+        //     observe: 'events',
+        // }
         
         order.ownerId = this.userValue._id;
-        return this.http.post(`${this.environment.apiUrl}/api/user/place-order`, order, options);
+        return this.http.post(`${this.environment.apiUrl}/api/user/place-order`, order, {
+            headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token').append('Content-Type', 'multipart/form-data'),
+            reportProgress: true,
+            observe: 'events',
+        });
     }
 
     deleteOrder(order: Order){

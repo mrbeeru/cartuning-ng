@@ -23,4 +23,5 @@ export class Order {
     clutch: string;
     ecu: string;
     ownerId: any;
+    file: File;
 }
