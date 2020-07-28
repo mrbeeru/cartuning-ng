@@ -10,7 +10,7 @@ const corsOptions = {
 }
 
 const app = express();
-app.use(express.json());
+app.use(express.json({limit: '10mb'}));
 app.use(cors(corsOptions));
 
 app.listen(44444, () => {
