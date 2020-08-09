@@ -10,6 +10,10 @@ const orderModel = {
     engine: String,
     clutch: String,
     ecu: String,
+    ecuFile: {
+        metadata: Object,
+        fileId: {type: mongoose.Schema.Types.ObjectId, ref: 'EcuFile'},
+    },
 
     ownerId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }  
