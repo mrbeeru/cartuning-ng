@@ -4,7 +4,6 @@ import { AlertService } from '../../_services/alert.service';
 import { AccountService } from '../../_services/account.service';
 import { first } from 'rxjs/internal/operators/first';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Console } from 'console';
 import { HttpEventType } from '@angular/common/http';
 
 
@@ -35,7 +34,6 @@ export class PlaceOrderComponent implements OnInit {
       engine: ['', Validators.required],
       clutch: [''],
       ecu: [''],
-      file: [''],
     });
   }
 
@@ -55,14 +53,11 @@ export class PlaceOrderComponent implements OnInit {
     }
 
     this.loading = true;
-
+    console.log(this.form.value);
     this.accountService.placeOrder(this.form.value).subscribe(
       data => {
-        console.log(data);
-
         if (data.type === HttpEventType.UploadProgress) {
           var progress = Math.round(100 * data.loaded / data.total);
-          console.log("prog ", progress);
         }
 
         if (data.type === HttpEventType.Response){
@@ -86,4 +81,23 @@ export class PlaceOrderComponent implements OnInit {
           this.loading = false;
     });
    }
+
+   public fileChangeEvent(fileInput: any){
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e : any) {
+          this.form.value.ecuFile =  {
+            metadata: {
+              type: fileInput.target.files[0].type,
+              size: fileInput.target.files[0].size,
+              name: fileInput.target.files[0].name,
+            },
+            content: e.target.result
+          };
+      }.bind(this);
+
+      reader.readAsDataURL(fileInput.target.files[0]);
+  }
+}
 }

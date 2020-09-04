@@ -46,7 +46,7 @@
        </mat-form-field>
 
         <mat-label>Upload</mat-label>
-        <input type="file" formControlName='file'>
+        <input type="file" (change)="fileChangeEvent($event)">
        
      </div>
     

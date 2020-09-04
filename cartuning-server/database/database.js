@@ -13,6 +13,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 async function registerUser(body){
     var user = await User.where({username: body.username}).findOne();
     
+console.log(body);
+
     if (user)
         return false;
 
@@ -45,6 +47,10 @@ async function placeOrder(params, body){
 
 async function getOrders(params){
     return await Order.where({ownerId: params.ownerid}).find()
+}
+
+async function getOrder(id){
+    return await Order.where({_id: id}).findOne();
 }
 
 async function deleteOrder(orderId){
@@ -93,4 +99,4 @@ function buildOrder(body, fileid){
 
 //#endregion
 
-module.exports = {registerUser, authenticateUser, placeOrder, getOrders, deleteOrder}
+module.exports = {registerUser, authenticateUser, placeOrder, getOrders, getOrder, deleteOrder}

@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 
 const orderModel = {   
-    id: mongoose.Schema.Types.ObjectId,
     createdAt: Date,
     status: String,
     brand: String,

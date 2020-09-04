@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { OrderDetailsComponent } from './order-details/order-details.component';
 import { LayoutComponent } from './layout/layout.component';
 import { UserRoutingModule } from './user-rooting.module';
 import { PlaceOrderComponent } from './place-order/place-order.component';
 import { OrdersComponent } from './orders/orders.component';
+
 import { from } from 'rxjs';
 import { MatListModule } from '@angular/material/list';
 import { ProfileComponent } from './profile/profile.component';
@@ -24,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PlaceOrderComponent,
     OrdersComponent,
     ProfileComponent,
+    OrderDetailsComponent,
 
   ],
   imports: [

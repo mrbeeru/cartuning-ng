@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 
 const ecufileModel = {   
-    id: mongoose.Schema.Types.ObjectId,
     content: String,
 }  
 

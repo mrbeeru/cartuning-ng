@@ -1,0 +1,28 @@
+<div style="font-size: 44px; color: #888; font-weight: lighter; ">Order details</div>
+<mat-progress-bar mode="indeterminate" *ngIf='loading' ></mat-progress-bar>
+
+<div *ngIf='order' style="margin-top: 40px;">
+    <div style="font-size: 24px; color: #888; font-weight: bold; background-color: #e3e3e3; padding: 10px">Order #{{order?._id}}</div>
+    <mat-list>
+        <mat-list-item> Date: {{order?.createdAt  | date: 'yyyy/MM/dd HH:mm:ss'}} </mat-list-item>
+        <mat-list-item> Status: {{order?.status}} </mat-list-item>
+        <mat-list-item> Brand: {{order?.brand}} </mat-list-item>
+        <mat-list-item> Model: {{order?.model}}</mat-list-item>
+        <mat-list-item> Engine: {{order?.engine}} </mat-list-item>
+        <mat-list-item> Year: {{order?.year}} </mat-list-item>
+        <mat-list-item> Clutch: {{order?.clutch}} </mat-list-item>
+        <mat-list-item> Ecu: {{order?.ecu}} </mat-list-item>
+    </mat-list>
+</div>
+
+
+
+   <!-- createdAt: Date;
+   status: string;
+   brand: string;
+   model: string;
+   year: number;
+   engine: string;
+   clutch: string;
+   ecu: string;
+   ecuFile: EcuFile; -->

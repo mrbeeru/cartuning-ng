@@ -43,6 +43,12 @@ app.route('/api/user/orders').get((req, res) => {
     })
 })
 
+app.route('/api/user/orders/:order').get((req, res) => {
+    database.getOrder(req.params['order']).then(order => {
+        res.status(order ? 200 : 404).send(order ? order : {message: "Could not get order from database"});
+    })
+})
+
 app.route('/api/user/orders/:order').delete((req, res) => {
     database.deleteOrder(req.params['order']).then(status => {
         res.status(status ? 200 : 406).send(status ? {message: "OK"} : {message: "Delete order failed :("});

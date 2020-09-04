@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 
-const userModel = {   
-    _id: mongoose.Schema.Types.ObjectId,                  
+const userModel = {                  
     firstName: String,
     lastName: String, 
     username: String, 

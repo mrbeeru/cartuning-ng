@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AccountService } from 'src/app/_services/account.service';
-import { Order } from 'src/app/_models/user';
+import { AccountService } from '../../_services/account.service';
+import { Order } from '../../_models/user';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,6 +24,7 @@ export class OrdersComponent implements OnInit {
   dataSource;
 
   constructor (
+    private router: Router,
     private accountService: AccountService,
     private snackBar: MatSnackBar,
   ) { 
@@ -58,6 +60,10 @@ export class OrdersComponent implements OnInit {
 
   getOrders(){
     this.loading = true;
-    this.accountService.getOrders().subscribe(x => {this.dataSource = new MatTableDataSource(x); this.loading = false;});
+    this.accountService.getOrders().subscribe(x => {this.dataSource = new MatTableDataSource(x); this.loading = false; console.log(x)});
+  }
+
+  navigateToOrder(order: Order){
+    this.router.navigate(['/user/orders/',  order._id ]);
   }
 }

@@ -25,6 +25,7 @@ export class AccountService {
         this.user = this.userSubject.asObservable();
 
         this.environment = {};
+        //this.environment.apiUrl = 'http://anbu.go.ro:7001';
         this.environment.apiUrl = 'http://localhost:44444';
     }
 
@@ -74,6 +75,15 @@ export class AccountService {
         return this.http.get<any>(`${this.environment.apiUrl}/api/user/orders`, options);
     }
 
+    getOrderById(orderId: string){
+        const options = {
+            headers: new HttpHeaders().append('ownerid', this.userValue._id.toString())
+                                    .append('Authorization', 'Bearer fake-jwt-token')
+        }
+
+        return this.http.get<Order>(`${this.environment.apiUrl}/api/user/orders/${orderId}`, options);
+    }
+
     placeOrder(order: Order){
         
         // Typescript needs to be able to infer the observe and responseType values statically, 
@@ -85,10 +95,10 @@ export class AccountService {
         //     reportProgress: true,
         //     observe: 'events',
         // }
-        
+
         order.ownerId = this.userValue._id;
         return this.http.post(`${this.environment.apiUrl}/api/user/place-order`, order, {
-            headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token').append('Content-Type', 'multipart/form-data'),
+            headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
             reportProgress: true,
             observe: 'events',
         });

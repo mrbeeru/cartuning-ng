@@ -13,15 +13,25 @@ export class User {
 
 export class Order {
     _id: any;
+    ownerId: any;
+
     createdAt: Date;
     status: string;
-
     brand: string;
     model: string;
     year: number;
     engine: string;
     clutch: string;
     ecu: string;
-    ownerId: any;
-    file: File;
+    ecuFile: EcuFile;
+}
+
+export class EcuFile {
+    fileId: any;
+    metadata: {
+        name: string,
+        size: number,
+        type: string,        
+    };
+    content: any;
 }

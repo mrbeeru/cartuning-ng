@@ -10,7 +10,7 @@
       <th mat-header-cell *matHeaderCellDef> Order </th>
       <td mat-cell *matCellDef="let element"> 
         <div style="font-size: 16px; font-weight: bold; padding: 2px 0px 6px 0px; color: rgba(0,0,0,0.54);">
-          #{{element.id}}
+          #{{element._id}}
         </div>
       </td>
     </ng-container>
@@ -44,7 +44,7 @@
      <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element"> 
-          <mat-icon style="color: var(--ng-primary); font-size: 24px; margin-right: 12px; cursor: pointer;" matTooltip='Description'>description</mat-icon>
+          <mat-icon style="color: var(--ng-primary); font-size: 24px; margin-right: 12px; cursor: pointer;" matTooltip='Details' (click)='navigateToOrder(element)'>description</mat-icon>
           <mat-icon style="color: var(--ets-red); font-size: 24px; cursor: pointer;" matTooltip='Delete' (click)='deleteOrder(element)'>delete</mat-icon>
         </td>
       </ng-container>
