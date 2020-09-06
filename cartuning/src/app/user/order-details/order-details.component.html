@@ -2,7 +2,7 @@
 <mat-progress-bar mode="indeterminate" *ngIf='loading' ></mat-progress-bar>
 
 <div *ngIf='order' style="margin-top: 40px;">
-    <div style="font-size: 24px; color: #888; font-weight: bold; background-color: #e3e3e3; padding: 10px">Order #{{order?._id}}</div>
+    <div style="font-size: 18px; color: #888; font-weight: bold; background-color: #e3e3e3; padding: 10px">Order #{{order?._id}}</div>
     <mat-list>
         <mat-list-item> Date: {{order?.createdAt  | date: 'yyyy/MM/dd HH:mm:ss'}} </mat-list-item>
         <mat-list-item> Status: {{order?.status}} </mat-list-item>

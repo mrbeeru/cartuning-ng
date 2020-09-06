@@ -30,6 +30,7 @@ import { MatButtonModule, MatButton } from '@angular/material/button'
 
 import { FontAwesomeModule  } from '@fortawesome/angular-fontawesome';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -38,7 +39,8 @@ import { ContactComponent } from './aboutus/contact/contact.component';
 import { FaqComponent } from './aboutus/faq/faq.component';
 import { ExperienceComponent } from './aboutus/experience/experience.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import { AccountService } from './_services/account.service';
+import { ReviewService } from './_services/review.service';
 
 
 @NgModule({
@@ -79,6 +81,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
     CarouselModule,
     MatCardModule,
+    TimeagoModule.forRoot()
   ],
 
   exports: [

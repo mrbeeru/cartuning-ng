@@ -128,11 +128,6 @@
   padding: 0 0 10px 0;
 }
 
-.example-header-image {
-  background-image: url('https://mdn.mozillademos.org/files/7693/catfront.png');
-  height: 60px;
-  width: 60px;
-}
 
 .test-card-container:hover .image {
   opacity: 0.5;
@@ -303,7 +298,7 @@
 }
 
 
-.owl-item:active {
+.owl-theme:active,.owl-dots:active,.owl-dot:active {
   background-color: transparent;
 }
 
@@ -365,4 +360,37 @@
 .header {
   font-size: 40px;
   font-weight: 700;
+}
+
+.review-text{
+  padding: 80px 200px;
+}
+
+.review-text::before{
+  content: "";
+  background-image: url('../../assets/quotation-mark-r.png');
+  background-repeat: no-repeat;
+  background-size: 100px 75px;
+  position: absolute;
+  /* top: calc(50% - 160px); */
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 4%;
+  opacity: 0.1;
+}
+
+
+.review-text::after{
+  content: "";
+  background-image: url('../../assets/quotation-mark-r.png');
+  background-repeat: no-repeat;
+  background-size: 100px 75px;
+  position: absolute;
+  top: 0px;
+  right: 4%;
+  bottom: 100px;
+  left: 0px;
+  opacity: 0.1;
+  transform: rotate(180deg);
 }

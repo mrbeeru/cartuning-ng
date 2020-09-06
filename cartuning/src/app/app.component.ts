@@ -4,7 +4,6 @@ import { Router, NavigationEnd} from '@angular/router';
 
 import { AccountService } from './_services/account.service'
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

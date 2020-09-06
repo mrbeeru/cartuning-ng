@@ -269,8 +269,8 @@
     <div class="row no-gutter section">
         <div class="col-lg-3" style="padding: 10px">
             <h6 class="subheader">COMPARISON</h6>
-            <h4 class="header">
-                Stock vs Stage 1
+            <h4 class="header text-center" style="margin-top: 40px" >
+                Stock <br/> vs <br/> Stage 1
             </h4>
         </div>
         <div class="col-lg-6 text-center" style="overflow: hidden;">
@@ -347,68 +347,38 @@
                     <span style="color:#E81C2E; font-weight: 800; letter-spacing: 8px;">RECENZII</span>
                 </div>
 
-                    <div class='row no-gutter d-flex justify-content-center'>
-                        <div style="font-size: 42px; font-weight: bold;">Ce spun clientii nostri</div>
-                    </div>
-        
-                    <div class="section">
-                        <owl-carousel-o [options]="customOptions">
-                            <ng-template carouselSlide>
-                                <div class='col'>
-                                    <div class='review-text'>
-                                        <fa-icon [icon]='faQuoteLeft' style="color: #E81C2E; font-size: 56px; margin-left: 60px;"></fa-icon>
-                                        <div class="text-center" style="padding: 0px 60px;">
-                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
-                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
-                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
+                <div class='row no-gutter d-flex justify-content-center'>
+                    <div style="font-size: 42px; font-weight: bold;">Ce spun clientii nostri</div>
+                </div>
+    
+                <div class="section">
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide *ngFor="let review of reviews" >
+                            <div class='col'>
+                                <div class="text-center align-middle review-text"  [innerHtml]=review.comment ></div>
+                                <div class="d-flex justify-content-center">
+                                    <mat-icon class="material-icons-round" style="font-size: 80px; height: 80px; width: 80px;">account_circle</mat-icon>
+                                    <!-- <img src='../../assets/car-brands/bmw_logo_thumbnail.png' style="width: 80px; height: 80px;"> -->
+                                    <div style="margin-left: 20px;">
+                                        <div style="color: #E81C2E; font-weight: bold; ">
+                                            {{review.name | uppercase}}
                                         </div>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <img src='../../assets/car-brands/bmw_logo_thumbnail.png' style="width: 80px; height: 80px;">
-                                    </div>
-                                    <div class="text-center">
-                                        <div style="color: #E81C2E; font-weight: bold; margin-top: 20px;" >
-                                            Mr Beeru
+                                        <div style=" font-style: italic; margin-bottom: 10px; font-size: 12px;" >
+                                            {{review.date | timeago}} &ndash; via Facebook
                                         </div>
                                         <div >
-                                            <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
+                                            <fa-icon [icon]='faStar' [ngStyle]="review.rating >= 1 && {'color' : 'sandybrown'}"></fa-icon>
+                                            <fa-icon [icon]='faStar' [ngStyle]="review.rating >= 2 && {'color' : 'sandybrown'}"></fa-icon>
+                                            <fa-icon [icon]='faStar' [ngStyle]="review.rating >= 3 && {'color' : 'sandybrown'}"></fa-icon>
+                                            <fa-icon [icon]='faStar' [ngStyle]="review.rating >= 4 && {'color' : 'sandybrown'}"></fa-icon>
+                                            <fa-icon [icon]='faStar' [ngStyle]="review.rating >= 5 && {'color' : 'sandybrown'}"></fa-icon>
                                         </div>
                                     </div>
-                                    
                                 </div>
-                            </ng-template>  
-                            <ng-template carouselSlide>
-                                <div class='col'>
-                                    <div class='review-text'>
-                                        <fa-icon [icon]='faQuoteLeft' style="color: #E81C2E; font-size: 56px; margin-left: 60px;"></fa-icon>
-                                        <div class="text-center" style="padding: 0px 60px">
-                                            I actually wish to have each slide stay longer before moving onto the next slide, and no just slow down the animation speed. I noticed that autoPlay : false, but somehow it is still autoplaying.Any way I can resolve that?
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <img src='../../assets/car-brands/bmw_logo_thumbnail.png' style="width: 80px; height: 80px;">
-                                    </div>
-                                    <div class="text-center">
-                                        <div style="color: #E81C2E; font-weight: bold; margin-top: 20px;" >
-                                            Mr Beeru
-                                        </div>
-                                        <div >
-                                            <fa-icon [icon]='faStar' style="color: sandybrown;"></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
-                                            <fa-icon [icon]='faStar'></fa-icon>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </ng-template>  
-                        </owl-carousel-o>
-                    </div>
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
             </div>
         </div>
     </div>

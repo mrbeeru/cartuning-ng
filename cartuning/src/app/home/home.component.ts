@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ReviewService } from "../_services/review.service"
 
 
 import { faCar, faMicrochip, faTachometerAlt, faCalendarCheck, faTools, faChartLine, faStar, 
-         faExclamationCircle, faCheckCircle, faArrowCircleRight, faQuoteLeft, faQuoteRight, faDumbbell } from '@fortawesome/free-solid-svg-icons'
+         faExclamationCircle, faCheckCircle, faArrowCircleRight, faQuoteLeft, faQuoteRight, faDumbbell, faTasks } from '@fortawesome/free-solid-svg-icons'
+import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
+import { delay } from 'rxjs/operators';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -27,10 +31,14 @@ export class HomeComponent implements OnInit {
   faArrowRight = faArrowCircleRight;
   faDumbbell = faDumbbell;
 
-  constructor() { }
+  reviews = []
+
+  constructor(
+    private reviewService: ReviewService
+  ) { }
 
   ngOnInit(): void {
- 
+    this.reviewService.getFacebookReviews().subscribe(x => this.reviews = x);
   }
 
   customOptions: OwlOptions = {
@@ -41,7 +49,7 @@ export class HomeComponent implements OnInit {
     dots: true,
     autoplay: true,
     smartSpeed: 800,
-    autoplayTimeout: 5000,
+    autoplayTimeout: 1115000,
     navText: ['<', '>'],
     responsive: {
       0: {
@@ -73,25 +81,26 @@ export class HomeComponent implements OnInit {
   }
 
 
-carLogoPaths = ['../../assets/car-brands/alfaromeo_logo_thumbnail.png' ,
-'../../assets/car-brands/audi_logo_thumbnail.png' ,
-'../../assets/car-brands/bmw_logo_thumbnail.png' ,
-'../../assets/car-brands/citroen_logo_thumbnail.png' ,
-'../../assets/car-brands/dacia_logo_thumbnail.png' ,
-'../../assets/car-brands/fiat_logo_thumbnail.png' ,
-'../../assets/car-brands/ford_logo_thumbnail.png' ,
-'../../assets/car-brands/lexus_logo_thumbnail.png' ,
-'../../assets/car-brands/mazda_logo_thumbnail.png' ,
-'../../assets/car-brands/mercedes_logo_thumbnail.png' ,
-'../../assets/car-brands/mitsubishi_logo_thumbnail.png' ,
-'../../assets/car-brands/nissan_logo_thumbnail.png' ,
-'../../assets/car-brands/opel_logo_thumbnail.png' ,
-'../../assets/car-brands/peugeot_logo_thumbnail.png' ,
-'../../assets/car-brands/renault_logo_thumbnail.png' ,
-'../../assets/car-brands/skoda_logo_thumbnail.png' ,
-'../../assets/car-brands/volkswagen_logo_thumbnail.png' ,
-'../../assets/car-brands/volvo_logo_thumbnail.png' ,]
-
-          
+  carLogoPaths = 
+  [
+    '../../assets/car-brands/alfaromeo_logo_thumbnail.png' ,
+    '../../assets/car-brands/audi_logo_thumbnail.png' ,
+    '../../assets/car-brands/bmw_logo_thumbnail.png' ,
+    '../../assets/car-brands/citroen_logo_thumbnail.png' ,
+    '../../assets/car-brands/dacia_logo_thumbnail.png' ,
+    '../../assets/car-brands/fiat_logo_thumbnail.png' ,
+    '../../assets/car-brands/ford_logo_thumbnail.png' ,
+    '../../assets/car-brands/lexus_logo_thumbnail.png' ,
+    '../../assets/car-brands/mazda_logo_thumbnail.png' ,
+    '../../assets/car-brands/mercedes_logo_thumbnail.png' ,
+    '../../assets/car-brands/mitsubishi_logo_thumbnail.png' ,
+    '../../assets/car-brands/nissan_logo_thumbnail.png' ,
+    '../../assets/car-brands/opel_logo_thumbnail.png' ,
+    '../../assets/car-brands/peugeot_logo_thumbnail.png' ,
+    '../../assets/car-brands/renault_logo_thumbnail.png' ,
+    '../../assets/car-brands/skoda_logo_thumbnail.png' ,
+    '../../assets/car-brands/volkswagen_logo_thumbnail.png' ,
+    '../../assets/car-brands/volvo_logo_thumbnail.png' ,
+  ]
 
 }

@@ -26,7 +26,7 @@ export class AccountService {
 
         this.environment = {};
         //this.environment.apiUrl = 'http://anbu.go.ro:7001';
-        this.environment.apiUrl = 'http://localhost:44444';
+        this.environment.apiUrl = 'http://localhost:44444/api';
     }
 
     public get userValue(): User {
@@ -34,7 +34,7 @@ export class AccountService {
     }
 
     login(username, password) {
-        return this.http.post<User>(`${this.environment.apiUrl}/api/account/authenticate`, { username, password })
+        return this.http.post<User>(`${this.environment.apiUrl}/account/authenticate`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
@@ -55,15 +55,7 @@ export class AccountService {
 
     register(user: User) {
         console.log(user);
-        return this.http.post(`${this.environment.apiUrl}/api/account/register`, user);
-    }
-
-    getAll() {
-        return this.http.get<User[]>(`${this.environment.apiUrl}/users`);
-    }
-
-    getById(id: string) {
-        return this.http.get<User>(`${this.environment.apiUrl}/users/${id}`);
+        return this.http.post(`${this.environment.apiUrl}/account/register`, user);
     }
 
     getOrders(){
@@ -72,7 +64,7 @@ export class AccountService {
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
-        return this.http.get<any>(`${this.environment.apiUrl}/api/user/orders`, options);
+        return this.http.get<any>(`${this.environment.apiUrl}/user/orders`, options);
     }
 
     getOrderById(orderId: string){
@@ -81,7 +73,7 @@ export class AccountService {
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
-        return this.http.get<Order>(`${this.environment.apiUrl}/api/user/orders/${orderId}`, options);
+        return this.http.get<Order>(`${this.environment.apiUrl}/user/orders/${orderId}`, options);
     }
 
     placeOrder(order: Order){
@@ -97,7 +89,7 @@ export class AccountService {
         // }
 
         order.ownerId = this.userValue._id;
-        return this.http.post(`${this.environment.apiUrl}/api/user/place-order`, order, {
+        return this.http.post(`${this.environment.apiUrl}/user/place-order`, order, {
             headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
             reportProgress: true,
             observe: 'events',
@@ -109,33 +101,9 @@ export class AccountService {
             headers: new HttpHeaders().append('id', this.userValue._id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')}
 
-        return this.http.delete(`${this.environment.apiUrl}/api/user/orders/${order._id}`, options);
+        return this.http.delete(`${this.environment.apiUrl}/user/orders/${order._id}`, options);
     }
 
-    update(id, params) {
-        return this.http.put(`${this.environment.apiUrl}/users/${id}`, params)
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue._id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
 
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
-            }));
-    }
-
-    delete(id: string) {
-        return this.http.delete(`${this.environment.apiUrl}/users/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in user deleted their own record
-                if (id == this.userValue._id) {
-                    this.logout();
-                }
-                return x;
-            }));
-    }
+  
 }
