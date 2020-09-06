@@ -1,5 +1,7 @@
-const express = require('express');
 const database = require('./database/database');
+const reviewService = require('./services/reviews/review-service');
+
+const express = require('express');
 const cors = require('cors');
 
 const corsOptions = {
@@ -17,7 +19,7 @@ app.listen(44444, () => {
     console.log("Server started")
 })
 
-//#region routes
+//#region database-routes
 
 app.route('/api/account/register').post((req, res) => {
     database.registerUser(req.body).then(status => {
@@ -55,7 +57,8 @@ app.route('/api/user/orders/:order').delete((req, res) => {
     })
 })
 
-
-
 //#endregion
 
+app.route('/api/reviews/facebook').get((req,res) => {
+    res.status(200).send(reviewService.getFacebookReviews())
+})
