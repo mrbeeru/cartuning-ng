@@ -41,6 +41,7 @@ import { ExperienceComponent } from './aboutus/experience/experience.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AccountService } from './_services/account.service';
 import { ReviewService } from './_services/review.service';
+import { GalleryComponent } from './gallery/gallery.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ReviewService } from './_services/review.service';
     ContactComponent,
     FaqComponent,
     ExperienceComponent,
+    GalleryComponent,
   ],
 
   imports: [

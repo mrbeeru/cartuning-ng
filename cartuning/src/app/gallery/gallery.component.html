@@ -1,0 +1,23 @@
+<app-pageheader pageTitle='Gallery'></app-pageheader>
+
+<ul id="hexGrid" style="margin-bottom: 100px; margin-top: 100px;">
+    <li class="hex" *ngFor='let item of galleryArray'>
+      <div class="hexIn">
+        <a class="hexLink" href={{item.imgSrc}}>
+          <img [src]="item.imgSrc" [alt]="item.alt" />
+          <h1>{{item.title}}</h1>
+          <p>{{item.description}}</p>
+        </a>
+      </div>
+    </li>
+</ul>   
+
+<div style="width: 100%; margin-bottom: 100px;" class="text-center" *ngIf='showLoadButton'>
+  <button type="button" class="btn btn-primary btn-lg btn-main btn-hover-black shadow-none" (click)="loadNextChunk()"> 
+    See more
+    <mat-icon >play_circle_outline</mat-icon>
+  </button>
+</div>
+
+
+<app-footer></app-footer>
