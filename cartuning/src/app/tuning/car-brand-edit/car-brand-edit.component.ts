@@ -16,16 +16,22 @@ export class CarBrandEditComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) 
   {
-    this.carFormGroup = formBuilder.group({
-      name: [''],
-      iconPath: ['']
-    });
 
   }
 
   ngOnInit(): void {
+    this.initCarFormGroup();
+  }
+
+  initCarFormGroup()
+  {
+    this.carFormGroup = this.formBuilder.group({
+      name: [this.carBrand?.name],
+      iconPath: [this.carBrand?.icon]
+    });
 
     this.carFormGroup.valueChanges.subscribe(x => this.carFormValueChanges(x))
+
   }
 
   carFormValueChanges(value)

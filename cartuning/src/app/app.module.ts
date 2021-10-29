@@ -46,6 +46,7 @@ import { TuningEditDialogComponent } from './tuning/tuning-edit-dialog/tuning-ed
 import { MatDialogModule } from '@angular/material/dialog';
 import { CarBrandEditComponent } from './tuning/car-brand-edit/car-brand-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ClickStopPropagationDirective } from './_directives/click-stop-propagation.directive';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     GalleryComponent,
     TuningEditDialogComponent,
     CarBrandEditComponent,
+    ClickStopPropagationDirective,
   ],
 
   imports: [

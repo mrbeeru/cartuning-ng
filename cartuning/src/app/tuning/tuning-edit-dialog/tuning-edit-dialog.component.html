@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-    <app-car-brand-edit (carBrandEdited)="carBrandEdited($event)"></app-car-brand-edit>
+    <app-car-brand-edit [carBrand]='editObject' (carBrandEdited)="carBrandEdited($event)"></app-car-brand-edit>
 </div>
 
 <div mat-dialog-actions>

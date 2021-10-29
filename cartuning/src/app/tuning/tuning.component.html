@@ -1,26 +1,36 @@
 <div>
     <app-pageheader pageTitle='Catalog Tuning'></app-pageheader>
 
-    <div class="container-xl" style="min-height: 100vh;">
+    <div class="container-xl" style="min-height: 100vh; width: 100%;">
 
 
         <mat-horizontal-stepper #stepper [linear]="true" (selectionChange)="setIndex($event)">
             <mat-step [completed]="false">
-                <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Car Brand"}}</ng-template>
+                <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Brand"}}</ng-template>
 
-                <div>
-                    <button mat-raised-button (click)="openAddCarDialog()">Create Car Brand</button>
+                <div class="mb-3">
+                    <button mat-raised-button (click)="openAddCarDialog()">Add Car Brand</button>
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-3 col-4 mb-4" *ngFor='let car of myCarMap.cars' (click)="selectCar(car)">
-                        <div class="car-card">
-                            <div class="d-flex justify-content-end mr-2">
-                                <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
-                                    class="d-flex align-items-center justify-content-center">
-                                    <mat-icon style="font-size: 16px;"
-                                        class="d-flex align-items-center justify-content-center">edit</mat-icon>
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor='let car of carMap.cars'>
+                        <div class="car-card" (click)="selectCar(car); false">
+                            <div class="d-flex justify-content-end mr-2 mt-2">
+                                <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
+                                    class="d-flex align-items-center justify-content-center" 
+                                    color='primary'
+                                    [matMenuTriggerFor]="menu"
+                                    clickStopPropagation>
+                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                          style="font-size: 16px;">
+                                        expand_more
+                                    </span>
                                 </button>
+
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)='openEditCarDialog(car)'>Edit</button>
+                                    <button mat-menu-item (click)='deleteCar(car)'>Delete</button>
+                                  </mat-menu>
                             </div>
                             <div class="text-center">
                                 <img [src]="car.icon" style="width: 102px; height: 102px; margin: 0">
@@ -34,19 +44,27 @@
             </mat-step>
 
             <mat-step [completed]="false">
-                <ng-template matStepLabel>{{selectedModel != null ? selectedModel.name : "Car Model"}}</ng-template>
-                <table class="car-table">
-                    <tr *ngFor="let row of carModelTable">
-                        <td *ngFor="let cell of row" (click)="selectModel(cell)" class='car-card'>
+                <ng-template matStepLabel>{{selectedModel != null ? selectedModel.name : "Model"}}</ng-template>
+
+                <div class="row">
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor='let carModel of selectedCar?.models'>
+                        <div class="car-card" (click)="selectModel(carModel)">
+                            <div class="d-flex justify-content-end mr-2">
+                                <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
+                                    class="d-flex align-items-center justify-content-center">
+                                    <mat-icon style="font-size: 16px;"
+                                        class="d-flex align-items-center justify-content-center">edit</mat-icon>
+                                </button>
+                            </div>
                             <div class="text-center">
-                                <img [src]="cell.icon" style="height: 102px; margin: 0">
+                                <img [src]="carModel.icon" style="height: 102px; margin: 0">
                             </div>
                             <div class="text-center" style="font-size: 12px; margin-top: 25px">
-                                {{cell.name | uppercase}}
+                                {{carModel.name | uppercase}}
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="text-center">
                     <button matStepperPrevious class="btn btn-outline-primary btn-lg">Back</button>
@@ -55,20 +73,30 @@
 
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedGeneration != null ? (selectedGeneration.startYear + " - " +
-                    selectedGeneration.endYear) : "Car Version"}}</ng-template>
+                    selectedGeneration.endYear) : "Version"}}</ng-template>
 
-                <table class="car-table">
-                    <tr *ngFor="let row of carGenerationTable">
-                        <td *ngFor="let cell of row" (click)="selectGeneration(cell)" class='car-card'>
+                <div class="row">
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4"
+                        *ngFor='let carGeneration of selectedModel?.generations'>
+                        <div class="car-card" (click)="selectGeneration(carGeneration)">
+                            <div class="d-flex justify-content-end mr-2">
+                                <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
+                                    class="d-flex align-items-center justify-content-center">
+                                    <mat-icon style="font-size: 16px;"
+                                        class="d-flex align-items-center justify-content-center">edit</mat-icon>
+                                </button>
+                            </div>
                             <div class="text-center">
-                                <img [src]="cell.icon" style="height: 102px; margin: 0">
+                                <img [src]="carGeneration.icon" style="height: 102px; margin: 0">
                             </div>
                             <div class="text-center" style="font-size: 12px; margin-top: 25px">
-                                {{cell.startYear }} {{cell.endYear == 'Infinity' ? '+' : ('- ' + cell.endYear)}}
+                                {{carGeneration.startYear }} {{carGeneration.endYear == 'Infinity' ? '+' : ('- ' +
+                                carGeneration.endYear)}}
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <button matStepperPrevious class="btn btn-outline-primary btn-lg">Back</button>
                 </div>

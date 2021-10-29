@@ -10,13 +10,16 @@ import { CarBrand } from '../tuning.component';
 export class TuningEditDialogComponent implements OnInit {
 
   method: string;
+  originalObject: any;
   editObject: any;
 
   constructor(
     public dialogRef: MatDialogRef<TuningEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data : any) {
+    @Inject(MAT_DIALOG_DATA) public data : any) 
+    {
       this.method = data.method;
-      this.editObject = data.editObject;
+      this.originalObject = data.originalObject;
+      this.editObject = JSON.parse(JSON.stringify(data.originalObject ?? {}));
     }
 
   ngOnInit(): void {
