@@ -2,10 +2,19 @@
     <app-pageheader pageTitle='Catalog Tuning'></app-pageheader>
 
     <div class="tuning-section"  style="min-height: 100vh;">
+
+        
+
         <mat-horizontal-stepper #stepper  [linear]="true"  (selectionChange)="setIndex($event)">
+           
 
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Car Brand"}}</ng-template>
+
+                <div >
+                    <button mat-raised-button (click)="openAddCarDialog()">Create Car Brand</button>
+                </div>
+
                 <table class="car-table">
                     <tr *ngFor="let row of carBrandTable" >
                       <td *ngFor="let cell of row" (click)="selectCar(cell)" class='car-card'>

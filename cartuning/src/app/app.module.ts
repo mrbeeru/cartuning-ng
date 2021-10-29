@@ -42,6 +42,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { AccountService } from './_services/account.service';
 import { ReviewService } from './_services/review.service';
 import { GalleryComponent } from './gallery/gallery.component';
+import { TuningEditDialogComponent } from './tuning/tuning-edit-dialog/tuning-edit-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CarBrandEditComponent } from './tuning/car-brand-edit/car-brand-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -59,6 +63,8 @@ import { GalleryComponent } from './gallery/gallery.component';
     FaqComponent,
     ExperienceComponent,
     GalleryComponent,
+    TuningEditDialogComponent,
+    CarBrandEditComponent,
   ],
 
   imports: [
@@ -83,6 +89,11 @@ import { GalleryComponent } from './gallery/gallery.component';
     MatExpansionModule,
     CarouselModule,
     MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    
     TimeagoModule.forRoot()
   ],
 

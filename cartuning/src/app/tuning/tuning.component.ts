@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
+import { TuningEditDialogComponent } from './tuning-edit-dialog/tuning-edit-dialog.component';
 
 
-interface CarBrand {
+export interface CarBrand {
   name: string;
   icon: string;
   models:CarModel[];
@@ -65,7 +67,7 @@ export class TuningComponent implements OnInit {
   @ViewChild('stepper') stepper:MatStepper;
   //#endregion
 
-  constructor() { 
+  constructor(public dialog: MatDialog) { 
     
   }
 
@@ -222,6 +224,22 @@ export class TuningComponent implements OnInit {
         this.carGenerationTable[i][j] = test;
       }
     }
+  }
+
+  openAddCarDialog(){
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"ADD BRAND"}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Dialog Result:", result);
+
+      if (result != null)
+      {
+        carMap.cars.push(result);
+        this.buildCarBrandTable();
+      }
+
+
+    });
   }
 
   //#endregion
