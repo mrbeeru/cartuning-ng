@@ -64,11 +64,13 @@ export class TuningComponent implements OnInit {
   selectedModel : CarModel;
   selectedGeneration : CarGeneration;
 
+  myCarMap: any;
+
   @ViewChild('stepper') stepper:MatStepper;
   //#endregion
 
   constructor(public dialog: MatDialog) { 
-    
+    this.myCarMap = carMap;
   }
 
   applyFilter(event: Event) {

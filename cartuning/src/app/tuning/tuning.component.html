@@ -1,48 +1,52 @@
 <div>
     <app-pageheader pageTitle='Catalog Tuning'></app-pageheader>
 
-    <div class="tuning-section"  style="min-height: 100vh;">
+    <div class="container-xl" style="min-height: 100vh;">
 
-        
 
-        <mat-horizontal-stepper #stepper  [linear]="true"  (selectionChange)="setIndex($event)">
-           
-
+        <mat-horizontal-stepper #stepper [linear]="true" (selectionChange)="setIndex($event)">
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Car Brand"}}</ng-template>
 
-                <div >
+                <div>
                     <button mat-raised-button (click)="openAddCarDialog()">Create Car Brand</button>
                 </div>
 
-                <table class="car-table">
-                    <tr *ngFor="let row of carBrandTable" >
-                      <td *ngFor="let cell of row" (click)="selectCar(cell)" class='car-card'>
-                          <div class="text-center"> 
-                              <img [src]="cell.icon" style="width: 102px; height: 102px; margin: 0">
-                          </div>
-                          <div class="text-center" style="font-size: 12px; margin-top: 25px">
-                              {{cell.name | uppercase}}
-                          </div>
-                      </td>
-                    </tr>
-                  </table>
+                <div class="row">
+                    <div class="col-xl-3 col-4 mb-4" *ngFor='let car of myCarMap.cars' (click)="selectCar(car)">
+                        <div class="car-card">
+                            <div class="d-flex justify-content-end mr-2">
+                                <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
+                                    class="d-flex align-items-center justify-content-center">
+                                    <mat-icon style="font-size: 16px;"
+                                        class="d-flex align-items-center justify-content-center">edit</mat-icon>
+                                </button>
+                            </div>
+                            <div class="text-center">
+                                <img [src]="car.icon" style="width: 102px; height: 102px; margin: 0">
+                            </div>
+                            <div class="text-center" style="font-size: 12px; margin-top: 25px">
+                                {{car.name | uppercase}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </mat-step>
-            
+
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedModel != null ? selectedModel.name : "Car Model"}}</ng-template>
                 <table class="car-table">
-                    <tr *ngFor="let row of carModelTable" >
-                      <td *ngFor="let cell of row" (click)="selectModel(cell)" class='car-card'>
-                          <div class="text-center"> 
-                              <img [src]="cell.icon" style="height: 102px; margin: 0">
-                          </div>
-                          <div class="text-center" style="font-size: 12px; margin-top: 25px">
-                              {{cell.name | uppercase}}
-                          </div>
-                      </td>
+                    <tr *ngFor="let row of carModelTable">
+                        <td *ngFor="let cell of row" (click)="selectModel(cell)" class='car-card'>
+                            <div class="text-center">
+                                <img [src]="cell.icon" style="height: 102px; margin: 0">
+                            </div>
+                            <div class="text-center" style="font-size: 12px; margin-top: 25px">
+                                {{cell.name | uppercase}}
+                            </div>
+                        </td>
                     </tr>
-                  </table>
+                </table>
 
                 <div class="text-center">
                     <button matStepperPrevious class="btn btn-outline-primary btn-lg">Back</button>
@@ -50,12 +54,13 @@
             </mat-step>
 
             <mat-step [completed]="false">
-                <ng-template matStepLabel>{{selectedGeneration != null ? (selectedGeneration.startYear + " - " + selectedGeneration.endYear) : "Car Version"}}</ng-template>
+                <ng-template matStepLabel>{{selectedGeneration != null ? (selectedGeneration.startYear + " - " +
+                    selectedGeneration.endYear) : "Car Version"}}</ng-template>
 
                 <table class="car-table">
-                    <tr *ngFor="let row of carGenerationTable" >
+                    <tr *ngFor="let row of carGenerationTable">
                         <td *ngFor="let cell of row" (click)="selectGeneration(cell)" class='car-card'>
-                            <div class="text-center"> 
+                            <div class="text-center">
                                 <img [src]="cell.icon" style="height: 102px; margin: 0">
                             </div>
                             <div class="text-center" style="font-size: 12px; margin-top: 25px">
@@ -71,119 +76,135 @@
 
             <mat-step [completed]="false">
                 <ng-template matStepLabel>Done</ng-template>
-                
+
                 <br>
 
                 <mat-form-field style="width: 100%;">
                     <mat-label>Filter</mat-label>
                     <input matInput (keyup)="applyFilter($event)">
-                  </mat-form-field>
+                </mat-form-field>
 
                 <!-- DIESEL ENGINES TABLE -->
                 <span style="color: #3f51b544; font-size: 32px; font-weight: 1000;">Diesel</span>
                 <table mat-table [dataSource]="dieselEngineSource" class="mat-elevation-z8" style="width: 100%;">
 
                     <ng-container matColumnDef="engineName">
-                      <th mat-header-cell *matHeaderCellDef style="width: 240px;"> Motor </th>
-                      <td mat-cell *matCellDef="let element"> <b>{{element.name}}</b> </td>
+                        <th mat-header-cell *matHeaderCellDef style="width: 240px;"> Motor </th>
+                        <td mat-cell *matCellDef="let element"> <b>{{element.name}}</b> </td>
                     </ng-container>
-                  
+
                     <ng-container matColumnDef="original">
-                      <th mat-header-cell *matHeaderCellDef> Original </th>
-                      <td mat-cell *matCellDef="let element">  
-                        <div style="padding: 15px 0px 5px 0px;"> {{element.hp}} HP </div>
-                        <div style="padding: 5px 0px 5px 0px;"> {{element.nm}} Nm  </div>
-                        <div style="padding: 5px 0px 15px 0px;"> {{element.hp * 0.73556 | number : '1.1-1'}} Kw  </div>
-                      </td>
-                    </ng-container>
-                  
-                    <ng-container matColumnDef="tuned">
-                        <th mat-header-cell *matHeaderCellDef style="color: #2e3092; font-weight: bold;"> Stage 1 </th>
-                        <td mat-cell *matCellDef="let element"> 
-                            <div style="color: #2e3092; font-weight: bold; padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp}} HP </div>
-                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm}} Nm  </div>
-                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 | number : '1.1-1'}} Kw  </div>
+                        <th mat-header-cell *matHeaderCellDef> Original </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="padding: 15px 0px 5px 0px;"> {{element.hp}} HP </div>
+                            <div style="padding: 5px 0px 5px 0px;"> {{element.nm}} Nm </div>
+                            <div style="padding: 5px 0px 15px 0px;"> {{element.hp * 0.73556 | number : '1.1-1'}} Kw
+                            </div>
                         </td>
                     </ng-container>
-                  
+
+                    <ng-container matColumnDef="tuned">
+                        <th mat-header-cell *matHeaderCellDef style="color: #2e3092; font-weight: bold;"> Stage 1 </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="color: #2e3092; font-weight: bold; padding: 10px 0px 5px 0px;">
+                                {{element.stage1?.stageHp}} HP </div>
+                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 5px 0px;">
+                                {{element.stage1?.stageNm}} Nm </div>
+                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 10px 0px;">
+                                {{element.stage1?.stageHp * 0.73556 | number : '1.1-1'}} Kw </div>
+                        </td>
+                    </ng-container>
+
                     <ng-container matColumnDef="symbol">
                         <th mat-header-cell *matHeaderCellDef> Diferenta </th>
-                        <td mat-cell *matCellDef="let element"> 
-                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp - element.hp > 0 ? '+' : ''}}  {{element.stage1?.stageHp - element.hp}} HP </div>
-                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm - element.nm > 0 ? '+' : ''}}  {{element.stage1?.stageNm - element.nm}} Nm </div>
-                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 > 0 ? '+' : ''}}  {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 | number : '1.1-1'}} Kw </div>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp - element.hp > 0 ? '+' :
+                                ''}} {{element.stage1?.stageHp - element.hp}} HP </div>
+                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm - element.nm > 0 ? '+' :
+                                ''}} {{element.stage1?.stageNm - element.nm}} Nm </div>
+                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 - element.hp *
+                                0.73556 > 0 ? '+' : ''}} {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 |
+                                number : '1.1-1'}} Kw </div>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="price">
                         <th mat-header-cell *matHeaderCellDef> Pret </th>
-                        <td mat-cell *matCellDef="let element"> 
+                        <td mat-cell *matCellDef="let element">
                             <div> {{element.stage1?.price | currency:'EUR'}} </div>
                         </td>
                     </ng-container>
-                  
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
+                </table>
 
-                  <br><br>
+                <br><br>
 
-                  <!-- PETROL ENGINES TABLE-->
-                  <span style="color: #3f51b544; font-size: 32px; font-weight: 1000;">Benzina</span>
-                  <table mat-table [dataSource]="petrolEngineSource" class="mat-elevation-z8" style="width: 100%;">
-                  
+                <!-- PETROL ENGINES TABLE-->
+                <span style="color: #3f51b544; font-size: 32px; font-weight: 1000;">Benzina</span>
+                <table mat-table [dataSource]="petrolEngineSource" class="mat-elevation-z8" style="width: 100%;">
+
                     <ng-container matColumnDef="engineName">
-                      <th mat-header-cell *matHeaderCellDef style="width: 240px;"> Motor </th>
-                      <td mat-cell *matCellDef="let element"> <b>{{element.name}}</b> </td>
+                        <th mat-header-cell *matHeaderCellDef style="width: 240px;"> Motor </th>
+                        <td mat-cell *matCellDef="let element"> <b>{{element.name}}</b> </td>
                     </ng-container>
-                  
+
                     <ng-container matColumnDef="original">
-                      <th mat-header-cell *matHeaderCellDef> Original </th>
-                      <td mat-cell *matCellDef="let element">  
-                        <div style="padding: 15px 0px 5px 0px;"> {{element.hp}} HP </div>
-                        <div style="padding: 5px 0px 5px 0px;"> {{element.nm}} Nm  </div>
-                        <div style="padding: 5px 0px 15px 0px;"> {{element.hp * 0.73556 | number : '1.1-1'}} Kw  </div>
-                      </td>
-                    </ng-container>
-                  
-                    <ng-container matColumnDef="tuned">
-                        <th mat-header-cell *matHeaderCellDef style="color: #2e3092; font-weight: bold;"> Stage 1 </th>
-                        <td mat-cell *matCellDef="let element"> 
-                            <div style="color: #2e3092; font-weight: bold; padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp}} HP </div>
-                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm}} Nm  </div>
-                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 | number : '1.1-1'}} Kw  </div>
+                        <th mat-header-cell *matHeaderCellDef> Original </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="padding: 15px 0px 5px 0px;"> {{element.hp}} HP </div>
+                            <div style="padding: 5px 0px 5px 0px;"> {{element.nm}} Nm </div>
+                            <div style="padding: 5px 0px 15px 0px;"> {{element.hp * 0.73556 | number : '1.1-1'}} Kw
+                            </div>
                         </td>
                     </ng-container>
-                  
+
+                    <ng-container matColumnDef="tuned">
+                        <th mat-header-cell *matHeaderCellDef style="color: #2e3092; font-weight: bold;"> Stage 1 </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="color: #2e3092; font-weight: bold; padding: 10px 0px 5px 0px;">
+                                {{element.stage1?.stageHp}} HP </div>
+                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 5px 0px;">
+                                {{element.stage1?.stageNm}} Nm </div>
+                            <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 10px 0px;">
+                                {{element.stage1?.stageHp * 0.73556 | number : '1.1-1'}} Kw </div>
+                        </td>
+                    </ng-container>
+
                     <ng-container matColumnDef="symbol">
                         <th mat-header-cell *matHeaderCellDef> Diferenta </th>
-                        <td mat-cell *matCellDef="let element"> 
-                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp - element.hp > 0 ? '+' : ''}}  {{element.stage1?.stageHp - element.hp}} HP </div>
-                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm - element.nm > 0 ? '+' : ''}}  {{element.stage1?.stageNm - element.nm}} Nm </div>
-                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 > 0 ? '+' : ''}}  {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 | number : '1.1-1'}} Kw </div>
+                        <td mat-cell *matCellDef="let element">
+                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp - element.hp > 0 ? '+' :
+                                ''}} {{element.stage1?.stageHp - element.hp}} HP </div>
+                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm - element.nm > 0 ? '+' :
+                                ''}} {{element.stage1?.stageNm - element.nm}} Nm </div>
+                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 - element.hp *
+                                0.73556 > 0 ? '+' : ''}} {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 |
+                                number : '1.1-1'}} Kw </div>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="price">
                         <th mat-header-cell *matHeaderCellDef> Pret </th>
-                        <td mat-cell *matCellDef="let element"> 
+                        <td mat-cell *matCellDef="let element">
                             <div> {{element.stage1?.price | currency:'EUR'}} </div>
                         </td>
                     </ng-container>
-                  
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
+                </table>
 
-                  <br><br>
+                <br><br>
                 <div class="text-center">
-                    <button  matStepperPrevious class="btn btn-outline-primary btn-lg mr-3" >Back</button>
+                    <button matStepperPrevious class="btn btn-outline-primary btn-lg mr-3">Back</button>
                     <button (click)="stepper.reset()" class="btn btn-outline-primary btn-lg">Reset</button>
                 </div>
             </mat-step>
-            
-          </mat-horizontal-stepper>
+
+        </mat-horizontal-stepper>
     </div>
 </div>
-    
+
 <app-footer></app-footer>
