@@ -47,6 +47,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CarBrandEditComponent } from './tuning/car-brand-edit/car-brand-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClickStopPropagationDirective } from './_directives/click-stop-propagation.directive';
+import { CarModelEditComponent } from './tuning/car-model-edit/car-model-edit.component';
+import { CarMakeEditComponent } from './tuning/car-make-edit/car-make-edit.component';
 
 
 @NgModule({
@@ -67,6 +69,8 @@ import { ClickStopPropagationDirective } from './_directives/click-stop-propagat
     TuningEditDialogComponent,
     CarBrandEditComponent,
     ClickStopPropagationDirective,
+    CarModelEditComponent,
+    CarMakeEditComponent,
   ],
 
   imports: [

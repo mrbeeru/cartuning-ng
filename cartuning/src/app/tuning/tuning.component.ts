@@ -11,13 +11,13 @@ export interface CarBrand {
   models:CarModel[];
 }
 
-interface CarModel {
+export interface CarModel {
   name: string;
   icon: string;
   generations: CarGeneration[];
 }
 
-interface CarGeneration {
+export interface CarGeneration {
   startYear: number;
   endYear : number;
   icon: string;
@@ -25,7 +25,7 @@ interface CarGeneration {
   petrolEngines?: CarEngine[];
 }
 
-interface CarEngine{
+export interface CarEngine{
   name: string;
   hp: number;
   nm: number;
@@ -34,7 +34,7 @@ interface CarEngine{
   // stage3: CarEngineStage;
 }
 
-interface CarEngineStage {
+export interface CarEngineStage {
   price: number;
   stageHp: number;
   stageNm: number;
@@ -125,8 +125,8 @@ export class TuningComponent implements OnInit {
     }
   }
 
-  openAddCarDialog(){
-    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"ADD"}});
+  openAddCarBrandDialog(){
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"BRAND"}});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == null)
@@ -136,22 +136,83 @@ export class TuningComponent implements OnInit {
     });
   }
 
-  openEditCarDialog(car : CarBrand){
-    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method: "EDIT", originalObject: car}});
+  openEditCarBrandDialog(carBrand : CarBrand){
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method: "BRAND", originalObject: carBrand}});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == null)
         return;
 
-      car.name = result.name;
-      car.icon = result.icon;
+        carBrand.name = result.name;
+        carBrand.icon = result.icon;
     });
   }
 
-  deleteCar(car: CarBrand)
+  deleteCarBrand(carBrand: CarBrand)
   {
-    const index = this.carMap.cars.indexOf(car);
+    const index = this.carMap.cars.indexOf(carBrand);
     this.carMap.cars.splice(index, 1);
+  }
+
+  openAddCarModelDialog(){
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"MODEL"}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == null)
+        return;
+
+      this.selectedCar.models.push(result);
+    });
+  }
+
+  openEditCarModelDialog(carModel: CarModel){
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"MODEL", originalObject: carModel}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == null)
+        return;
+
+        carModel.name = result.name;
+        carModel.icon = result.icon;
+    });
+  }
+
+  deleteCarModel(carModel: CarModel)
+  {
+    const index = this.selectedCar.models.indexOf(carModel);
+    this.selectedCar.models.splice(index, 1);
+  }
+
+  openAddCarMakeDialog()
+  {
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"MAKE"}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == null)
+        return;
+
+      this.selectedModel.generations.push(result);
+    });
+  }
+
+  openEditCarMakeDialog(carMake: CarGeneration)
+  {
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"MAKE", originalObject: carMake}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == null)
+        return;
+
+        carMake.startYear = result.startYear;
+        carMake.endYear = result.endYear;
+        carMake.icon = result.icon;
+    });
+  }
+
+  deleteCarMake(carMake: CarGeneration)
+  {
+    const index = this.selectedModel.generations.indexOf(carMake);
+    this.selectedModel.generations.splice(index, 1);
   }
 
   //#endregion

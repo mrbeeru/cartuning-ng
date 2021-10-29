@@ -34,7 +34,7 @@ export class TuningEditDialogComponent implements OnInit {
     this.dialogRef.close(this.editObject);
   }
 
-  carBrandEdited($event : CarBrand)
+  objectEdited($event : CarBrand)
   {
     this.editObject = $event;
   }
