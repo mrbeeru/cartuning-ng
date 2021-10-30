@@ -9,7 +9,7 @@
                 <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Brand"}}</ng-template>
 
                 <div class="mb-3">
-                    <button mat-raised-button (click)="openAddCarBrandDialog()">Add Car Brand</button>
+                    <button mat-raised-button (click)="openAddCarBrandDialog()">Add Brand</button>
                 </div>
 
                 <div class="row">
@@ -45,7 +45,7 @@
                 <ng-template matStepLabel>{{selectedModel != null ? selectedModel.name : "Model"}}</ng-template>
 
                 <div class="mb-3">
-                    <button mat-raised-button (click)="openAddCarModelDialog()">Add Car Model</button>
+                    <button mat-raised-button (click)="openAddCarModelDialog()">Add Model</button>
                 </div>
 
                 <div class="row">
@@ -55,8 +55,10 @@
                                 <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
                                     class="d-flex align-items-center justify-content-center" color='primary'
                                     [matMenuTriggerFor]="menu" clickStopPropagation>
-                                    <mat-icon style="font-size: 16px;"
-                                        class="d-flex align-items-center justify-content-center">expand_more</mat-icon>
+                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                        style="font-size: 16px;">
+                                        expand_more
+                                    </span>
                                 </button>
 
                                 <mat-menu #menu="matMenu">
@@ -84,7 +86,7 @@
                     selectedGeneration.endYear) : "Version"}}</ng-template>
 
                 <div class="mb-3">
-                    <button mat-raised-button (click)="openAddCarMakeDialog()">Add Car Make</button>
+                    <button mat-raised-button (click)="openAddCarMakeDialog()">Add Make</button>
                 </div>
 
                 <div class="row">
@@ -93,11 +95,12 @@
                         <div class="car-card" (click)="selectGeneration(carMake)">
                             <div class="d-flex justify-content-end mr-2">
                                 <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
-                                    class="d-flex align-items-center justify-content-center"
-                                    color="primary"
+                                    class="d-flex align-items-center justify-content-center" color="primary"
                                     [matMenuTriggerFor]="menu" clickStopPropagation>
-                                    <mat-icon style="font-size: 16px;"
-                                        class="d-flex align-items-center justify-content-center">expand_more</mat-icon>
+                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                        style="font-size: 16px;">
+                                        expand_more
+                                    </span>
                                 </button>
 
                                 <mat-menu #menu="matMenu">
@@ -126,10 +129,14 @@
 
                 <br>
 
-                <mat-form-field style="width: 100%;">
+                <!-- <mat-form-field style="width: 100%;">
                     <mat-label>Filter</mat-label>
                     <input matInput (keyup)="applyFilter($event)">
-                </mat-form-field>
+                </mat-form-field> -->
+
+                <div class="mb-3">
+                    <button mat-raised-button (click)="openAddCarEngineDialog()">Add Engine</button>
+                </div>
 
                 <!-- DIESEL ENGINES TABLE -->
                 <span style="color: #3f51b544; font-size: 32px; font-weight: 1000;">Diesel</span>
@@ -182,8 +189,40 @@
                         </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> Actions </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="d-flex">
+                                <button mat-mini-fab 
+                                    class="d-flex align-items-center justify-content-center mr-2" 
+                                    color="primary" 
+                                    style="width: 32px; height: 32px;"
+                                    (click)="openEditCarEngineDialog(element)">
+                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                        style="font-size: 16px;">
+                                        edit
+                                    </span>
+                                </button>
+    
+                                <button mat-mini-fab 
+                                    class="d-flex align-items-center justify-content-center" 
+                                    color="warn" 
+                                    style="width: 32px; height: 32px;"
+                                    (click)="deleteCarEngine(element)">
+                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                        style="font-size: 16px;">
+                                        delete
+                                    </span>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row
+                        *matHeaderRowDef="['engineName', 'original', 'tuned', 'symbol', 'price', 'actions']"></tr>
+                    <tr mat-row
+                        *matRowDef="let row; columns: ['engineName', 'original', 'tuned', 'symbol', 'price', 'actions'];">
+                    </tr>
                 </table>
 
                 <br><br>
@@ -239,8 +278,37 @@
                         </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> Actions </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="d-flex">
+                                <button mat-mini-fab 
+                                    class="d-flex align-items-center justify-content-center mr-2" 
+                                    color="primary" 
+                                    style="width: 32px; height: 32px;"
+                                    (click)="openEditCarEngineDialog(element)">
+                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                        style="font-size: 16px;">
+                                        edit
+                                    </span>
+                                </button>
+    
+                                <button mat-mini-fab 
+                                    class="d-flex align-items-center justify-content-center" 
+                                    color="warn" 
+                                    style="width: 32px; height: 32px;"
+                                    (click)="deleteCarEngine(element)">
+                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                        style="font-size: 16px;">
+                                        delete
+                                    </span>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="['engineName', 'original', 'tuned', 'symbol', 'price', 'actions']"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['engineName', 'original', 'tuned', 'symbol', 'price', 'actions'];"></tr>
                 </table>
 
                 <br><br>

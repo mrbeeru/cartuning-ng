@@ -3,6 +3,7 @@
         <app-car-brand-edit *ngSwitchCase="'BRAND'" [carBrand]="editObject" (carBrandEdited)="objectEdited($event)"></app-car-brand-edit>
         <app-car-model-edit *ngSwitchCase="'MODEL'" [carModel]="editObject" (carModelEdited)="objectEdited($event)"></app-car-model-edit>
         <app-car-make-edit *ngSwitchCase="'MAKE'" [carMake]="editObject" (carMakeEdited)="objectEdited($event)"></app-car-make-edit>
+        <app-car-engine-edit *ngSwitchCase="'ENGINE'" [carEngine]="editObject" (carEngineEdited)="objectEdited($event)"></app-car-engine-edit>
     </ng-container>
 </div>
 

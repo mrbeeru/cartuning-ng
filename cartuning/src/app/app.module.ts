@@ -49,6 +49,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClickStopPropagationDirective } from './_directives/click-stop-propagation.directive';
 import { CarModelEditComponent } from './tuning/car-model-edit/car-model-edit.component';
 import { CarMakeEditComponent } from './tuning/car-make-edit/car-make-edit.component';
+import { CarEngineEditComponent } from './tuning/car-engine-edit/car-engine-edit.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -71,6 +73,7 @@ import { CarMakeEditComponent } from './tuning/car-make-edit/car-make-edit.compo
     ClickStopPropagationDirective,
     CarModelEditComponent,
     CarMakeEditComponent,
+    CarEngineEditComponent,
   ],
 
   imports: [
@@ -99,6 +102,7 @@ import { CarMakeEditComponent } from './tuning/car-make-edit/car-make-edit.compo
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
     
     TimeagoModule.forRoot()
   ],

@@ -1,0 +1,41 @@
+
+<form [formGroup]="carEngineFormGroup">
+
+    <mat-form-field class="w-100">
+        <mat-label>Engine name</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+        <mat-label>Engine type</mat-label>
+        <mat-select formControlName="kind">
+            <mat-option value="DIESEL">Diesel</mat-option>
+            <mat-option value="PETROL">Petrol</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="w-100" appearence='fill'>
+        <mat-label>HP</mat-label>
+        <input matInput formControlName="hp">
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearence='fill'>
+        <mat-label>NM</mat-label>
+        <input matInput formControlName="nm">
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearence='fill'>
+        <mat-label>HP Stage 1</mat-label>
+        <input matInput formControlName="hpStage1">
+    </mat-form-field>
+    
+    <mat-form-field class="w-100" appearence='fill'>
+        <mat-label>NM Stage 1</mat-label>
+        <input matInput formControlName="nmStage1">
+    </mat-form-field>
+    
+    <mat-form-field class="w-100" appearence='fill'>
+        <mat-label>Price Stage 1</mat-label>
+        <input matInput formControlName="priceStage1">
+    </mat-form-field>
+</form>

@@ -26,6 +26,7 @@ export interface CarGeneration {
 }
 
 export interface CarEngine{
+  kind?: string;
   name: string;
   hp: number;
   nm: number;
@@ -50,8 +51,8 @@ export interface CarEngineStage {
 export class TuningComponent implements OnInit {
 
   displayedColumns: string[] = ['engineName', 'original', 'tuned', 'symbol', 'price'];
-  dieselEngineSource : any;
-  petrolEngineSource : any;
+  dieselEngineSource : MatTableDataSource<any>;
+  petrolEngineSource : MatTableDataSource<any>;
 
   selectedCar : CarBrand;
   selectedModel : CarModel;
@@ -213,6 +214,59 @@ export class TuningComponent implements OnInit {
   {
     const index = this.selectedModel.generations.indexOf(carMake);
     this.selectedModel.generations.splice(index, 1);
+  }
+
+  openAddCarEngineDialog()
+  {
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"ENGINE"}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == null)
+        return;
+
+      if (result.kind == "DIESEL")
+        (this.selectedGeneration.dieselEngines = this.selectedGeneration.dieselEngines || []).push(result);
+      else if (result.kind == "PETROL")
+        (this.selectedGeneration.petrolEngines = this.selectedGeneration.petrolEngines || []).push(result);
+      else
+        throw new Error(`no such engine type: ${result.kind}`);
+
+      this.dieselEngineSource.data = this.selectedGeneration.dieselEngines;
+      this.petrolEngineSource.data = this.selectedGeneration.petrolEngines;
+    });
+  }
+
+  openEditCarEngineDialog(carEngine: CarEngine)
+  {
+    const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"ENGINE", originalObject: carEngine}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == null)
+        return;
+
+      carEngine.kind = result.kind;
+      carEngine.hp = result.hp;
+      carEngine.nm = result.nm;
+      carEngine.name = result.name;
+      carEngine.stage1.price = result.stage1.price;
+      carEngine.stage1.stageHp = result.stage1.stageHp;
+      carEngine.stage1.stageNm = result.stage1.stageNm;
+    });
+  }
+
+  deleteCarEngine(carEngine: CarEngine)
+  {
+    let index = this.selectedGeneration.dieselEngines?.indexOf(carEngine);
+
+    if (index < 0){
+      index = this.selectedGeneration.petrolEngines.indexOf(carEngine);
+      this.selectedGeneration.petrolEngines.splice(index, 1);
+      this.petrolEngineSource.data = this.petrolEngineSource.data;
+      return;
+    }
+
+    this.selectedGeneration.dieselEngines.splice(index, 1);
+    this.dieselEngineSource.data = this.dieselEngineSource.data;
   }
 
   //#endregion
@@ -4222,8 +4276,6 @@ carMap = {
 }
 
 //#endregion
-  
-
 }
 
 

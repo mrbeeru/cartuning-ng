@@ -23,7 +23,6 @@ export class TuningEditDialogComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
   onNoClick(): void {
