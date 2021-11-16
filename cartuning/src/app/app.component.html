@@ -24,7 +24,7 @@
     </button>
 
 
-    <mat-menu #accountMenu="matMenu">
+    <mat-menu #authMenu="matMenu">
       <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' style="font-weight: bold;">{{"Hello, " + accountService.userValue?.firstName}}</a>
       <hr *ngIf='accountService.userValue != null' style="margin:0 auto">
       <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/user/profile' style="height: 32px; line-height: 32px;">Account</a>
@@ -33,11 +33,11 @@
       <hr *ngIf='accountService.userValue != null' style="margin:0 auto">
       <a mat-menu-item class="outline-none" *ngIf='accountService.userValue != null' routerLink='/home' (click)='logout()'>Logout</a>
       
-      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/login">Login</a>
-      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/account/register">Register</a>
+      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/auth/login">Login</a>
+      <a mat-menu-item class="outline-none" *ngIf='accountService.userValue == null' routerLink="/auth/register">Register</a>
     </mat-menu>
       
-    <button [matMenuTriggerFor]="accountMenu" #ta='matMenuTrigger' class="user-btn shadow-none outline-none">
+    <button [matMenuTriggerFor]="authMenu" #ta='matMenuTrigger' class="user-btn shadow-none outline-none">
       <img *ngIf="accountService.userValue?.avatar" src="{{(accountService.userValue?.avatar != null ? accountService.userValue.avatar : 'keyboard_arrow_right')}} " style="width: 24px; height: 24px; border-radius: 50%;">
       <mat-icon *ngIf="!accountService.userValue?.avatar" class="align-middle" style="color: white;">account_circle</mat-icon>
       <span style="font-size: 16px; margin-left: 8px; color: white;">{{accountService.userValue ? accountService.userValue.username : "My Account"}}</span>

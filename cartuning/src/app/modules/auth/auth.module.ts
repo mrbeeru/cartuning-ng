@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
-import { AccountRoutingModule } from './acccount-rooting.module';
+import { AuthRoutingModule } from './auth-rooting.module';
 
 
 import { MatInputModule } from '@angular/material/input';
@@ -23,7 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   ],
   imports: [
     CommonModule,
-    AccountRoutingModule,
+    AuthRoutingModule,
     ReactiveFormsModule,
     MatIconModule,
     MatInputModule,
@@ -32,4 +32,4 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatListModule,
   ]
 })
-export class AccountModule { }
+export class AuthModule { }

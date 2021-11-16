@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import {AlertService} from '../../_services/alert.service'
-import {AccountService} from '../../_services/account.service'
+import {AlertService} from '../../../_services/alert.service'
+import {AccountService} from '../../../_services/account.service'
 
 @Component({
   selector: 'app-login',
@@ -38,7 +38,7 @@ ngOnInit() {
 
   get f() { return this.form.controls; }
 
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true;
     
     // reset alerts on submit
@@ -53,21 +53,31 @@ ngOnInit() {
     
     this.loading = true;
     
-    this.accountService.login(this.f.username.value, this.f.password.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-              this.loading = false;
-              if(data)
-                this.router.navigate([this.returnUrl]);
+    try {
+      let account = await this.accountService.loginNew(this.f.username.value, this.f.password.value);
+      console.log(account);
+    } catch (err)
+    {
+      console.log(err);
+    }
+
+    this.loading = false;
+
+    // this.accountService.login(this.f.username.value, this.f.password.value)
+    //     .pipe(first())
+    //     .subscribe(
+    //         data => {
+    //           this.loading = false;
+    //           if(data)
+    //             this.router.navigate([this.returnUrl]);
               
-                // this.router.navigate(['user/profile']);
-            },
-            error => {
-                console.log(error);
-                this.loading = false;
-                this.alertService.error(error.error.message);
-          });
+    //             // this.router.navigate(['user/profile']);
+    //         },
+    //         error => {
+    //             console.log(error);
+    //             this.loading = false;
+    //             this.alertService.error(error.error.message);
+    //       });
   }
 
 }

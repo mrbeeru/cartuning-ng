@@ -1,5 +1,10 @@
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
+export class Account {
+    email: string;
+    accessToken: string;
+}
+
 export class User {
     _id: any;
     username: string;

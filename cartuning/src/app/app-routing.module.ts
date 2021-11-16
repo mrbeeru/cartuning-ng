@@ -11,7 +11,7 @@ import { FaqComponent } from './aboutus/faq/faq.component';
 import { ExperienceComponent } from './aboutus/experience/experience.component';
 import { ContactComponent } from './aboutus/contact/contact.component';
 
-const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
+const authModule = () => import('./modules/auth/auth.module').then(x => x.AuthModule);
 const userModule = () => import('./user/user.module').then(x => x.UserModule);
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'about/experience', component: ExperienceComponent},
   {path: 'about/contact', component: ContactComponent},
   {path: 'user', loadChildren: userModule, canActivate: [AuthGuard]},
-  {path: 'account', loadChildren: accountModule},
+  {path: 'auth', loadChildren: authModule},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '/home' }

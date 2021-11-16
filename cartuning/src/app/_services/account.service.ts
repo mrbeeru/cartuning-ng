@@ -5,7 +5,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 // import { environment } from '@environments/environment';
-import { User, Order } from '../_models/user';
+import { User, Order, Account } from '../_models/user';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -14,8 +15,6 @@ export class AccountService {
 
     public onLogin: EventEmitter<any> = new EventEmitter();
     public onLogout: EventEmitter<any> = new EventEmitter();
-    
-    private environment : any;
 
     constructor(
         private router: Router,
@@ -23,18 +22,19 @@ export class AccountService {
     ) {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
-
-        this.environment = {};
-        //this.environment.apiUrl = 'http://anbu.go.ro:7001';
-        this.environment.apiUrl = 'http://localhost:44444/api';
     }
 
     public get userValue(): User {
         return this.userSubject.value;
     }
 
+    async loginNew(email, password) : Promise<string>
+    {
+        return await this.http.post<string>(`${environment.apiUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
+    }
+
     login(username, password) {
-        return this.http.post<User>(`${this.environment.apiUrl}/account/authenticate`, { username, password })
+        return this.http.post<User>(`${environment.apiUrl}/account/authenticate`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
@@ -55,7 +55,7 @@ export class AccountService {
 
     register(user: User) {
         console.log(user);
-        return this.http.post(`${this.environment.apiUrl}/account/register`, user);
+        return this.http.post(`${environment.apiUrl}/account/register`, user);
     }
 
     getOrders(){
@@ -64,7 +64,7 @@ export class AccountService {
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
-        return this.http.get<any>(`${this.environment.apiUrl}/user/orders`, options);
+        return this.http.get<any>(`${environment.apiUrl}/user/orders`, options);
     }
 
     getOrderById(orderId: string){
@@ -73,7 +73,7 @@ export class AccountService {
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
-        return this.http.get<Order>(`${this.environment.apiUrl}/user/orders/${orderId}`, options);
+        return this.http.get<Order>(`${environment.apiUrl}/user/orders/${orderId}`, options);
     }
 
     placeOrder(order: Order){
@@ -89,7 +89,7 @@ export class AccountService {
         // }
 
         order.ownerId = this.userValue._id;
-        return this.http.post(`${this.environment.apiUrl}/user/place-order`, order, {
+        return this.http.post(`${environment.apiUrl}/user/place-order`, order, {
             headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
             reportProgress: true,
             observe: 'events',
@@ -101,7 +101,7 @@ export class AccountService {
             headers: new HttpHeaders().append('id', this.userValue._id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')}
 
-        return this.http.delete(`${this.environment.apiUrl}/user/orders/${order._id}`, options);
+        return this.http.delete(`${environment.apiUrl}/user/orders/${order._id}`, options);
     }
 
 
