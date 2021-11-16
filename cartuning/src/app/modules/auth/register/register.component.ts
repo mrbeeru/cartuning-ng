@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService } from '../../../_services/alert.service';
-import { AccountService} from '../../../_services/account.service'
+import { AccountService } from '../../../_services/account.service'
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
-    form: FormGroup;
-    loading = false;
+    registerForm: FormGroup;
+    isLoading = false;
     submitted = false;
 
     constructor(
@@ -21,34 +21,21 @@ export class RegisterComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.form = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+        this.registerForm = this.formBuilder.group({
             username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            password: ['', Validators.required],
+            confirmPassword: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]]
         });
     }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.form.controls; }
-
-    onSubmit() {
-      // this.alertService.error("Function not implemented", {autoClose: true});
-      // this.alertService.success("Practic merge", {autoClose: true});
-
-        this.submitted = true;
-
-        // reset alerts on submit
-        this.alertService.clear();
-
-        
+    register() {
         // stop here if form is invalid
-        if (this.form.invalid) {
+        if (this.registerForm.invalid)
             return;
-        }
 
-        this.loading = true;
-        this.accountService.register(this.form.value)
+        this.isLoading = true;
+        this.accountService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
@@ -57,7 +44,27 @@ export class RegisterComponent implements OnInit {
                 },
                 error => {
                     this.alertService.error(error.error.message);
-                    this.loading = false;
+                    this.isLoading = false;
                 });
+    }
+
+    mustMatch(controlName: string, matchingControlName: string) {
+        return (formGroup: FormGroup) => {
+            const control = formGroup.controls[controlName];
+            const matchingControl = formGroup.controls[matchingControlName];
+
+            if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+                // return if another validator has already found an error on the matchingControl
+                return;
+            }
+
+            // set error on matchingControl if validation fails
+            if (control.value !== matchingControl.value) {
+                matchingControl.setErrors({ mustMatch: true });
+            } else {
+                matchingControl.setErrors(null);
+            }
+
+        }
     }
 }
