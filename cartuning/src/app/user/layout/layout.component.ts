@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AccountService } from '../../_services/account.service'
@@ -7,7 +7,6 @@ import { AccountService } from '../../_services/account.service'
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class LayoutComponent implements OnInit {
 

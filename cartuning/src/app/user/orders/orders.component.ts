@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../_services/account.service';
 import { Order } from '../../_models/user';
 import { Router } from '@angular/router';
@@ -15,7 +15,6 @@ import { MatTableDataSource } from '@angular/material/table';
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class OrdersComponent implements OnInit {
   loading : boolean;

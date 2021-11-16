@@ -51,6 +51,7 @@ import { CarModelEditComponent } from './tuning/car-model-edit/car-model-edit.co
 import { CarMakeEditComponent } from './tuning/car-make-edit/car-make-edit.component';
 import { CarEngineEditComponent } from './tuning/car-engine-edit/car-engine-edit.component';
 import { MatSelectModule } from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -94,7 +95,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatToolbarModule,
     MatButtonModule,
-    FontAwesomeModule ,
+    FontAwesomeModule,
     MatExpansionModule,
     CarouselModule,
     MatCardModule,
@@ -103,6 +104,7 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     
     TimeagoModule.forRoot()
   ],

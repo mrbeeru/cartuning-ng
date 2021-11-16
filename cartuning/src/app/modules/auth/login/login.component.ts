@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
+import { faFacebook, faGoogle, faDiscord } from '@fortawesome/free-brands-svg-icons';
+
 import {AlertService} from '../../../_services/alert.service'
 import {AccountService} from '../../../_services/account.service'
 
@@ -13,8 +15,12 @@ import {AccountService} from '../../../_services/account.service'
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
-  loading = false;
+  faFacebook = faFacebook;
+  faGoogle = faGoogle;
+  faDiscord = faDiscord;
+
+  loginForm: FormGroup;
+  isLoading = false;
   submitted = false;
   returnUrl: string;
 
@@ -27,31 +33,28 @@ export class LoginComponent implements OnInit {
 ) { }
 
 ngOnInit() {
-  this.form = this.formBuilder.group({
-      username: [''],
-      password: ['']
+  this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
   });
 
   // get return url from route parameters or default to '/'
   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/account/user';
 }
 
-  get f() { return this.form.controls; }
+  get f() { return this.loginForm.controls; }
 
-  async onSubmit() {
+  async loginAsync() {
     this.submitted = true;
     
     // reset alerts on submit
     this.alertService.clear();
     
     // stop here if form is invalid
-    if (this.f.username.value == null || this.f.username.value == '' ||
-        this.f.password.value == null || this.f.password.value == ''  ) {
-          this.alertService.error('Please fill in your credentials');
+    if (!this.loginForm.valid)
         return;
-    }
     
-    this.loading = true;
+    this.isLoading = true;
     
     try {
       let account = await this.accountService.loginNew(this.f.username.value, this.f.password.value);
@@ -61,7 +64,7 @@ ngOnInit() {
       console.log(err);
     }
 
-    this.loading = false;
+    this.isLoading = false;
 
     // this.accountService.login(this.f.username.value, this.f.password.value)
     //     .pipe(first())

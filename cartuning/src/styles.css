@@ -12,18 +12,13 @@
   --ng-primary: #3f51b5;
 }
 
+html, body { height: 100%; }
+
 body {
-    margin: 0px;
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
     /* font-family: 'Roboto', sans-serif; */
     /* font-family: "Segoe UI","Roboto","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; */
 }
-
-*:not(mat-icon) {
-    /* font-family:"Segoe UI","Roboto","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif !important;  */
-    /* Add !important to overwrite all elements */
-    font-family: "Verdana","Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    
-  }
 
 ::-webkit-scrollbar {
     width: 10px;

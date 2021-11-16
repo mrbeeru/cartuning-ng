@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { faFacebookF, faYoutube, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { Router, NavigationEnd} from '@angular/router';
 
@@ -8,7 +8,6 @@ import { AccountService } from './_services/account.service'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent {
