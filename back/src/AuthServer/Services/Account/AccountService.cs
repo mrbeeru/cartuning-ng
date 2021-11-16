@@ -13,6 +13,7 @@ using Quizalot.DataAccess.Entities;
 using Quizalot.DataAccess.Repositories;
 using Quizalot.Models.HttpDataModels;
 using Quizalot.Core.Authentication;
+using AuthServer.Models;
 
 namespace Quizalot.Services.Account
 {
@@ -51,7 +52,7 @@ namespace Quizalot.Services.Account
             await accountRepository.InsertAsync(accountEntity);
         }
 
-        public async Task<string> DefaultAuthentication(NewAccountModel account)
+        public async Task<AuthenticationResultModel> DefaultAuthentication(NewAccountModel account)
         {
             var existingAccount = await accountRepository.FindByEmailAsync(account.Email);
 
@@ -63,24 +64,26 @@ namespace Quizalot.Services.Account
             if (!isVerified)
                 throw new Exception("Wrong credentials.");
 
-            return jwtAuthentication.Authenticate(existingAccount.Email);
+            var jwt = jwtAuthentication.Authenticate(existingAccount.Email, existingAccount.Id);
+            return new AuthenticationResultModel { Jwt = jwt };
         }
 
-        public async Task<string> DiscordAuthentication(string code)
+        public async Task<AuthenticationResultModel> DiscordAuthentication(string code)
         {
             var accessToken = await GetDiscordAccessTokenAsync(code);
             var userDetails = await GetDiscordUserDetailsAsync(accessToken);
 
             //check if user exists
-            var user = await accountRepository.FindByEmailAsync(userDetails.Email);
+            var account = await accountRepository.FindByEmailAsync(userDetails.Email);
 
-            if (user == null)
+            if (account == null)
             {
-                user = new AccountEntity(){ Email = userDetails.Email };
-                await accountRepository.InsertAsync(user);
+                account = new AccountEntity(){ Email = userDetails.Email };
+                await accountRepository.InsertAsync(account);
             }
 
-            return jwtAuthentication.Authenticate(user.Email);
+            var jwt = jwtAuthentication.Authenticate(account.Email, account.Id);
+            return new AuthenticationResultModel { Jwt = jwt };
         }
 
         private async Task<string> GetDiscordAccessTokenAsync(string code)

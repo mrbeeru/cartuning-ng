@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,12 +21,12 @@ namespace Quizalot.Core.Authentication
             secretKeyBytes = Encoding.ASCII.GetBytes(secretKey);
         }
 
-        public string Authenticate(string email)
+        public string Authenticate(string email, ObjectId id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
-                Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Email, email) }),
+                Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Email, email), new Claim(ClaimTypes.NameIdentifier, id.ToString()) }),
                 Expires = DateTime.UtcNow.AddYears(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha256Signature)
             };

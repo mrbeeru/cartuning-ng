@@ -1,4 +1,5 @@
-﻿using Quizalot.DataAccess.Entities;
+﻿using AuthServer.Models;
+using Quizalot.DataAccess.Entities;
 using Quizalot.Models.HttpDataModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Quizalot.Services.Account
     public interface IAccountService
     {
         Task Register(NewAccountModel account);
-        Task<string> DefaultAuthentication(NewAccountModel account);
-        Task<string> DiscordAuthentication(string code);
+        Task<AuthenticationResultModel> DefaultAuthentication(NewAccountModel account);
+        Task<AuthenticationResultModel> DiscordAuthentication(string code);
     }
 }

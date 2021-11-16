@@ -61,8 +61,8 @@ namespace Quizalot
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                 };
             });
 
@@ -83,7 +83,7 @@ namespace Quizalot
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quizalot v1"));
             }
 
-            app.UseCors(policy => policy.AllowAnyMethod().WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.UseCors(policy => policy.AllowAnyMethod().WithOrigins("http://localhost:1337").AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthentication();

@@ -8,6 +8,7 @@ using Quizalot.DataAccess.Entities;
 using Quizalot.DataAccess.Repositories;
 using Quizalot.Services.Account;
 using Quizalot.Models.HttpDataModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Quizalot.Controllers
 {
@@ -42,12 +43,8 @@ namespace Quizalot.Controllers
         {
             try
             {
-                var jwt = await accountService.DefaultAuthentication(account);
-
-                if (jwt == null)
-                    return Unauthorized();
-
-                return Ok(jwt);
+                var authResult = await accountService.DefaultAuthentication(account);
+                return Ok(authResult);
             } catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -57,12 +54,15 @@ namespace Quizalot.Controllers
         [HttpPost("auth/discord")]
         public async Task<IActionResult> DiscordAuthentication(DiscordCodeModel payload)
         {
-            var jwt = await accountService.DiscordAuthentication(payload.Code);
-            
-            if (jwt == null)
-                return Unauthorized();
+            var authResult = await accountService.DiscordAuthentication(payload.Code);
+            return Ok(authResult);
+        }
 
-            return Ok(jwt);
+        [HttpGet("details")]
+        [Authorize]
+        public async Task<IActionResult> GetAccountDetails()
+        {
+            return Ok();
         }
     }
 }
