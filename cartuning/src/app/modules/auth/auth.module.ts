@@ -78,6 +78,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
     MatProgressSpinnerModule,
     AuthRoutingModule,
+    
   ]
 })
 export class AuthModule { }

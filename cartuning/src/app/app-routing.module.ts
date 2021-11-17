@@ -12,7 +12,7 @@ import { ExperienceComponent } from './aboutus/experience/experience.component';
 import { ContactComponent } from './aboutus/contact/contact.component';
 
 const authModule = () => import('./modules/auth/auth.module').then(x => x.AuthModule);
-const userModule = () => import('./user/user.module').then(x => x.UserModule);
+const userModule = () => import('./modules/user/user.module').then(x => x.UserModule);
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },

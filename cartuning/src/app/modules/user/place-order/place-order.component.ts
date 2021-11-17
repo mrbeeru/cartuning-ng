@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from '../../_services/alert.service';
-import { AccountService } from '../../_services/account.service';
+import { AlertService } from '../../../_services/alert.service';
+import { AccountService } from '../../../_services/account.service';
 import { first } from 'rxjs/internal/operators/first';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpEventType } from '@angular/common/http';

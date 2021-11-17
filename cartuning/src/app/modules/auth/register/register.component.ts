@@ -5,8 +5,13 @@ import { first } from 'rxjs/operators';
 
 import { AlertService } from '../../../_services/alert.service';
 import { AccountService } from '../../../_services/account.service'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-@Component({ templateUrl: 'register.component.html' })
+@Component({
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css']
+})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     isLoading = false;
@@ -17,7 +22,8 @@ export class RegisterComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private snackBar: MatSnackBar
     ) { }
 
     ngOnInit() {
@@ -29,23 +35,26 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    register() {
-        // stop here if form is invalid
+    async registerAsync() {
         if (this.registerForm.invalid)
             return;
 
         this.isLoading = true;
-        this.accountService.register(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-                    this.router.navigate(['../login'], { relativeTo: this.route });
-                },
-                error => {
-                    this.alertService.error(error.error.message);
-                    this.isLoading = false;
-                });
+
+        try {
+            await this.accountService.registerNewAsync(this.registerForm.value.email, this.registerForm.value.username, this.registerForm.value.password)
+            this.showMessage("Account successfully created.")
+        } catch (error)
+        {
+            this.showMessage(error.error)
+        }
+        
+        this.isLoading = false;
+    }
+
+    showMessage(message)
+    {
+        this.snackBar.open(message, "[ x ]", {duration: 5000, horizontalPosition: "center", verticalPosition: "top"})
     }
 
     mustMatch(controlName: string, matchingControlName: string) {

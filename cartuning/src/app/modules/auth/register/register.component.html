@@ -4,6 +4,13 @@
     <h2>Create an account</h2>
 
     <form [formGroup]="registerForm" class="mb-4">
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email *</mat-label>
+        <input matInput type="email" formControlName="email">
+        <mat-error *ngIf="registerForm.controls.email.hasError('required')">Required</mat-error>
+      </mat-form-field>
+
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Username *</mat-label>
         <input matInput type="text" formControlName="username" autocomplete="off">
@@ -29,15 +36,10 @@
         <mat-error *ngIf="registerForm.controls.confirmPassword.hasError('required')">Required</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Email *</mat-label>
-        <input matInput type="email" formControlName="email">
-        <mat-error *ngIf="registerForm.controls.email.hasError('required')">Required</mat-error>
-      </mat-form-field>
-
-      <button mat-raised-button color='primary' class="w-100">
-        Register
-        <mat-progress-bar mode='indeterminate' color='primary'></mat-progress-bar>
+      <button mat-raised-button color='primary' class="w-100 d-flex justify-content-center" [disabled]="isLoading" type="submit" (click)='registerAsync()'>
+        <!-- <mat-progress-bar mode='indeterminate' color='primary' *ngIf='isLoading'></mat-progress-bar> -->
+        <mat-spinner *ngIf='isLoading' diameter='29' style="margin: 4px;"></mat-spinner>
+        <span *ngIf='!isLoading'>Register</span>
       </button>
     </form>
 

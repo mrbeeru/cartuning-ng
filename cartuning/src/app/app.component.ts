@@ -42,15 +42,15 @@ export class AppComponent {
     this.test = true;
   }
   
-  @ViewChild('matTab', { read: ElementRef }) matTab: ElementRef;
+  // @ViewChild('matTab', { read: ElementRef }) matTab: ElementRef;
 
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event){
-    // var matGroupHeader = this.matTab.nativeElement.childNodes[0];
+  // @HostListener('window:scroll', ['$event']) onScrollEvent($event){
+  //   var matGroupHeader = this.matTab.nativeElement.childNodes[0];
 
-    // if ($event.target.scrollingElement.scrollTop < 40){
-    //   matGroupHeader.style.background='rgba(0, 0, 0, 0.9)';
-    // } else {
-    //   matGroupHeader.style.background='rgba(0, 0, 0, 0.9)';
-    // }
-  } 
+  //   if ($event.target.scrollingElement.scrollTop < 40){
+  //     matGroupHeader.style.background='rgba(0, 0, 0, 0.9)';
+  //   } else {
+  //     matGroupHeader.style.background='rgba(0, 0, 0, 0.9)';
+  //   }
+  // } 
 }

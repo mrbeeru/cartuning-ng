@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
 ngOnInit() {
   this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
   });
 
@@ -42,14 +42,8 @@ ngOnInit() {
   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/account/user';
 }
 
-  get f() { return this.loginForm.controls; }
-
   async loginAsync() {
-    this.submitted = true;
-    
-    // reset alerts on submit
-    this.alertService.clear();
-    
+
     // stop here if form is invalid
     if (!this.loginForm.valid)
         return;
@@ -57,8 +51,7 @@ ngOnInit() {
     this.isLoading = true;
     
     try {
-      let account = await this.accountService.loginNew(this.f.username.value, this.f.password.value);
-      console.log(account);
+      await this.accountService.loginNewAsync(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
     } catch (err)
     {
       console.log(err);

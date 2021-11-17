@@ -6,8 +6,9 @@
     <form [formGroup]="loginForm" (ngSubmit)='loginAsync()' class="mb-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email</mat-label>
-        <input matInput type="text" formControlName="username" autocomplete="off">
-        <mat-error *ngIf='loginForm.controls.username.hasError("required")'>Required</mat-error>
+        <input matInput type="text" formControlName="email" autocomplete="off">
+        <mat-error *ngIf='loginForm.controls.email.hasError("required")'>Required</mat-error>
+        <mat-error *ngIf='loginForm.controls.email.hasError("email")'>Invalid email</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-100">
@@ -18,7 +19,7 @@
 
       <button mat-raised-button color='primary' class="w-100 d-flex justify-content-center" type="submit">
         <!-- <mat-progress-bar mode='indeterminate' color='primary' *ngIf='isLoading'></mat-progress-bar> -->
-        <mat-spinner color='warn' *ngIf='isLoading' diameter='30' style="margin: 4px;"></mat-spinner>
+        <mat-spinner *ngIf='isLoading' diameter='29' style="margin: 4px;"></mat-spinner>
         <span *ngIf='!isLoading'>Sign in</span>
       </button>
     </form>

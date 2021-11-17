@@ -4,14 +4,16 @@ import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/htt
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import jwt_decode from 'jwt-decode'
+
 // import { environment } from '@environments/environment';
 import { User, Order, Account } from '../_models/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-    private userSubject: BehaviorSubject<User>;
-    public user: Observable<User>;
+    private accountSubject: BehaviorSubject<Account>;
+    public account: Observable<Account>;
 
     public onLogin: EventEmitter<any> = new EventEmitter();
     public onLogout: EventEmitter<any> = new EventEmitter();
@@ -20,47 +22,49 @@ export class AccountService {
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-        this.user = this.userSubject.asObservable();
+        this.accountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('account')));
+        this.account = this.accountSubject.asObservable();
     }
 
-    public get userValue(): User {
-        return this.userSubject.value;
+    public get accountValue(): Account {
+        return this.accountSubject.value;
     }
 
-    async loginNew(email, password) : Promise<string>
+    async loginNewAsync(email: string, password: string) : Promise<Account>
     {
-        return await this.http.post<string>(`${environment.apiUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
-    }
+        const response = await this.http.post<{jwt: string}>(`${environment.apiUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
+        const decodedJwt : {email: string, id: string} = jwt_decode(response.jwt);
 
-    login(username, password) {
-        return this.http.post<User>(`${environment.apiUrl}/account/authenticate`, { username, password })
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                this.onLogin.emit(user);
-                console.log(user);
-                return user;
-            }));
+        let account: Account = {
+            email: decodedJwt.email,
+            id: decodedJwt.id,
+            jwt: response.jwt,
+        }
+
+        localStorage.setItem('account', JSON.stringify(account));
+
+        this.accountSubject.next(account);
+        this.onLogin.emit(account);
+
+        return account;
     }
 
     logout() {
         // remove user from local storage and set current user to null
-        localStorage.removeItem('user');
-        this.userSubject.next(null);
+        localStorage.removeItem('account');
+        this.accountSubject.next(null);
         this.onLogout.emit();
-        //this.router.navigate(['/account/login']);
+        this.router.navigate(['/auth/login']);
     }
 
-    register(user: User) {
-        console.log(user);
-        return this.http.post(`${environment.apiUrl}/account/register`, user);
+    async registerNewAsync(email: string, username: string, password: string)
+    {
+        await this.http.post(`${environment.apiUrl}/account/register`, {email: email, username: username, password: password}).toPromise();
     }
 
     getOrders(){
         const options = {
-            headers: new HttpHeaders().append('ownerid', this.userValue._id.toString())
+            headers: new HttpHeaders().append('ownerid', this.accountValue.id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
@@ -69,7 +73,7 @@ export class AccountService {
 
     getOrderById(orderId: string){
         const options = {
-            headers: new HttpHeaders().append('ownerid', this.userValue._id.toString())
+            headers: new HttpHeaders().append('ownerid', this.accountValue.id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
@@ -88,7 +92,7 @@ export class AccountService {
         //     observe: 'events',
         // }
 
-        order.ownerId = this.userValue._id;
+        order.ownerId = this.accountValue.id;
         return this.http.post(`${environment.apiUrl}/user/place-order`, order, {
             headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
             reportProgress: true,
@@ -98,7 +102,7 @@ export class AccountService {
 
     deleteOrder(order: Order){
         const options = {
-            headers: new HttpHeaders().append('id', this.userValue._id.toString())
+            headers: new HttpHeaders().append('id', this.accountValue.id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')}
 
         return this.http.delete(`${environment.apiUrl}/user/orders/${order._id}`, options);
