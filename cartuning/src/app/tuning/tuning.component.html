@@ -8,8 +8,9 @@
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Brand"}}</ng-template>
 
-                <div class="mb-3">
+                <div class="mb-3 d-flex justify-content-between">
                     <button mat-raised-button (click)="openAddCarBrandDialog()">Add Brand</button>
+                   <button mat-raised-button (click)="updateTuningTable()">Update</button>
                 </div>
 
                 <div class="row">
@@ -31,7 +32,7 @@
                                 </mat-menu>
                             </div>
                             <div class="text-center">
-                                <img [src]="car.icon" style="width: 102px; height: 102px; margin: 0">
+                                <img [src]="car.iconPath" style="width: 102px; height: 102px; margin: 0">
                             </div>
                             <div class="text-center" style="font-size: 12px; margin-top: 25px">
                                 {{car.name | uppercase}}
@@ -67,7 +68,7 @@
                                 </mat-menu>
                             </div>
                             <div class="text-center">
-                                <img [src]="carModel.icon" style="height: 102px; margin: 0">
+                                <img [src]="carModel.iconPath" style="height: 102px; margin: 0">
                             </div>
                             <div class="text-center" style="font-size: 12px; margin-top: 25px">
                                 {{carModel.name | uppercase}}
@@ -109,7 +110,7 @@
                                 </mat-menu>
                             </div>
                             <div class="text-center">
-                                <img [src]="carMake.icon" style="height: 102px; margin: 0">
+                                <img [src]="carMake.iconPath" style="height: 102px; margin: 0">
                             </div>
                             <div class="text-center" style="font-size: 12px; margin-top: 25px">
                                 {{carMake.startYear }} {{carMake.endYear == 'Infinity' ? '+' : ('- ' +
@@ -126,8 +127,6 @@
 
             <mat-step [completed]="false">
                 <ng-template matStepLabel>Done</ng-template>
-
-                <br>
 
                 <!-- <mat-form-field style="width: 100%;">
                     <mat-label>Filter</mat-label>
@@ -161,23 +160,23 @@
                         <th mat-header-cell *matHeaderCellDef style="color: #2e3092; font-weight: bold;"> Stage 1 </th>
                         <td mat-cell *matCellDef="let element">
                             <div style="color: #2e3092; font-weight: bold; padding: 10px 0px 5px 0px;">
-                                {{element.stage1?.stageHp}} HP </div>
+                                {{element.stage1?.hp}} HP </div>
                             <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 5px 0px;">
-                                {{element.stage1?.stageNm}} Nm </div>
+                                {{element.stage1?.nm}} Nm </div>
                             <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 10px 0px;">
-                                {{element.stage1?.stageHp * 0.73556 | number : '1.1-1'}} Kw </div>
+                                {{element.stage1?.hp * 0.73556 | number : '1.1-1'}} Kw </div>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="symbol">
                         <th mat-header-cell *matHeaderCellDef> Diferenta </th>
                         <td mat-cell *matCellDef="let element">
-                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp - element.hp > 0 ? '+' :
-                                ''}} {{element.stage1?.stageHp - element.hp}} HP </div>
-                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm - element.nm > 0 ? '+' :
-                                ''}} {{element.stage1?.stageNm - element.nm}} Nm </div>
-                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 - element.hp *
-                                0.73556 > 0 ? '+' : ''}} {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 |
+                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.hp - element.hp > 0 ? '+' :
+                                ''}} {{element.stage1?.hp - element.hp}} HP </div>
+                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.nm - element.nm > 0 ? '+' :
+                                ''}} {{element.stage1?.nm - element.nm}} Nm </div>
+                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.hp * 0.73556 - element.hp *
+                                0.73556 > 0 ? '+' : ''}} {{element.stage1?.hp * 0.73556 - element.hp * 0.73556 |
                                 number : '1.1-1'}} Kw </div>
                         </td>
                     </ng-container>
@@ -250,23 +249,23 @@
                         <th mat-header-cell *matHeaderCellDef style="color: #2e3092; font-weight: bold;"> Stage 1 </th>
                         <td mat-cell *matCellDef="let element">
                             <div style="color: #2e3092; font-weight: bold; padding: 10px 0px 5px 0px;">
-                                {{element.stage1?.stageHp}} HP </div>
+                                {{element.stage1?.hp}} HP </div>
                             <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 5px 0px;">
-                                {{element.stage1?.stageNm}} Nm </div>
+                                {{element.stage1?.nm}} Nm </div>
                             <div style="color: #2e3092; font-weight: bold; padding: 5px 0px 10px 0px;">
-                                {{element.stage1?.stageHp * 0.73556 | number : '1.1-1'}} Kw </div>
+                                {{element.stage1?.hp * 0.73556 | number : '1.1-1'}} Kw </div>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="symbol">
                         <th mat-header-cell *matHeaderCellDef> Diferenta </th>
                         <td mat-cell *matCellDef="let element">
-                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.stageHp - element.hp > 0 ? '+' :
-                                ''}} {{element.stage1?.stageHp - element.hp}} HP </div>
-                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.stageNm - element.nm > 0 ? '+' :
-                                ''}} {{element.stage1?.stageNm - element.nm}} Nm </div>
-                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.stageHp * 0.73556 - element.hp *
-                                0.73556 > 0 ? '+' : ''}} {{element.stage1?.stageHp * 0.73556 - element.hp * 0.73556 |
+                            <div style="padding: 10px 0px 5px 0px;"> {{element.stage1?.hp - element.hp > 0 ? '+' :
+                                ''}} {{element.stage1?.hp - element.hp}} HP </div>
+                            <div style="padding: 5px 0px 5px 0px;"> {{element.stage1?.nm - element.nm > 0 ? '+' :
+                                ''}} {{element.stage1?.nm - element.nm}} Nm </div>
+                            <div style="padding: 5px 0px 10px 0px;"> {{element.stage1?.hp * 0.73556 - element.hp *
+                                0.73556 > 0 ? '+' : ''}} {{element.stage1?.hp * 0.73556 - element.hp * 0.73556 |
                                 number : '1.1-1'}} Kw </div>
                         </td>
                     </ng-container>

@@ -32,7 +32,7 @@ export class AccountService {
 
     async loginNewAsync(email: string, password: string) : Promise<Account>
     {
-        const response = await this.http.post<{jwt: string}>(`${environment.apiUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
+        const response = await this.http.post<{jwt: string}>(`${environment.authUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
         const decodedJwt : {email: string, id: string} = jwt_decode(response.jwt);
 
         let account: Account = {
@@ -59,7 +59,7 @@ export class AccountService {
 
     async registerNewAsync(email: string, username: string, password: string)
     {
-        await this.http.post(`${environment.apiUrl}/account/register`, {email: email, username: username, password: password}).toPromise();
+        await this.http.post(`${environment.authUrl}/account/register`, {email: email, username: username, password: password}).toPromise();
     }
 
     getOrders(){
@@ -68,7 +68,7 @@ export class AccountService {
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
-        return this.http.get<any>(`${environment.apiUrl}/user/orders`, options);
+        return this.http.get<any>(`${environment.authUrl}/user/orders`, options);
     }
 
     getOrderById(orderId: string){
@@ -77,7 +77,7 @@ export class AccountService {
                                     .append('Authorization', 'Bearer fake-jwt-token')
         }
 
-        return this.http.get<Order>(`${environment.apiUrl}/user/orders/${orderId}`, options);
+        return this.http.get<Order>(`${environment.authUrl}/user/orders/${orderId}`, options);
     }
 
     placeOrder(order: Order){
@@ -93,7 +93,7 @@ export class AccountService {
         // }
 
         order.ownerId = this.accountValue.id;
-        return this.http.post(`${environment.apiUrl}/user/place-order`, order, {
+        return this.http.post(`${environment.authUrl}/user/place-order`, order, {
             headers: new HttpHeaders().append('Authorization', 'Bearer fake-jwt-token'),
             reportProgress: true,
             observe: 'events',
@@ -105,7 +105,7 @@ export class AccountService {
             headers: new HttpHeaders().append('id', this.accountValue.id.toString())
                                     .append('Authorization', 'Bearer fake-jwt-token')}
 
-        return this.http.delete(`${environment.apiUrl}/user/orders/${order._id}`, options);
+        return this.http.delete(`${environment.authUrl}/user/orders/${order._id}`, options);
     }
 
 

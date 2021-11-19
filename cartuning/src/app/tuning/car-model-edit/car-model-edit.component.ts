@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CarModel } from '../tuning.component';
+import { CarModel } from '../../_services/tuning.service';
 
 @Component({
   selector: 'app-car-model-edit',
@@ -27,7 +27,7 @@ export class CarModelEditComponent implements OnInit {
   {
     this.carModelFormGroup = this.formBuilder.group({
       name: [this.carModel?.name],
-      iconPath: [this.carModel?.icon]
+      iconPath: [this.carModel?.iconPath]
     });
 
     this.carModelFormGroup.valueChanges.subscribe(x => this.carFormValueChanges(x))
@@ -38,7 +38,7 @@ export class CarModelEditComponent implements OnInit {
   {
     let output : CarModel = {
       name: value.name,
-      icon: value.iconPath,
+      iconPath: value.iconPath,
       generations: [],
     }
 

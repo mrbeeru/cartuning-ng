@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { CarBrand } from '../tuning.component';
+import { CarBrand } from '../../_services/tuning.service';
 
 @Component({
   selector: 'app-car-brand-edit',
@@ -27,7 +27,7 @@ export class CarBrandEditComponent implements OnInit {
   {
     this.carFormGroup = this.formBuilder.group({
       name: [this.carBrand?.name],
-      iconPath: [this.carBrand?.icon]
+      iconPath: [this.carBrand?.iconPath]
     });
 
     this.carFormGroup.valueChanges.subscribe(x => this.carFormValueChanges(x))
@@ -38,7 +38,7 @@ export class CarBrandEditComponent implements OnInit {
   {
     let output : CarBrand = {
       name: value.name,
-      icon: value.iconPath,
+      iconPath: value.iconPath,
       models: [],
     }
 

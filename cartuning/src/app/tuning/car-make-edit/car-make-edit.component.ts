@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CarGeneration } from '../tuning.component';
+import { CarGeneration } from '../../_services/tuning.service';
 
 @Component({
   selector: 'app-car-make-edit',
@@ -28,7 +28,7 @@ export class CarMakeEditComponent implements OnInit {
     this.carMakeFormGroup = this.formBuilder.group({
       startYear: [this.carMake?.startYear],
       endYear: [this.carMake?.endYear],
-      icon: [this.carMake?.icon],
+      icon: [this.carMake?.iconPath],
     });
 
     this.carMakeFormGroup.valueChanges.subscribe(x => this.carFormValueChanges(x))
@@ -40,7 +40,7 @@ export class CarMakeEditComponent implements OnInit {
     let output : CarGeneration = {
       startYear: value.startYear,
       endYear: value.endYear,
-      icon: value.icon,
+      iconPath: value.iconPath,
     }
 
     this.carMakeEdited.emit(output);

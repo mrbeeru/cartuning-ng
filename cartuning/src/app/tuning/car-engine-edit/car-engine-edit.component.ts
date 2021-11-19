@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CarEngine } from '../tuning.component';
+import { CarEngine } from '../../_services/tuning.service';
 
 @Component({
   selector: 'app-car-engine-edit',
@@ -31,8 +31,8 @@ export class CarEngineEditComponent implements OnInit {
       hp: [this.carEngine?.hp],
       nm: [this.carEngine?.nm],
       priceStage1: [this.carEngine?.stage1?.price],
-      hpStage1: [this.carEngine?.stage1?.stageHp],
-      nmStage1: [this.carEngine?.stage1?.stageNm],
+      hpStage1: [this.carEngine?.stage1?.hp],
+      nmStage1: [this.carEngine?.stage1?.nm],
     });
 
     this.carEngineFormGroup.valueChanges.subscribe(x => this.carEngineFormValueChanges(x))
@@ -47,11 +47,13 @@ export class CarEngineEditComponent implements OnInit {
       hp: value.hp,
       nm: value.nm,
       stage1: {
-        stageHp: value.hpStage1,
-        stageNm: value.nmStage1,
+        hp: value.hpStage1,
+        nm: value.nmStage1,
         price: value.priceStage1,
       }
     }
+
+    console.log(output);
 
     this.carEngineEdited.emit(output);
   }

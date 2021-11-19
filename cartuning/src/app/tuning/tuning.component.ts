@@ -2,44 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
+import { CarBrand, CarEngine, CarGeneration, CarModel, TuningService } from '../_services/tuning.service';
 import { TuningEditDialogComponent } from './tuning-edit-dialog/tuning-edit-dialog.component';
-
-
-export interface CarBrand {
-  name: string;
-  icon: string;
-  models:CarModel[];
-}
-
-export interface CarModel {
-  name: string;
-  icon: string;
-  generations: CarGeneration[];
-}
-
-export interface CarGeneration {
-  startYear: number;
-  endYear : number;
-  icon: string;
-  dieselEngines?: CarEngine[];
-  petrolEngines?: CarEngine[];
-}
-
-export interface CarEngine{
-  kind?: string;
-  name: string;
-  hp: number;
-  nm: number;
-  stage1: CarEngineStage;
-  // stage2: CarEngineStage;
-  // stage3: CarEngineStage;
-}
-
-export interface CarEngineStage {
-  price: number;
-  stageHp: number;
-  stageNm: number;
-}
 
 @Component({
   selector: 'app-tuning',
@@ -60,7 +24,10 @@ export class TuningComponent implements OnInit {
 
   @ViewChild('stepper') stepper:MatStepper;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private tuningService: TuningService
+    ) { }
 
   ngOnInit(): void { }
 
@@ -126,6 +93,8 @@ export class TuningComponent implements OnInit {
     }
   }
 
+//#region tuning_table_dialogs
+
   openAddCarBrandDialog(){
     const dialogRef = this.dialog.open(TuningEditDialogComponent, {data: {method:"BRAND"}});
 
@@ -145,7 +114,7 @@ export class TuningComponent implements OnInit {
         return;
 
         carBrand.name = result.name;
-        carBrand.icon = result.icon;
+        carBrand.iconPath = result.iconPath;
     });
   }
 
@@ -174,7 +143,7 @@ export class TuningComponent implements OnInit {
         return;
 
         carModel.name = result.name;
-        carModel.icon = result.icon;
+        carModel.iconPath = result.iconPath;
     });
   }
 
@@ -206,7 +175,7 @@ export class TuningComponent implements OnInit {
 
         carMake.startYear = result.startYear;
         carMake.endYear = result.endYear;
-        carMake.icon = result.icon;
+        carMake.iconPath = result.iconPath;
     });
   }
 
@@ -249,8 +218,8 @@ export class TuningComponent implements OnInit {
       carEngine.nm = result.nm;
       carEngine.name = result.name;
       carEngine.stage1.price = result.stage1.price;
-      carEngine.stage1.stageHp = result.stage1.stageHp;
-      carEngine.stage1.stageNm = result.stage1.stageNm;
+      carEngine.stage1.hp = result.stage1.hp;
+      carEngine.stage1.nm = result.stage1.nm;
     });
   }
 
@@ -269,24 +238,27 @@ export class TuningComponent implements OnInit {
     this.dieselEngineSource.data = this.dieselEngineSource.data;
   }
 
-  //#endregion
+//#endregion
 
-  
-//#region  cars
+
+  updateTuningTable()
+  {
+    this.tuningService.f(this.carMap.cars)
+  }
 
 audi : CarBrand= 
 {
   name: "Audi",
-  icon: "assets/car-brands/audi_logo_thumbnail.png",
+  iconPath: "assets/car-brands/audi_logo_thumbnail.png",
   models: [
     {
       name: "A2",
-      icon: "assets/car-models/audi/audi_a2_small.png",
+      iconPath: "assets/car-models/audi/audi_a2_small.png",
       generations: [
         {
           startYear: 1999,
           endYear: 2005,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.4 TDI ",
@@ -294,8 +266,8 @@ audi : CarBrand=
               nm: 230,
               stage1: {
                 price: 75,
-                stageHp: 110,
-                stageNm: 280,
+                hp: 110,
+                nm: 280,
               }
             },
             {
@@ -304,8 +276,8 @@ audi : CarBrand=
               nm: 195,
               stage1: {
                 price: 75,
-                stageHp: 100,
-                stageNm: 250,
+                hp: 100,
+                nm: 250,
               }
             },
             {
@@ -314,8 +286,8 @@ audi : CarBrand=
               nm: 140,
               stage1: {
                 price: 75,
-                stageHp: 85,
-                stageNm: 170,
+                hp: 85,
+                nm: 170,
               }
             }
           ]
@@ -325,12 +297,12 @@ audi : CarBrand=
     
     {
       name: "A3",
-      icon: "assets/car-models/audi/audi_a3_small.png",
+      iconPath: "assets/car-models/audi/audi_a3_small.png",
       generations: [
         {
           startYear: 1996,
           endYear: 2003,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.9 TDI",
@@ -338,8 +310,8 @@ audi : CarBrand=
               nm: 210,
               stage1: {
                 price: 75,
-                stageHp: 120,
-                stageNm: 260,
+                hp: 120,
+                nm: 260,
               }
             },
             {
@@ -348,8 +320,8 @@ audi : CarBrand=
               nm: 240,
               stage1: {
                 price: 75,
-                stageHp: 130,
-                stageNm: 300,
+                hp: 130,
+                nm: 300,
               }
             },
             {
@@ -358,8 +330,8 @@ audi : CarBrand=
               nm: 235,
               stage1: {
                 price: 75,
-                stageHp: 140,
-                stageNm: 310,
+                hp: 140,
+                nm: 310,
               }
             },
             {
@@ -368,8 +340,8 @@ audi : CarBrand=
               nm: 310,
               stage1: {
                 price: 75,
-                stageHp: 160,
-                stageNm: 380,
+                hp: 160,
+                nm: 380,
               }
             },
           ],
@@ -381,8 +353,8 @@ audi : CarBrand=
               nm: 210,
               stage1: {
                 price: 250,
-                stageHp: 180,
-                stageNm: 280,
+                hp: 180,
+                nm: 280,
               }
             },
             {
@@ -391,8 +363,8 @@ audi : CarBrand=
               nm: 235,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 310,
+                hp: 210,
+                nm: 310,
               }
             },
           ]
@@ -401,7 +373,7 @@ audi : CarBrand=
         {
           startYear: 2003,
           endYear: 2008,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.9 TDI",
@@ -409,8 +381,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 120,
-                stageHp: 140,
-                stageNm: 320,
+                hp: 140,
+                nm: 320,
               }
             },
             {
@@ -419,8 +391,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 120,
-                stageHp: 180,
-                stageNm: 400,
+                hp: 180,
+                nm: 400,
               }
             },
             {
@@ -429,8 +401,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 150,
-                stageHp: 200,
-                stageNm: 420,
+                hp: 200,
+                nm: 420,
               }
             },
             
@@ -443,8 +415,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 300,
-                stageHp: 240,
-                stageNm: 340,
+                hp: 240,
+                nm: 340,
               }
             },
             {
@@ -453,8 +425,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 300,
-                stageNm: 420,
+                hp: 300,
+                nm: 420,
               }
             },
           ]
@@ -463,7 +435,7 @@ audi : CarBrand=
         {
           startYear: 2008,
           endYear: 2012,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.6 TDI",
@@ -471,8 +443,8 @@ audi : CarBrand=
               nm: 230,
               stage1: {
                 price: 180,
-                stageHp: 140,
-                stageNm: 300,
+                hp: 140,
+                nm: 300,
               }
             },
             {
@@ -481,8 +453,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 180,
-                stageHp: 140,
-                stageNm: 300,
+                hp: 140,
+                nm: 300,
               }
             },
             {
@@ -491,8 +463,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 120,
-                stageHp: 140,
-                stageNm: 320,
+                hp: 140,
+                nm: 320,
               }
             },
             {
@@ -501,8 +473,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 180,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -511,8 +483,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 180,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -521,8 +493,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 180,
-                stageHp: 200,
-                stageNm: 420,
+                hp: 200,
+                nm: 420,
               }
             },
           ],
@@ -534,8 +506,8 @@ audi : CarBrand=
               nm: 175,
               stage1: {
                 price: 300,
-                stageHp: 130,
-                stageNm: 215,
+                hp: 130,
+                nm: 215,
               }
             },
             {
@@ -544,8 +516,8 @@ audi : CarBrand=
               nm: 200,
               stage1: {
                 price: 300,
-                stageHp: 145,
-                stageNm: 250,
+                hp: 145,
+                nm: 250,
               }
             },
             {
@@ -554,8 +526,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 300,
-                stageHp: 200,
-                stageNm: 300,
+                hp: 200,
+                nm: 300,
               }
             },
           ]
@@ -564,7 +536,7 @@ audi : CarBrand=
         {
           startYear: 2012,
           endYear: 2016,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.6 TDI",
@@ -572,8 +544,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 180,
-                stageHp: 140,
-                stageNm: 300,
+                hp: 140,
+                nm: 300,
               }
             },
             {
@@ -582,8 +554,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 250,
-                stageHp: 140,
-                stageNm: 300,
+                hp: 140,
+                nm: 300,
               }
             },
             {
@@ -592,8 +564,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -602,8 +574,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -612,8 +584,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 190,
-                stageNm: 420,
+                hp: 190,
+                nm: 420,
               }
             },
             {
@@ -622,8 +594,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 250,
-                stageHp: 220,
-                stageNm: 440,
+                hp: 220,
+                nm: 440,
               }
             },
           ],
@@ -635,8 +607,8 @@ audi : CarBrand=
               nm: 175,
               stage1: {
                 price: 300,
-                stageHp: 130,
-                stageNm: 215,
+                hp: 130,
+                nm: 215,
               }
             },
             {
@@ -645,8 +617,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 300,
-                stageHp: 170,
-                stageNm: 300,
+                hp: 170,
+                nm: 300,
               }
             },
             {
@@ -655,8 +627,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 350,
-                stageHp: 220,
-                stageNm: 350,
+                hp: 220,
+                nm: 350,
               }
             },
             {
@@ -665,8 +637,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 400,
-                stageHp: 270,
-                stageNm: 400,
+                hp: 270,
+                nm: 400,
               }
             },
           ]
@@ -676,12 +648,12 @@ audi : CarBrand=
     
     {
       name: "A4",
-      icon: "assets/car-models/audi/audi_a4_small.png",
+      iconPath: "assets/car-models/audi/audi_a4_small.png",
       generations: [
         {
           startYear: 2001,
           endYear: 2004,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.9 TDI",
@@ -689,8 +661,8 @@ audi : CarBrand=
               nm: 240,
               stage1: {
                 price: 75,
-                stageHp: 130,
-                stageNm: 300,
+                hp: 130,
+                nm: 300,
               }
             },
             {
@@ -699,8 +671,8 @@ audi : CarBrand=
               nm: 285,
               stage1: {
                 price: 75,
-                stageHp: 150,
-                stageNm: 350,
+                hp: 150,
+                nm: 350,
               }
             },
             {
@@ -709,8 +681,8 @@ audi : CarBrand=
               nm: 310,
               stage1: {
                 price: 75,
-                stageHp: 160,
-                stageNm: 380,
+                hp: 160,
+                nm: 380,
               }
             },
           ],
@@ -721,8 +693,8 @@ audi : CarBrand=
               nm: 210,
               stage1: {
                 price: 250,
-                stageHp: 180,
-                stageNm: 280,
+                hp: 180,
+                nm: 280,
               }
             },
             {
@@ -731,8 +703,8 @@ audi : CarBrand=
               nm: 225,
               stage1: {
                 price: 250,
-                stageHp: 195,
-                stageNm: 320,
+                hp: 195,
+                nm: 320,
               }
             },
             {
@@ -741,8 +713,8 @@ audi : CarBrand=
               nm: 235,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 320,
+                hp: 210,
+                nm: 320,
               }
             },
           ]
@@ -751,7 +723,7 @@ audi : CarBrand=
         {
           startYear: 2004,
           endYear: 2008,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.9 TDI",
@@ -759,8 +731,8 @@ audi : CarBrand=
               nm: 285,
               stage1: {
                 price: 120,
-                stageHp: 150,
-                stageNm: 350,
+                hp: 150,
+                nm: 350,
               }
             },
             {
@@ -769,8 +741,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 120,
-                stageHp: 180,
-                stageNm: 400,
+                hp: 180,
+                nm: 400,
               }
             },
             {
@@ -779,8 +751,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 150,
-                stageHp: 200,
-                stageNm: 420,
+                hp: 200,
+                nm: 420,
               }
             },
             {
@@ -789,8 +761,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 120,
-                stageHp: 220,
-                stageNm: 460,
+                hp: 220,
+                nm: 460,
               }
             },
             {
@@ -799,8 +771,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 120,
-                stageHp: 220,
-                stageNm: 460,
+                hp: 220,
+                nm: 460,
               }
             },
             {
@@ -809,8 +781,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 120,
-                stageHp: 275,
-                stageNm: 540,
+                hp: 275,
+                nm: 540,
               }
             },
             {
@@ -819,8 +791,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 120,
-                stageHp: 275,
-                stageNm: 540,
+                hp: 275,
+                nm: 540,
               }
             },
           ],
@@ -832,8 +804,8 @@ audi : CarBrand=
               nm: 225,
               stage1: {
                 price: 250,
-                stageHp: 195,
-                stageNm: 320,
+                hp: 195,
+                nm: 320,
               }
             },
             {
@@ -842,8 +814,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 300,
-                stageHp: 230,
-                stageNm: 340,
+                hp: 230,
+                nm: 340,
               }
             },
             {
@@ -852,8 +824,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 300,
-                stageHp: 240,
-                stageNm: 360,
+                hp: 240,
+                nm: 360,
               }
             },
             {
@@ -862,8 +834,8 @@ audi : CarBrand=
               nm: 300,
               stage1: {
                 price: 300,
-                stageHp: 240,
-                stageNm: 360,
+                hp: 240,
+                nm: 360,
               }
             },
           ]
@@ -872,7 +844,7 @@ audi : CarBrand=
         {
           startYear: 2008,
           endYear: 2012,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI CR",
@@ -880,8 +852,8 @@ audi : CarBrand=
               nm: 290,
               stage1: {
                 price: 180,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -890,8 +862,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 180,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -900,8 +872,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 180,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -910,8 +882,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 180,
-                stageHp: 200,
-                stageNm: 420,
+                hp: 200,
+                nm: 420,
               }
             },
             {
@@ -920,8 +892,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 180,
-                stageHp: 230,
-                stageNm: 480,
+                hp: 230,
+                nm: 480,
               }
             },
             {
@@ -930,8 +902,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 180,
-                stageHp: 230,
-                stageNm: 480,
+                hp: 230,
+                nm: 480,
               }
             },
             {
@@ -940,8 +912,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 200,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
             {
@@ -950,8 +922,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 180,
-                stageHp: 300,
-                stageNm: 600,
+                hp: 300,
+                nm: 600,
               }
             },
           ],
@@ -962,8 +934,8 @@ audi : CarBrand=
               nm: 230,
               stage1: {
                 price: 350,
-                stageHp: 200,
-                stageNm: 300,
+                hp: 200,
+                nm: 300,
               }
             },
             {
@@ -972,8 +944,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 350,
-                stageHp: 200,
-                stageNm: 300,
+                hp: 200,
+                nm: 300,
               }
             },
             {
@@ -982,8 +954,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -992,8 +964,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -1002,8 +974,8 @@ audi : CarBrand=
               nm: 420,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 500,
+                hp: 400,
+                nm: 500,
               }
             },
           ]
@@ -1013,7 +985,7 @@ audi : CarBrand=
         {
           startYear: 2012,
           endYear: 2015,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI CR",
@@ -1021,8 +993,8 @@ audi : CarBrand=
               nm: 290,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1031,8 +1003,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1041,8 +1013,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1051,8 +1023,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 190,
-                stageNm: 400,
+                hp: 190,
+                nm: 400,
               }
             },
             {
@@ -1061,8 +1033,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
             {
@@ -1071,8 +1043,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 220,
-                stageNm: 450,
+                hp: 220,
+                nm: 450,
               }
             },
             {
@@ -1081,8 +1053,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 270,
-                stageNm: 600,
+                hp: 270,
+                nm: 600,
               }
             },
             {
@@ -1091,8 +1063,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
           ],
@@ -1104,8 +1076,8 @@ audi : CarBrand=
               nm: 200,
               stage1: {
                 price: 300,
-                stageHp: 145,
-                stageNm: 250,
+                hp: 145,
+                nm: 250,
               }
             },
             {
@@ -1114,8 +1086,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 220,
-                stageNm: 380,
+                hp: 220,
+                nm: 380,
               }
             },
             {
@@ -1124,8 +1096,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 220,
-                stageNm: 380,
+                hp: 220,
+                nm: 380,
               }
             },
             {
@@ -1134,8 +1106,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -1144,8 +1116,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 400,
-                stageHp: 300,
-                stageNm: 440,
+                hp: 300,
+                nm: 440,
               }
             },
             {
@@ -1154,8 +1126,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ]
@@ -1164,7 +1136,7 @@ audi : CarBrand=
         {
           startYear: 2015,
           endYear: 2019,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI CR",
@@ -1172,8 +1144,8 @@ audi : CarBrand=
               nm: 290,
               stage1: {
                 price: 300,
-                stageHp: 195,
-                stageNm: 430,
+                hp: 195,
+                nm: 430,
               }
             },
             {
@@ -1182,8 +1154,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 300,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1192,8 +1164,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 300,
-                stageHp: 190,
-                stageNm: 400,
+                hp: 190,
+                nm: 400,
               }
             },
             {
@@ -1202,8 +1174,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 300,
-                stageHp: 220,
-                stageNm: 450,
+                hp: 220,
+                nm: 450,
               }
             },
             {
@@ -1212,8 +1184,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 300,
-                stageHp: 300,
-                stageNm: 520,
+                hp: 300,
+                nm: 520,
               }
             },
             {
@@ -1222,8 +1194,8 @@ audi : CarBrand=
               nm: 600,
               stage1: {
                 price: 300,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
           ]
@@ -1233,12 +1205,12 @@ audi : CarBrand=
 
     {
       name: "A5",
-      icon: "assets/car-models/audi/audi_a5_small.png",
+      iconPath: "assets/car-models/audi/audi_a5_small.png",
       generations: [
         {
           startYear: 2007,
           endYear: 2011,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI CR",
@@ -1246,8 +1218,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 180,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1256,8 +1228,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 180,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1266,8 +1238,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 180,
-                stageHp: 200,
-                stageNm: 420,
+                hp: 200,
+                nm: 420,
               }
             },
             {
@@ -1276,8 +1248,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 180,
-                stageHp: 215,
-                stageNm: 430,
+                hp: 215,
+                nm: 430,
               }
             },
             {
@@ -1286,8 +1258,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 180,
-                stageHp: 230,
-                stageNm: 480,
+                hp: 230,
+                nm: 480,
               }
             },
             {
@@ -1296,8 +1268,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 180,
-                stageHp: 230,
-                stageNm: 480,
+                hp: 230,
+                nm: 480,
               }
             },
             {
@@ -1306,8 +1278,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 200,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
             {
@@ -1316,8 +1288,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 180,
-                stageHp: 300,
-                stageNm: 600,
+                hp: 300,
+                nm: 600,
               }
             },
             {
@@ -1326,8 +1298,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 270,
-                stageNm: 600,
+                hp: 270,
+                nm: 600,
               }
             },
             {
@@ -1336,8 +1308,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
           ],
@@ -1348,8 +1320,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 350,
-                stageHp: 200,
-                stageNm: 300,
+                hp: 200,
+                nm: 300,
               }
             },
             {
@@ -1358,8 +1330,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -1368,8 +1340,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
           ]
@@ -1378,7 +1350,7 @@ audi : CarBrand=
         {
           startYear: 2011,
           endYear: 2016,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI CR",
@@ -1386,8 +1358,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1396,8 +1368,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -1406,8 +1378,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 190,
-                stageNm: 400,
+                hp: 190,
+                nm: 400,
               }
             },
             {
@@ -1416,8 +1388,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
             {
@@ -1426,8 +1398,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 220,
-                stageNm: 450,
+                hp: 220,
+                nm: 450,
               }
             },
             {
@@ -1436,8 +1408,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 270,
-                stageNm: 600,
+                hp: 270,
+                nm: 600,
               }
             },
             {
@@ -1446,8 +1418,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -1456,8 +1428,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
           ],
@@ -1468,8 +1440,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 220,
-                stageNm: 380,
+                hp: 220,
+                nm: 380,
               }
             },
             {
@@ -1478,8 +1450,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -1488,8 +1460,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 400,
-                stageHp: 300,
-                stageNm: 440,
+                hp: 300,
+                nm: 440,
               }
             },
             {
@@ -1498,8 +1470,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ]
@@ -1508,7 +1480,7 @@ audi : CarBrand=
         {
           startYear: 2016,
           endYear: 2019,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI CR",
@@ -1516,8 +1488,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 300,
-                stageHp: 190,
-                stageNm: 400,
+                hp: 190,
+                nm: 400,
               }
             },
             {
@@ -1526,8 +1498,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 300,
-                stageHp: 220,
-                stageNm: 450,
+                hp: 220,
+                nm: 450,
               }
             },
             {
@@ -1536,8 +1508,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 300,
-                stageHp: 300,
-                stageNm: 520,
+                hp: 300,
+                nm: 520,
               }
             },
             {
@@ -1546,8 +1518,8 @@ audi : CarBrand=
               nm: 600,
               stage1: {
                 price: 300,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
           ],
@@ -1557,12 +1529,12 @@ audi : CarBrand=
 
     {
       name: "A6",
-      icon: "assets/car-models/audi/audi_a6_small.png",
+      iconPath: "assets/car-models/audi/audi_a6_small.png",
       generations: [
         {
           startYear: 1997,
           endYear: 2004,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "1.9 TDI",
@@ -1570,8 +1542,8 @@ audi : CarBrand=
               nm: 235,
               stage1: {
                 price: 75,
-                stageHp: 140,
-                stageNm: 300,
+                hp: 140,
+                nm: 300,
               }
             },
             {
@@ -1580,8 +1552,8 @@ audi : CarBrand=
               nm: 285,
               stage1: {
                 price: 75,
-                stageHp: 150,
-                stageNm: 350,
+                hp: 150,
+                nm: 350,
               }
             },
             {
@@ -1590,8 +1562,8 @@ audi : CarBrand=
               nm: 310,
               stage1: {
                 price: 75,
-                stageHp: 160,
-                stageNm: 380,
+                hp: 160,
+                nm: 380,
               }
             },
           ],
@@ -1602,8 +1574,8 @@ audi : CarBrand=
               nm: 210,
               stage1: {
                 price: 200,
-                stageHp: 190,
-                stageNm: 320,
+                hp: 190,
+                nm: 320,
               }
             },
           ]
@@ -1612,7 +1584,7 @@ audi : CarBrand=
         {
           startYear: 2004,
           endYear: 2008,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI",
@@ -1620,8 +1592,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 120,
-                stageHp: 180,
-                stageNm: 380,
+                hp: 180,
+                nm: 380,
               }
             },
             {
@@ -1630,8 +1602,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 120,
-                stageHp: 220,
-                stageNm: 460,
+                hp: 220,
+                nm: 460,
               }
             },
             {
@@ -1640,8 +1612,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 120,
-                stageHp: 220,
-                stageNm: 460,
+                hp: 220,
+                nm: 460,
               }
             },
             {
@@ -1650,8 +1622,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 120,
-                stageHp: 275,
-                stageNm: 540,
+                hp: 275,
+                nm: 540,
               }
             },
             {
@@ -1660,8 +1632,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 120,
-                stageHp: 275,
-                stageNm: 540,
+                hp: 275,
+                nm: 540,
               }
             },
           ],
@@ -1672,8 +1644,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 250,
-                stageHp: 240,
-                stageNm: 360,
+                hp: 240,
+                nm: 360,
               }
             },
             {
@@ -1682,8 +1654,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 250,
-                stageHp: 240,
-                stageNm: 360,
+                hp: 240,
+                nm: 360,
               }
             },
           ]
@@ -1692,7 +1664,7 @@ audi : CarBrand=
         {
           startYear: 2008,
           endYear: 2011,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI",
@@ -1700,8 +1672,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 120,
-                stageHp: 180,
-                stageNm: 380,
+                hp: 180,
+                nm: 380,
               }
             },
             {
@@ -1710,8 +1682,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 150,
-                stageHp: 200,
-                stageNm: 420,
+                hp: 200,
+                nm: 420,
               }
             },
             {
@@ -1720,8 +1692,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 150,
-                stageHp: 230,
-                stageNm: 520,
+                hp: 230,
+                nm: 520,
               }
             },
             {
@@ -1730,8 +1702,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 150,
-                stageHp: 230,
-                stageNm: 520,
+                hp: 230,
+                nm: 520,
               }
             },
             {
@@ -1740,8 +1712,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 180,
-                stageHp: 290,
-                stageNm: 580,
+                hp: 290,
+                nm: 580,
               }
             },
             {
@@ -1750,8 +1722,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 180,
-                stageHp: 290,
-                stageNm: 580,
+                hp: 290,
+                nm: 580,
               }
             },
           ],
@@ -1762,8 +1734,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 250,
-                stageHp: 240,
-                stageNm: 360,
+                hp: 240,
+                nm: 360,
               }
             },
             {
@@ -1772,8 +1744,8 @@ audi : CarBrand=
               nm: 420,
               stage1: {
                 price: 300,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ]
@@ -1782,7 +1754,7 @@ audi : CarBrand=
         {
           startYear: 2011,
           endYear: 2018,
-          icon: "",
+          iconPath: "",
           dieselEngines: [
             {
               name: "2.0 TDI",
@@ -1790,8 +1762,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 200,
-                stageHp: 185,
-                stageNm: 400,
+                hp: 185,
+                nm: 400,
               }
             },
             {
@@ -1800,8 +1772,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 200,
-                stageHp: 190,
-                stageNm: 420,
+                hp: 190,
+                nm: 420,
               }
             },
             {
@@ -1810,8 +1782,8 @@ audi : CarBrand=
               nm: 150,
               stage1: {
                 price: 200,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
             {
@@ -1820,8 +1792,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 200,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
             {
@@ -1830,8 +1802,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 220,
-                stageNm: 450,
+                hp: 220,
+                nm: 450,
               }
             },
             
@@ -1842,8 +1814,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 300,
-                stageNm: 600,
+                hp: 300,
+                nm: 600,
               }
             },
             {
@@ -1852,8 +1824,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 270,
-                stageNm: 600,
+                hp: 270,
+                nm: 600,
               }
             },
             {
@@ -1862,8 +1834,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -1872,8 +1844,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 320,
-                stageNm: 620,
+                hp: 320,
+                nm: 620,
               }
             },
 
@@ -1883,8 +1855,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 200,
-                stageHp: 295,
-                stageNm: 600,
+                hp: 295,
+                nm: 600,
               }
             },
             {
@@ -1893,8 +1865,8 @@ audi : CarBrand=
               nm: 580,
               stage1: {
                 price: 250,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -1903,8 +1875,8 @@ audi : CarBrand=
               nm: 650,
               stage1: {
                 price: 300,
-                stageHp: 350,
-                stageNm: 720,
+                hp: 350,
+                nm: 720,
               }
             },
             {
@@ -1913,8 +1885,8 @@ audi : CarBrand=
               nm: 650,
               stage1: {
                 price: 300,
-                stageHp: 400,
-                stageNm: 740,
+                hp: 400,
+                nm: 740,
               }
             },
             {
@@ -1923,8 +1895,8 @@ audi : CarBrand=
               nm: 650,
               stage1: {
                 price: 300,
-                stageHp: 400,
-                stageNm: 750,
+                hp: 400,
+                nm: 750,
               }
             },
           ],
@@ -1935,8 +1907,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 220,
-                stageNm: 380,
+                hp: 220,
+                nm: 380,
               }
             },
             {
@@ -1945,8 +1917,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 420,
+                hp: 260,
+                nm: 420,
               }
             },
             {
@@ -1955,8 +1927,8 @@ audi : CarBrand=
               nm: 370,
               stage1: {
                 price: 350,
-                stageHp: 300,
-                stageNm: 440,
+                hp: 300,
+                nm: 440,
               }
             },
             {
@@ -1965,8 +1937,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 500,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -1975,8 +1947,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 500,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -1985,8 +1957,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 500,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ]
@@ -1996,12 +1968,12 @@ audi : CarBrand=
 
     {
       name: "A7",
-      icon: "assets/car-models/audi/audi_a7_small.png",
+      iconPath: "assets/car-models/audi/audi_a7_small.png",
       generations: [
         {
           startYear: 2010,
           endYear: 2018,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "1.8 TFSI",
@@ -2009,8 +1981,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 220,
-                stageNm: 380,
+                hp: 220,
+                nm: 380,
               }
             },
             {
@@ -2019,8 +1991,8 @@ audi : CarBrand=
               nm: 370,
               stage1: {
                 price: 350,
-                stageHp: 300,
-                stageNm: 440,
+                hp: 300,
+                nm: 440,
               }
             },
             {
@@ -2029,8 +2001,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 500,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -2039,8 +2011,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 500,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -2049,8 +2021,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 500,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ],
@@ -2061,8 +2033,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 300,
-                stageNm: 600,
+                hp: 300,
+                nm: 600,
               }
             },
             {
@@ -2071,8 +2043,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 270,
-                stageNm: 600,
+                hp: 270,
+                nm: 600,
               }
             },
             {
@@ -2081,8 +2053,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -2091,8 +2063,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 320,
-                stageNm: 620,
+                hp: 320,
+                nm: 620,
               }
             },
 
@@ -2102,8 +2074,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 200,
-                stageHp: 295,
-                stageNm: 600,
+                hp: 295,
+                nm: 600,
               }
             },
             {
@@ -2112,8 +2084,8 @@ audi : CarBrand=
               nm: 580,
               stage1: {
                 price: 250,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -2122,8 +2094,8 @@ audi : CarBrand=
               nm: 650,
               stage1: {
                 price: 300,
-                stageHp: 350,
-                stageNm: 720,
+                hp: 350,
+                nm: 720,
               }
             },
             {
@@ -2132,8 +2104,8 @@ audi : CarBrand=
               nm: 650,
               stage1: {
                 price: 300,
-                stageHp: 400,
-                stageNm: 740,
+                hp: 400,
+                nm: 740,
               }
             },
             {
@@ -2142,8 +2114,8 @@ audi : CarBrand=
               nm: 650,
               stage1: {
                 price: 300,
-                stageHp: 400,
-                stageNm: 750,
+                hp: 400,
+                nm: 750,
               }
             },
           ],
@@ -2154,12 +2126,12 @@ audi : CarBrand=
 
     {
       name: "A8",
-      icon: "assets/car-models/audi/audi_a8_small.png",
+      iconPath: "assets/car-models/audi/audi_a8_small.png",
       generations: [
         {
           startYear: 2003,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             
           ],
@@ -2170,8 +2142,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 180,
-                stageHp: 275,
-                stageNm: 540,
+                hp: 275,
+                nm: 540,
               }
             },
             {
@@ -2180,8 +2152,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 180,
-                stageHp: 275,
-                stageNm: 540,
+                hp: 275,
+                nm: 540,
               }
             },
             {
@@ -2190,8 +2162,8 @@ audi : CarBrand=
               nm: 650,
               stage1: {
                 price: 200,
-                stageHp: 330,
-                stageNm: 670,
+                hp: 330,
+                nm: 670,
               }
             },
           ],
@@ -2200,7 +2172,7 @@ audi : CarBrand=
         {
           startYear: 2010,
           endYear: 2016,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "3.0 TFSI",
@@ -2208,8 +2180,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 350,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -2218,8 +2190,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 350,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -2228,8 +2200,8 @@ audi : CarBrand=
               nm: 550,
               stage1: {
                 price: 350,
-                stageHp: 540,
-                stageNm: 800,
+                hp: 540,
+                nm: 800,
               }
             },
             {
@@ -2238,8 +2210,8 @@ audi : CarBrand=
               nm: 600,
               stage1: {
                 price: 400,
-                stageHp: 540,
-                stageNm: 800,
+                hp: 540,
+                nm: 800,
               }
             },
           ],
@@ -2250,8 +2222,8 @@ audi : CarBrand=
               nm: 550,
               stage1: {
                 price: 300,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -2260,8 +2232,8 @@ audi : CarBrand=
               nm: 550,
               stage1: {
                 price: 300,
-                stageHp: 310,
-                stageNm: 650,
+                hp: 310,
+                nm: 650,
               },
             },
             {
@@ -2270,8 +2242,8 @@ audi : CarBrand=
               nm: 580,
               stage1: {
                 price: 300,
-                stageHp: 310,
-                stageNm: 650,
+                hp: 310,
+                nm: 650,
               }
             },
             {
@@ -2280,8 +2252,8 @@ audi : CarBrand=
               nm: 580,
               stage1: {
                 price: 300,
-                stageHp: 310,
-                stageNm: 650,
+                hp: 310,
+                nm: 650,
               }
             },
             {
@@ -2290,8 +2262,8 @@ audi : CarBrand=
               nm: 560,
               stage1: {
                 price: 300,
-                stageHp: 350,
-                stageNm: 720,
+                hp: 350,
+                nm: 720,
               }
             },
             
@@ -2301,8 +2273,8 @@ audi : CarBrand=
               nm: 800,
               stage1: {
                 price: 300,
-                stageHp: 400,
-                stageNm: 900,
+                hp: 400,
+                nm: 900,
               }
             },
             {
@@ -2311,8 +2283,8 @@ audi : CarBrand=
               nm: 850,
               stage1: {
                 price: 300,
-                stageHp: 485,
-                stageNm: 950,
+                hp: 485,
+                nm: 950,
               }
             },
           ],
@@ -2320,7 +2292,7 @@ audi : CarBrand=
         {
           startYear: 2016,
           endYear: 2018,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "4.0 TFSI",
@@ -2328,8 +2300,8 @@ audi : CarBrand=
               nm: 800,
               stage1: {
                 price: 650,
-                stageHp: 680,
-                stageNm: 900,
+                hp: 680,
+                nm: 900,
               }
             },
           ],
@@ -2340,8 +2312,8 @@ audi : CarBrand=
               nm: 600,
               stage1: {
                 price: 450,
-                stageHp: 350,
-                stageNm: 720,
+                hp: 350,
+                nm: 720,
               }
             },
           ],
@@ -2351,12 +2323,12 @@ audi : CarBrand=
 
     {
       name: "Q3",
-      icon: "assets/car-models/audi/audi_q3_small.png",
+      iconPath: "assets/car-models/audi/audi_q3_small.png",
       generations: [
         {
           startYear: 2011,
           endYear: 2015,
-          icon: "assets/car-models/audi/audi_q3_small.png",
+          iconPath: "assets/car-models/audi/audi_q3_small.png",
           petrolEngines: [
             {
               name: "1.4 TFSI",
@@ -2364,8 +2336,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 300,
-                stageHp: 170,
-                stageNm: 300,
+                hp: 170,
+                nm: 300,
               }
             },
             {
@@ -2374,8 +2346,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 300,
-                stageHp: 250,
-                stageNm: 400,
+                hp: 250,
+                nm: 400,
               }
             },
             {
@@ -2384,8 +2356,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 300,
-                stageHp: 250,
-                stageNm: 400,
+                hp: 250,
+                nm: 400,
               }
             },
             
@@ -2397,8 +2369,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -2407,8 +2379,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -2417,8 +2389,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
             {
@@ -2427,8 +2399,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
 			    ],
@@ -2436,7 +2408,7 @@ audi : CarBrand=
         {
           startYear: 2015,
           endYear: 2018,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "1.4 TFSI",
@@ -2444,8 +2416,8 @@ audi : CarBrand=
               nm: 220,
               stage1: {
                 price: 300,
-                stageHp: 170,
-                stageNm: 300,
+                hp: 170,
+                nm: 300,
               }
             },
             {
@@ -2454,8 +2426,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 300,
-                stageHp: 170,
-                stageNm: 300,
+                hp: 170,
+                nm: 300,
               }
             },
             {
@@ -2464,8 +2436,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 440,
+                hp: 260,
+                nm: 440,
               }
             },
             {
@@ -2474,8 +2446,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 440,
+                hp: 260,
+                nm: 440,
               }
             },
           ],
@@ -2486,8 +2458,8 @@ audi : CarBrand=
               nm: 290,
               stage1: {
                 price: 300,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -2496,8 +2468,8 @@ audi : CarBrand=
               nm: 340,
               stage1: {
                 price: 300,
-                stageHp: 190,
-                stageNm: 400,
+                hp: 190,
+                nm: 400,
               }
             },
             {
@@ -2506,8 +2478,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 350,
-                stageHp: 220,
-                stageNm: 450,
+                hp: 220,
+                nm: 450,
               }
             },
           ]
@@ -2517,12 +2489,12 @@ audi : CarBrand=
 
     {
       name: "Q5",
-      icon: "assets/car-models/audi/audi_q5_small.png",
+      iconPath: "assets/car-models/audi/audi_q5_small.png",
       generations: [
         {
           startYear: 2008,
           endYear: 2012,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "2.0 TFSI",
@@ -2530,8 +2502,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -2540,8 +2512,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             
@@ -2553,8 +2525,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -2563,8 +2535,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -2573,8 +2545,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 250,
-                stageHp: 205,
-                stageNm: 420,
+                hp: 205,
+                nm: 420,
               }
             },
             {
@@ -2583,8 +2555,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 250,
-                stageHp: 205,
-                stageNm: 420,
+                hp: 205,
+                nm: 420,
               }
             },
             {
@@ -2593,8 +2565,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 250,
-                stageHp: 230,
-                stageNm: 480,
+                hp: 230,
+                nm: 480,
               }
             },
             {
@@ -2603,8 +2575,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 280,
-                stageNm: 580,
+                hp: 280,
+                nm: 580,
               }
             },
             {
@@ -2613,8 +2585,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 250,
-                stageHp: 290,
-                stageNm: 580,
+                hp: 290,
+                nm: 580,
               }
             },
 			    ],
@@ -2623,7 +2595,7 @@ audi : CarBrand=
         {
           startYear: 2012,
           endYear: 2016,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "1.4 TFSI",
@@ -2631,8 +2603,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 300,
-                stageHp: 180,
-                stageNm: 300,
+                hp: 180,
+                nm: 300,
               }
             },
             {
@@ -2641,8 +2613,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -2651,8 +2623,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 400,
+                hp: 260,
+                nm: 400,
               }
             },
             {
@@ -2661,8 +2633,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -2671,8 +2643,8 @@ audi : CarBrand=
               nm: 470,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ],
@@ -2683,8 +2655,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 185,
-                stageNm: 410,
+                hp: 185,
+                nm: 410,
               }
             },
             {
@@ -2693,8 +2665,8 @@ audi : CarBrand=
               nm: 320,
               stage1: {
                 price: 250,
-                stageHp: 190,
-                stageNm: 400,
+                hp: 190,
+                nm: 400,
               }
             },
             {
@@ -2703,8 +2675,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
             {
@@ -2713,8 +2685,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 250,
-                stageHp: 210,
-                stageNm: 430,
+                hp: 210,
+                nm: 430,
               }
             },
             {
@@ -2723,8 +2695,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 300,
-                stageHp: 215,
-                stageNm: 450,
+                hp: 215,
+                nm: 450,
               }
             },
             {
@@ -2733,8 +2705,8 @@ audi : CarBrand=
               nm: 580,
               stage1: {
                 price: 300,
-                stageHp: 290,
-                stageNm: 650,
+                hp: 290,
+                nm: 650,
               }
             },
             {
@@ -2743,8 +2715,8 @@ audi : CarBrand=
               nm: 580,
               stage1: {
                 price: 300,
-                stageHp: 310,
-                stageNm: 650,
+                hp: 310,
+                nm: 650,
               }
             },
           ]
@@ -2754,12 +2726,12 @@ audi : CarBrand=
 
     {
       name: "Q7",
-      icon: "assets/car-models/audi/audi_q7_small.png",
+      iconPath: "assets/car-models/audi/audi_q7_small.png",
       generations: [
         {
           startYear: 2006,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "3.0 TFSI",
@@ -2767,8 +2739,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -2777,8 +2749,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ],
@@ -2789,8 +2761,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 200,
-                stageHp: 280,
-                stageNm: 580,
+                hp: 280,
+                nm: 580,
               }
             },
             {
@@ -2799,8 +2771,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 200,
-                stageHp: 280,
-                stageNm: 580,
+                hp: 280,
+                nm: 580,
               }
             },
             {
@@ -2809,8 +2781,8 @@ audi : CarBrand=
               nm: 550,
               stage1: {
                 price: 200,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
             {
@@ -2819,8 +2791,8 @@ audi : CarBrand=
               nm: 760,
               stage1: {
                 price: 250,
-                stageHp: 375,
-                stageNm: 880,
+                hp: 375,
+                nm: 880,
               }
             },
             {
@@ -2829,8 +2801,8 @@ audi : CarBrand=
               nm: 1000,
               stage1: {
                 price: 300,
-                stageHp: 600,
-                stageNm: 1200,
+                hp: 600,
+                nm: 1200,
               }
             },
           ]
@@ -2839,7 +2811,7 @@ audi : CarBrand=
         {
           startYear: 2010,
           endYear: 2015,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "3.0 TFSI",
@@ -2847,8 +2819,8 @@ audi : CarBrand=
               nm: 400,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             {
@@ -2857,8 +2829,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 400,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
           ],
@@ -2869,8 +2841,8 @@ audi : CarBrand=
               nm: 450,
               stage1: {
                 price: 300,
-                stageHp: 270,
-                stageNm: 570,
+                hp: 270,
+                nm: 570,
               }
             },
             {
@@ -2879,8 +2851,8 @@ audi : CarBrand=
               nm: 550,
               stage1: {
                 price: 300,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
             {
@@ -2889,8 +2861,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 300,
-                stageHp: 290,
-                stageNm: 600,
+                hp: 290,
+                nm: 600,
               }
             },
             {
@@ -2899,8 +2871,8 @@ audi : CarBrand=
               nm: 760,
               stage1: {
                 price: 300,
-                stageHp: 390,
-                stageNm: 880,
+                hp: 390,
+                nm: 880,
               }
             },
             {
@@ -2909,8 +2881,8 @@ audi : CarBrand=
               nm: 1000,
               stage1: {
                 price: 350,
-                stageHp: 600,
-                stageNm: 1200,
+                hp: 600,
+                nm: 1200,
               }
             },
           ]
@@ -2919,7 +2891,7 @@ audi : CarBrand=
         {
           startYear: 2015,
           endYear: 2019,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "3.0 TFSI",
@@ -2927,8 +2899,8 @@ audi : CarBrand=
               nm: 440,
               stage1: {
                 price: 600,
-                stageHp: 400,
-                stageNm: 520,
+                hp: 400,
+                nm: 520,
               }
             },
             
@@ -2940,8 +2912,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 350,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -2950,8 +2922,8 @@ audi : CarBrand=
               nm: 500,
               stage1: {
                 price: 350,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
             {
@@ -2960,8 +2932,8 @@ audi : CarBrand=
               nm: 600,
               stage1: {
                 price: 350,
-                stageHp: 320,
-                stageNm: 680,
+                hp: 320,
+                nm: 680,
               }
             },
           ]
@@ -2971,12 +2943,12 @@ audi : CarBrand=
 
     {
       name: "TT",
-      icon: "assets/car-models/audi/audi_tt_small.png",
+      iconPath: "assets/car-models/audi/audi_tt_small.png",
       generations: [
         {
           startYear: 1997,
           endYear: 2006,
-          icon: "assets/car-models/audi/audi_tt_small.png",
+          iconPath: "assets/car-models/audi/audi_tt_small.png",
           petrolEngines: [
             {
               name: "1.8 T",
@@ -2984,8 +2956,8 @@ audi : CarBrand=
               nm: 210,
               stage1: {
                 price: 200,
-                stageHp: 190,
-                stageNm: 320,
+                hp: 190,
+                nm: 320,
               }
             },
             {
@@ -2994,8 +2966,8 @@ audi : CarBrand=
               nm: 235,
               stage1: {
                 price: 200,
-                stageHp: 210,
-                stageNm: 340,
+                hp: 210,
+                nm: 340,
               }
             },
             {
@@ -3004,8 +2976,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 250,
-                stageHp: 250,
-                stageNm: 350,
+                hp: 250,
+                nm: 350,
               }
             },
           ],
@@ -3017,7 +2989,7 @@ audi : CarBrand=
         {
           startYear: 2006,
           endYear: 2014,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "1.8 TFSI",
@@ -3025,8 +2997,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 300,
-                stageHp: 210,
-                stageNm: 320,
+                hp: 210,
+                nm: 320,
               }
             },
             {
@@ -3035,8 +3007,8 @@ audi : CarBrand=
               nm: 280,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 380,
+                hp: 260,
+                nm: 380,
               }
             },
             {
@@ -3045,8 +3017,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 350,
-                stageHp: 260,
-                stageNm: 380,
+                hp: 260,
+                nm: 380,
               }
             },
           ],
@@ -3057,8 +3029,8 @@ audi : CarBrand=
               nm: 350,
               stage1: {
                 price: 180,
-                stageHp: 205,
-                stageNm: 420,
+                hp: 205,
+                nm: 420,
               }
             },
           ]
@@ -3067,7 +3039,7 @@ audi : CarBrand=
         {
           startYear: 2014,
           endYear: 2018,
-          icon: "",
+          iconPath: "",
           petrolEngines: [
             {
               name: "1.8 TFSI",
@@ -3075,8 +3047,8 @@ audi : CarBrand=
               nm: 250,
               stage1: {
                 price: 400,
-                stageHp: 220,
-                stageNm: 380,
+                hp: 220,
+                nm: 380,
               }
             },
             {
@@ -3085,8 +3057,8 @@ audi : CarBrand=
               nm: 370,
               stage1: {
                 price: 400,
-                stageHp: 300,
-                stageNm: 440,
+                hp: 300,
+                nm: 440,
               }
             },
             
@@ -3098,8 +3070,8 @@ audi : CarBrand=
               nm: 380,
               stage1: {
                 price: 300,
-                stageHp: 220,
-                stageNm: 450,
+                hp: 220,
+                nm: 450,
               }
             },
           ]
@@ -3112,71 +3084,71 @@ audi : CarBrand=
 bmw : CarBrand= 
 {
   name: "Bmw",
-  icon: "assets/car-brands/bmw_logo_thumbnail.png",
+  iconPath: "assets/car-brands/bmw_logo_thumbnail.png",
   models: [
     {
       name: "Seria 1",
-      icon: "assets/car-models/bmw/bmw_series1_small.png",
+      iconPath: "assets/car-models/bmw/bmw_series1_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Seria 3",
-      icon: "assets/car-models/bmw/bmw_series3_small.png",
+      iconPath: "assets/car-models/bmw/bmw_series3_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Seria 5",
-      icon: "assets/car-models/bmw/bmw_series5.png",
+      iconPath: "assets/car-models/bmw/bmw_series5.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Seria 7",
-      icon: "assets/car-models/bmw/bmw_series7_small.png",
+      iconPath: "assets/car-models/bmw/bmw_series7_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "X3",
-      icon: "assets/car-models/bmw/bmw_x3_small.png",
+      iconPath: "assets/car-models/bmw/bmw_x3_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "X5",
-      icon: "assets/car-models/bmw/bmw_x5_small.png",
+      iconPath: "assets/car-models/bmw/bmw_x5_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3186,115 +3158,115 @@ bmw : CarBrand=
 renault : CarBrand= 
 {
   name: "Renault",
-  icon: "assets/car-brands/renault_logo_thumbnail.png",
+  iconPath: "assets/car-brands/renault_logo_thumbnail.png",
   models: [
     {
       name: "Laguna",
-      icon: "assets/car-models/renault/laguna_small.png",
+      iconPath: "assets/car-models/renault/laguna_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Megane",
-      icon: "assets/car-models/renault/megane_small.png",
+      iconPath: "assets/car-models/renault/megane_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Clio",
-      icon: "assets/car-models/renault/clio_small.png",
+      iconPath: "assets/car-models/renault/clio_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Espace",
-      icon: "assets/car-models/renault/espace_small.png",
+      iconPath: "assets/car-models/renault/espace_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Fluence",
-      icon: "assets/car-models/renault/fluence_small.png",
+      iconPath: "assets/car-models/renault/fluence_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Modus",
-      icon: "assets/car-models/renault/modus_small.png",
+      iconPath: "assets/car-models/renault/modus_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Latitude",
-      icon: "assets/car-models/renault/latitude_small.png",
+      iconPath: "assets/car-models/renault/latitude_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Scenic",
-      icon: "assets/car-models/renault/scenic_small.png",
+      iconPath: "assets/car-models/renault/scenic_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Trafic",
-      icon: "assets/car-models/renault/trafic_small.png",
+      iconPath: "assets/car-models/renault/trafic_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Vel Satis",
-      icon: "assets/car-models/renault/vel_satis_small.png",
+      iconPath: "assets/car-models/renault/vel_satis_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3305,104 +3277,104 @@ renault : CarBrand=
 volkswagen : CarBrand= 
 {
   name: "Volkswagen",
-  icon: "assets/car-brands/volkswagen_logo_thumbnail.png"  ,
+  iconPath: "assets/car-brands/volkswagen_logo_thumbnail.png"  ,
   models: [
     {
       name: "Bora",
-      icon: "assets/car-models/vw/vw_bora_small.png",
+      iconPath: "assets/car-models/vw/vw_bora_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Golf",
-      icon: "assets/car-models/vw/vw_golf_small.png",
+      iconPath: "assets/car-models/vw/vw_golf_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Passat",
-      icon: "assets/car-models/vw/vw_passat_small.png",
+      iconPath: "assets/car-models/vw/vw_passat_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Jetta",
-      icon: "assets/car-models/vw/vw_jetta_small.png",
+      iconPath: "assets/car-models/vw/vw_jetta_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Caddy",
-      icon: "assets/car-models/vw/vw_caddy_small.png",
+      iconPath: "assets/car-models/vw/vw_caddy_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Sharan",
-      icon: "assets/car-models/vw/vw_sharan_small.png",
+      iconPath: "assets/car-models/vw/vw_sharan_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Tiguan",
-      icon: "assets/car-models/vw/vw_tiguan_small.png",
+      iconPath: "assets/car-models/vw/vw_tiguan_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Touareg",
-      icon: "assets/car-models/vw/vw_touareg_small.png",
+      iconPath: "assets/car-models/vw/vw_touareg_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Touran",
-      icon: "assets/car-models/vw/vw_touran_small.png",
+      iconPath: "assets/car-models/vw/vw_touran_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3412,71 +3384,71 @@ volkswagen : CarBrand=
 ford : CarBrand= 
 {
   name: "Ford",
-  icon: "assets/car-brands/ford_logo_thumbnail.png",
+  iconPath: "assets/car-brands/ford_logo_thumbnail.png",
   models: [
     {
       name: "Mondeo",
-      icon: "assets/car-models/ford/ford_mondeo_small.png",
+      iconPath: "assets/car-models/ford/ford_mondeo_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Fiesta",
-      icon: "assets/car-models/ford/ford_fiesta_small.png",
+      iconPath: "assets/car-models/ford/ford_fiesta_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Focus",
-      icon: "assets/car-models/ford/ford_focus_small.png",
+      iconPath: "assets/car-models/ford/ford_focus_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Galaxy",
-      icon: "assets/car-models/ford/ford_galaxy_small.png",
+      iconPath: "assets/car-models/ford/ford_galaxy_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C Max",
-      icon: "assets/car-models/ford/ford_cmax_small.png",
+      iconPath: "assets/car-models/ford/ford_cmax_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "S Max",
-      icon: "assets/car-models/ford/ford_smax_small.png",
+      iconPath: "assets/car-models/ford/ford_smax_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3486,115 +3458,115 @@ ford : CarBrand=
 opel : CarBrand= 
 {
   name: "Opel",
-  icon: "assets/car-brands/opel_logo_thumbnail.png",
+  iconPath: "assets/car-brands/opel_logo_thumbnail.png",
   models: [
     {
       name: "Astra",
-      icon: "assets/car-models/opel/opel_astra_small.png",
+      iconPath: "assets/car-models/opel/opel_astra_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Vectra",
-      icon: "assets/car-models/opel/opel_vectra.png",
+      iconPath: "assets/car-models/opel/opel_vectra.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Insignia",
-      icon: "assets/car-models/opel/opel_insignia_small.png",
+      iconPath: "assets/car-models/opel/opel_insignia_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Corsa",
-      icon: "assets/car-models/opel/opel_corsa_small.png",
+      iconPath: "assets/car-models/opel/opel_corsa_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Agila",
-      icon: "assets/car-models/opel/opel_agila_small.png",
+      iconPath: "assets/car-models/opel/opel_agila_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Antara",
-      icon: "assets/car-models/opel/opel_antara_small.png",
+      iconPath: "assets/car-models/opel/opel_antara_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Meriva",
-      icon: "assets/car-models/opel/opel_meriva_small.png",
+      iconPath: "assets/car-models/opel/opel_meriva_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Vivaro",
-      icon: "assets/car-models/opel/opel_vivaro_small.png",
+      iconPath: "assets/car-models/opel/opel_vivaro_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Zafira",
-      icon: "assets/car-models/opel/opel_zafira_small.png",
+      iconPath: "assets/car-models/opel/opel_zafira_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Signum",
-      icon: "assets/car-models/opel/opel_signum_small.png",
+      iconPath: "assets/car-models/opel/opel_signum_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3604,60 +3576,60 @@ opel : CarBrand=
 mercedes : CarBrand = 
 {
   name: "Mercedes",
-  icon: "assets/car-brands/mercedes_logo_thumbnail.png",
+  iconPath: "assets/car-brands/mercedes_logo_thumbnail.png",
   models: [
     {
       name: "A Class",
-      icon: "assets/car-models/mercedes/mercedes_aclass_small.png",
+      iconPath: "assets/car-models/mercedes/mercedes_aclass_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C Class",
-      icon: "assets/car-models/mercedes/mercedes_cclass_small.png",
+      iconPath: "assets/car-models/mercedes/mercedes_cclass_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "E Class",
-      icon: "assets/car-models/mercedes/mercedes_eclass_small.png",
+      iconPath: "assets/car-models/mercedes/mercedes_eclass_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "S Class",
-      icon: "assets/car-models/mercedes/mercedes_sclass_small.png",
+      iconPath: "assets/car-models/mercedes/mercedes_sclass_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Vito",
-      icon: "assets/car-models/mercedes/mercedes_vito_small.png",
+      iconPath: "assets/car-models/mercedes/mercedes_vito_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3667,38 +3639,38 @@ mercedes : CarBrand =
 alfaromeo : CarBrand = 
 {
   name: "Alfa Romeo",
-  icon: "assets/car-brands/alfaromeo_logo_thumbnail.png",
+  iconPath: "assets/car-brands/alfaromeo_logo_thumbnail.png",
   models: [
     {
       name: "147",
-      icon: "assets/car-models/alfaromeo/alfaromeo_147_small.png",
+      iconPath: "assets/car-models/alfaromeo/alfaromeo_147_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "156",
-      icon: "assets/car-models/alfaromeo/alfaromeo_156_small.png",
+      iconPath: "assets/car-models/alfaromeo/alfaromeo_156_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "159",
-      icon: "assets/car-models/alfaromeo/alfaromeo_159_small.png",
+      iconPath: "assets/car-models/alfaromeo/alfaromeo_159_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3708,60 +3680,60 @@ alfaromeo : CarBrand =
 dacia : CarBrand = 
 {
   name: "Dacia",
-  icon: "assets/car-brands/dacia_logo_thumbnail.png",
+  iconPath: "assets/car-brands/dacia_logo_thumbnail.png",
   models: [
     {
       name: "Duster",
-      icon: "assets/car-models/dacia/dacia_duster_small.png",
+      iconPath: "assets/car-models/dacia/dacia_duster_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Logan",
-      icon: "assets/car-models/dacia/dacia_logan_small.png",
+      iconPath: "assets/car-models/dacia/dacia_logan_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Sandero",
-      icon: "assets/car-models/dacia/dacia_sandero_small.png",
+      iconPath: "assets/car-models/dacia/dacia_sandero_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Lodgy",
-      icon: "assets/car-models/dacia/dacia_lodgy_small.png",
+      iconPath: "assets/car-models/dacia/dacia_lodgy_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Dokker",
-      icon: "assets/car-models/dacia/dacia_dokker_small.png",
+      iconPath: "assets/car-models/dacia/dacia_dokker_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3771,82 +3743,82 @@ dacia : CarBrand =
 peugeot : CarBrand = 
 {
   name: "Peugeot",
-  icon: "assets/car-brands/peugeot_logo_thumbnail.png",
+  iconPath: "assets/car-brands/peugeot_logo_thumbnail.png",
   models: [
     {
       name: "206",
-      icon: "assets/car-models/peugeot/peugeot_206_small.png",
+      iconPath: "assets/car-models/peugeot/peugeot_206_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "207",
-      icon: "assets/car-models/peugeot/peugeot_207_small.png",
+      iconPath: "assets/car-models/peugeot/peugeot_207_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "307",
-      icon: "assets/car-models/peugeot/peugeot_307_small.png",
+      iconPath: "assets/car-models/peugeot/peugeot_307_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "407",
-      icon: "assets/car-models/peugeot/peugeot_407_small.png",
+      iconPath: "assets/car-models/peugeot/peugeot_407_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "508",
-      icon: "assets/car-models/peugeot/peugeot_508_small.png",
+      iconPath: "assets/car-models/peugeot/peugeot_508_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "607",
-      icon: "assets/car-models/peugeot/peugeot_607_small.png",
+      iconPath: "assets/car-models/peugeot/peugeot_607_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Partner",
-      icon: "assets/car-models/peugeot/peugeot_partner_small.png",
+      iconPath: "assets/car-models/peugeot/peugeot_partner_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3856,38 +3828,38 @@ peugeot : CarBrand =
 mazda : CarBrand = 
 {
   name: "Mazda",
-  icon: "assets/car-brands/mazda_logo_thumbnail.png",
+  iconPath: "assets/car-brands/mazda_logo_thumbnail.png",
   models: [
     {
       name: "3",
-      icon: "assets/car-models/mazda/mazda_3_small.png",
+      iconPath: "assets/car-models/mazda/mazda_3_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "5",
-      icon: "assets/car-models/mazda/mazda_5_small.png",
+      iconPath: "assets/car-models/mazda/mazda_5_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "6",
-      icon: "assets/car-models/mazda/mazda_6.png",
+      iconPath: "assets/car-models/mazda/mazda_6.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3897,38 +3869,38 @@ mazda : CarBrand =
 skoda : CarBrand = 
 {
   name: "Skoda",
-  icon: "assets/car-brands/skoda_logo_thumbnail.png",
+  iconPath: "assets/car-brands/skoda_logo_thumbnail.png",
   models: [
     {
       name: "Fabia",
-      icon: "assets/car-models/skoda/skoda_fabia_small.png",
+      iconPath: "assets/car-models/skoda/skoda_fabia_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Octavia",
-      icon: "assets/car-models/skoda/skoda_octavia_small.png",
+      iconPath: "assets/car-models/skoda/skoda_octavia_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Superb",
-      icon: "assets/car-models/skoda/skoda_superb_small.png",
+      iconPath: "assets/car-models/skoda/skoda_superb_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3938,38 +3910,38 @@ skoda : CarBrand =
 nissan : CarBrand = 
 {
   name: "nissan",
-  icon: "assets/car-brands/nissan_logo_thumbnail.png",
+  iconPath: "assets/car-brands/nissan_logo_thumbnail.png",
   models: [
     {
       name: "Almera",
-      icon: "assets/car-models/nissan/nissan_almera_small.png",
+      iconPath: "assets/car-models/nissan/nissan_almera_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Micra",
-      icon: "assets/car-models/nissan/nissan_micra_small.png",
+      iconPath: "assets/car-models/nissan/nissan_micra_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Qashqai",
-      icon: "assets/car-models/nissan/nissan_qashqai_small.png",
+      iconPath: "assets/car-models/nissan/nissan_qashqai_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -3979,71 +3951,71 @@ nissan : CarBrand =
 volvo : CarBrand = 
 {
   name: "volvo",
-  icon: "assets/car-brands/volvo_logo_thumbnail.png",
+  iconPath: "assets/car-brands/volvo_logo_thumbnail.png",
   models: [
     {
       name: "S40",
-      icon: "assets/car-models/volvo/volvo_s40_small.png",
+      iconPath: "assets/car-models/volvo/volvo_s40_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "S60",
-      icon: "assets/car-models/volvo/volvo_s60_small.png",
+      iconPath: "assets/car-models/volvo/volvo_s60_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "S80",
-      icon: "assets/car-models/volvo/volvo_s80_small.png",
+      iconPath: "assets/car-models/volvo/volvo_s80_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "V40",
-      icon: "assets/car-models/volvo/volvo_s40_small.png",
+      iconPath: "assets/car-models/volvo/volvo_s40_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "V50",
-      icon: "assets/car-models/volvo/volvo_v50_small.png",
+      iconPath: "assets/car-models/volvo/volvo_v50_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "V60",
-      icon: "assets/car-models/volvo/volvo_v60_small.png",
+      iconPath: "assets/car-models/volvo/volvo_v60_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -4053,60 +4025,60 @@ volvo : CarBrand =
 fiat : CarBrand = 
 {
   name: "fiat",
-  icon: "assets/car-brands/fiat_logo_thumbnail.png",
+  iconPath: "assets/car-brands/fiat_logo_thumbnail.png",
   models: [
     {
       name: "Albea",
-      icon: "assets/car-models/fiat/fiat_albea.png",
+      iconPath: "assets/car-models/fiat/fiat_albea.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Croma",
-      icon: "assets/car-models/fiat/fiat_croma_small.png",
+      iconPath: "assets/car-models/fiat/fiat_croma_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Bravo",
-      icon: "assets/car-models/fiat/fiat_bravo_small.png",
+      iconPath: "assets/car-models/fiat/fiat_bravo_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Doblo",
-      icon: "assets/car-models/fiat/fiat_doblo_small.png",
+      iconPath: "assets/car-models/fiat/fiat_doblo_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Punto",
-      icon: "assets/car-models/fiat/fiat_punto_small.png",
+      iconPath: "assets/car-models/fiat/fiat_punto_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -4116,104 +4088,104 @@ fiat : CarBrand =
 citroen : CarBrand = 
 {
   name: "citroen",
-  icon: "assets/car-brands/citroen_logo_thumbnail.png",
+  iconPath: "assets/car-brands/citroen_logo_thumbnail.png",
   models: [
     {
       name: "C1",
-      icon: "assets/car-models/citroen/citroen_c1_small.png",
+      iconPath: "assets/car-models/citroen/citroen_c1_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C2",
-      icon: "assets/car-models/citroen/citroen_c2.png",
+      iconPath: "assets/car-models/citroen/citroen_c2.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C3",
-      icon: "assets/car-models/citroen/citroen_c3_small.png",
+      iconPath: "assets/car-models/citroen/citroen_c3_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C4",
-      icon: "assets/car-models/citroen/citroen_c4_small.png",
+      iconPath: "assets/car-models/citroen/citroen_c4_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C5",
-      icon: "assets/car-models/citroen/citroen_c5_small.png",
+      iconPath: "assets/car-models/citroen/citroen_c5_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C6",
-      icon: "assets/car-models/citroen/citroen_c6_small.png",
+      iconPath: "assets/car-models/citroen/citroen_c6_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "C8",
-      icon: "assets/car-models/citroen/citroen_c8_small.png",
+      iconPath: "assets/car-models/citroen/citroen_c8_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "Xsara",
-      icon: "assets/car-models/citroen/citroen_xsara_small.png",
+      iconPath: "assets/car-models/citroen/citroen_xsara_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
     {
       name: "DS3",
-      icon: "assets/car-models/citroen/citroen_ds3_small.png",
+      iconPath: "assets/car-models/citroen/citroen_ds3_small.png",
       generations: [
         {
           startYear: 2000,
           endYear: 2010,
-          icon: "",
+          iconPath: "",
         }
       ]
     },
@@ -4223,16 +4195,16 @@ citroen : CarBrand =
 lexus : CarBrand = 
 {
   name: "lexus",
-  icon: "assets/car-brands/lexus_logo_thumbnail.png",
+  iconPath: "assets/car-brands/lexus_logo_thumbnail.png",
   models: [
     {
       name: "IS",
-      icon: "assets/car-models/lexus/lexus_is_small.png",
+      iconPath: "assets/car-models/lexus/lexus_is_small.png",
       generations: [
         {
           startYear: 2005,
           endYear: 2013,
-          icon: "assets/car-brands/lexus_logo_thumbnail.png",
+          iconPath: "assets/car-brands/lexus_logo_thumbnail.png",
           petrolEngines: [
        
           ],
@@ -4243,8 +4215,8 @@ lexus : CarBrand =
               nm: 340,
               stage1: {
                 price: 300,
-                stageHp: 190,
-                stageNm: 440,
+                hp: 190,
+                nm: 440,
               }
             },
             {
@@ -4253,8 +4225,8 @@ lexus : CarBrand =
               nm: 400,
               stage1: {
                 price: 300,
-                stageHp: 190,
-                stageNm: 440,
+                hp: 190,
+                nm: 440,
               }
             },
           ]
