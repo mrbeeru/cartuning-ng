@@ -13,7 +13,7 @@ namespace Quizalot.DataAccess.Repositories
     {
         private const string DATABASE = "cartuningDB";
         private readonly IMongoClient mongoClient;
-        private readonly IClientSessionHandle clientSessionHandle;
+        protected readonly IClientSessionHandle clientSessionHandle;
         private readonly string collectionName;
 
         public RepositoryBase(IMongoClient mongoClient, IClientSessionHandle clientSessionHandle)

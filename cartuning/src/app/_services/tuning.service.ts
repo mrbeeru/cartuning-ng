@@ -10,8 +10,13 @@ export class TuningService {
 
     }
 
-    async f(cars : CarBrand[]) {
+    async updateTuningTable(cars : CarBrand[]) {
         await this.http.post(`${environment.appUrl}/TuningCatalog`, cars).toPromise();
+    }
+
+    async getTuningTable() : Promise<CarBrand[]>
+    {
+        return await this.http.get<CarBrand[]>(`${environment.appUrl}/TuningCatalog`).toPromise();
     }
 }
 

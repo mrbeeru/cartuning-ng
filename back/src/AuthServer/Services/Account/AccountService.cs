@@ -46,6 +46,7 @@ namespace Quizalot.Services.Account
             var accountEntity = new AccountEntity()
             {
                 Email = newAccount.Email,
+                Username = newAccount.Username,
                 Password = passwordHash,
             };
 
