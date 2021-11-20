@@ -52,6 +52,7 @@ import { CarMakeEditComponent } from './tuning/car-make-edit/car-make-edit.compo
 import { CarEngineEditComponent } from './tuning/car-engine-edit/car-engine-edit.component';
 import { MatSelectModule } from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -105,6 +106,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     
     TimeagoModule.forRoot()
   ],

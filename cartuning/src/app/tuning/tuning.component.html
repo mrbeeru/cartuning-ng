@@ -3,7 +3,6 @@
 
     <div class="container-xl" style="min-height: 100vh; width: 100%;">
 
-
         <mat-horizontal-stepper #stepper [linear]="true" (selectionChange)="setIndex($event)">
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Brand"}}</ng-template>
@@ -14,6 +13,7 @@
                         <span class="material-icons" >cloud_upload</span>
                     </button>
                 </div>
+                <mat-progress-bar mode="indeterminate" class="mt-1" *ngIf='isTableLoading'></mat-progress-bar>
 
                 <div class="row">
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor='let car of carMap'>

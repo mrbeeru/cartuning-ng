@@ -24,6 +24,8 @@ export class TuningComponent implements OnInit {
 
   carMap : CarBrand[] = [];
 
+  isTableLoading = false;
+
   @ViewChild('stepper') stepper:MatStepper;
 
   constructor(
@@ -32,7 +34,12 @@ export class TuningComponent implements OnInit {
     ) { }
 
   async ngOnInit(): Promise<void> { 
-    this.carMap = await this.tuningService.getTuningTable();
+    try {
+      this.isTableLoading = true;
+      this.carMap = await this.tuningService.getTuningTable();
+    } finally {
+      this.isTableLoading = false
+    }
   }
 
   applyFilter(event: Event) {
@@ -40,6 +47,8 @@ export class TuningComponent implements OnInit {
     this.dieselEngineSource.filter = filterValue.trim().toLowerCase();
     this.petrolEngineSource.filter = filterValue.trim().toLowerCase();
   }
+
+//#region car_selection
 
   selectCar(c){
     this.selectedCar = c;
@@ -62,6 +71,8 @@ export class TuningComponent implements OnInit {
 
     this.applyFilters();
   }
+
+//#endregion
 
   setIndex(event) {
     this.stepper.steps.forEach((x,idx) => {
