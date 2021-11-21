@@ -21,6 +21,11 @@ namespace Quizalot
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("appauthsettings.json",
+                        optional: false,
+                        reloadOnChange: true);
                 });
     }
 }

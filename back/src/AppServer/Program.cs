@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
+configuration.AddJsonFile("appserversettings.json");
+
 //settings
 services.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
 services.AddSingleton(provider => provider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
@@ -28,7 +30,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors(policy => policy.AllowAnyMethod().WithOrigins("http://localhost:1337").AllowAnyHeader());
+app.UseCors(policy => policy.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -37,7 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

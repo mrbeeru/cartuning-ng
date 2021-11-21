@@ -8,5 +8,6 @@
   "AllowedHosts": "*",
   "MongoDbSettings": {
     "ConnectionString": "mongodb://localhost:27017"
-  }
+  },
+  "Urls": "http://*:30001"
 }
