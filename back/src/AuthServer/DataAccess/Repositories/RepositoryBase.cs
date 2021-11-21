@@ -29,9 +29,9 @@ namespace Quizalot.DataAccess.Repositories
         }
 
         protected IMongoCollection<T> Collection { get; }
-
+        
         public async Task InsertAsync(T obj) => await Collection.InsertOneAsync(clientSessionHandle, obj);
-
         public async Task DeleteAsync(ObjectId id) => await Collection.DeleteOneAsync(clientSessionHandle, f => f.Id == id);
+        public async Task<List<T>> FindByIdAsync(ObjectId id) => (await Collection.FindAsync(clientSessionHandle, f => f.Id == id)).ToList();
     }
 }

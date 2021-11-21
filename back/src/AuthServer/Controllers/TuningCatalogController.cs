@@ -3,6 +3,9 @@ using AppServer.DataAccess.Repositories;
 using AppServer.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,7 +38,7 @@ namespace AppServer.Controllers
 
         // POST api/<TuningCatalogController>
         [HttpPost]
-        [Authorize]
+        [Authorize, Authorize(Policy = "CanEditTuningTable")]
         public async Task<IActionResult> Post(IEnumerable<CarBrandEntity> tuningStructure)
         {
             await tuningRepository.SaveTuningStructure(tuningStructure);

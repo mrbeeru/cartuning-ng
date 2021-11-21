@@ -19,6 +19,10 @@ using Quizalot.Core.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AppServer.DataAccess.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using AppServer.Middleware;
+using CartuningServer.Middleware;
 
 namespace Quizalot
 {
@@ -45,6 +49,9 @@ namespace Quizalot
             //add repos
             services.AddScoped(typeof(IRepositoryBase<AccountEntity>), typeof(RepositoryBase<AccountEntity>));
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<ITuningRepository, TuningRepository>();
+
+            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 
 
@@ -66,7 +73,13 @@ namespace Quizalot
                 };
             });
 
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CanEditTuningTable", p => p.Requirements.Add(new PermissionRequirement(Permission.CanEditTuningTable)));
+            });
+
+
+            services.AddControllers();
             services.AddScoped<IAccountService, AccountService>();
             services.AddHttpClient();
 

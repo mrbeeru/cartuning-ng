@@ -12,5 +12,6 @@ namespace Quizalot.DataAccess.Repositories
     {
         Task InsertAsync(T obj);
         Task DeleteAsync(ObjectId id);
+        Task<List<T>> FindByIdAsync(ObjectId id);
     }
 }
