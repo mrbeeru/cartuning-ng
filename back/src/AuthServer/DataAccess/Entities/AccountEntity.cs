@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Quizalot.DataAccess.Entities
+namespace CartuningServer.DataAccess.Entities
 {
     [BsonCollection("accounts")]
     public class AccountEntity : EntityBase

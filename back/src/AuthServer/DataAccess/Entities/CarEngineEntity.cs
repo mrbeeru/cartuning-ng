@@ -1,6 +1,4 @@
-﻿using Quizalot.DataAccess.Entities;
-
-namespace AppServer.DataAccess.Entities
+﻿namespace CartuningServer.DataAccess.Entities
 {
     public class CarEngineEntity
     {

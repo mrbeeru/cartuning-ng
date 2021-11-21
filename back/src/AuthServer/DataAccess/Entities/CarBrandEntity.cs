@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Quizalot.DataAccess.Entities;
 using System.Collections.Generic;
+using CartuningServer.DataAccess.Entities;
 
-namespace AppServer.DataAccess.Entities
+namespace CartuningServer.DataAccess.Entities
 {
     [BsonCollection("carBrands")]
     public class CarBrandEntity : EntityBase

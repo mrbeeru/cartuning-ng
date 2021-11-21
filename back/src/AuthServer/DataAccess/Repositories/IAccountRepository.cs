@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Quizalot.DataAccess.Entities;
+using CartuningServer.DataAccess.Entities;
 
-namespace Quizalot.DataAccess.Repositories
+namespace CartuningServer.DataAccess.Repositories
 {
     public interface IAccountRepository : IRepositoryBase<AccountEntity>
     {

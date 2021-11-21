@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Quizalot.Core.Authentication
+namespace CartuningServer.Middleware.Authentication
 {
     public interface IJwtAuthentication
     {

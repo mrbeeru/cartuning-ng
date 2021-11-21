@@ -1,13 +1,13 @@
-﻿using MongoDB.Bson;
+﻿using CartuningServer.DataAccess.Entities;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Quizalot.DataAccess.Entities;
 
-namespace Quizalot.DataAccess.Repositories
+namespace CartuningServer.DataAccess.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase
     {
@@ -32,6 +32,6 @@ namespace Quizalot.DataAccess.Repositories
         
         public async Task InsertAsync(T obj) => await Collection.InsertOneAsync(clientSessionHandle, obj);
         public async Task DeleteAsync(ObjectId id) => await Collection.DeleteOneAsync(clientSessionHandle, f => f.Id == id);
-        public async Task<List<T>> FindByIdAsync(ObjectId id) => (await Collection.FindAsync(clientSessionHandle, f => f.Id == id)).ToList();
+        public async Task<T> FindByIdAsync(ObjectId id) => (await Collection.FindAsync(clientSessionHandle, f => f.Id == id)).SingleOrDefault();
     }
 }

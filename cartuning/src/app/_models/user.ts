@@ -4,6 +4,12 @@ export class Account {
     id: string;
     jwt: string;
     email: string;
+
+    permissions: Permission
+}
+
+export class Permission {
+    permissionFlags: number;
 }
 
 export class User {

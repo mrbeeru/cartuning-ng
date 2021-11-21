@@ -12,17 +12,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Quizalot.DataAccess.Entities;
-using Quizalot.DataAccess.Repositories;
-using Quizalot.Services.Account;
-using Quizalot.Core.Authentication;
+using CartuningServerServices.Account;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using AppServer.DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using AppServer.Middleware;
 using CartuningServer.Middleware;
+using CartuningServer.DataAccess.Repositories;
+using CartuningServer;
+using CartuningServer.DataAccess.Entities;
+using CartuningServer.Middleware.Authentication;
 
 namespace Quizalot
 {
@@ -50,9 +49,9 @@ namespace Quizalot
             services.AddScoped(typeof(IRepositoryBase<AccountEntity>), typeof(RepositoryBase<AccountEntity>));
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ITuningRepository, TuningRepository>();
+            services.AddScoped<IAccountPermissionRepository, AccountPermissionRepository>();
 
             services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
 
 
             //add authentication
@@ -73,6 +72,7 @@ namespace Quizalot
                 };
             });
 
+            //add authorization
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("CanEditTuningTable", p => p.Requirements.Add(new PermissionRequirement(Permission.CanEditTuningTable)));

@@ -1,5 +1,4 @@
-﻿using AppServer.Middleware;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using System;
 
 namespace CartuningServer.Middleware

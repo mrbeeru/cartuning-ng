@@ -1,4 +1,4 @@
-﻿namespace Quizalot.Models.HttpDataModels
+﻿namespace CartuningServerModels.HttpDataModels
 {
     public class NewAccountModel
     {

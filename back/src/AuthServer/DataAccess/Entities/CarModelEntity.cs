@@ -1,9 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Quizalot.DataAccess.Entities;
 using System.Collections.Generic;
 
-namespace AppServer.DataAccess.Entities
+namespace CartuningServer.DataAccess.Entities
 {
     public class CarModelEntity
     {

@@ -1,11 +1,9 @@
-﻿using AppServer.DataAccess.Entities;
+﻿using CartuningServer.DataAccess.Entities;
 using MongoDB.Driver;
-using Quizalot.DataAccess.Entities;
-using Quizalot.DataAccess.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AppServer.DataAccess.Repositories
+namespace CartuningServer.DataAccess.Repositories
 {
     public class TuningRepository : RepositoryBase<CarBrandEntity>, ITuningRepository
     {

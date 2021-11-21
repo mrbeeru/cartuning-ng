@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode'
 
 // import { environment } from '@environments/environment';
-import { User, Order, Account } from '../_models/user';
+import { User, Order, Account, Permission } from '../_models/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -32,21 +32,31 @@ export class AccountService {
 
     async loginNewAsync(email: string, password: string) : Promise<Account>
     {
-        const response = await this.http.post<{jwt: string}>(`${environment.authUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
-        const decodedJwt : {email: string, id: string} = jwt_decode(response.jwt);
+        const jwtResponse = await this.http.post<{jwt: string}>(`${environment.authUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
+        const decodedJwt : {email: string, id: string} = jwt_decode(jwtResponse.jwt);
+
+        const tokenHeader = this.addTokenToHeader(jwtResponse.jwt);
+        const permissionResponse = await this.http.get<Permission>(`${environment.authUrl}/account/permissions`, {headers: tokenHeader}).toPromise();
 
         let account: Account = {
             email: decodedJwt.email,
             id: decodedJwt.id,
-            jwt: response.jwt,
+            jwt: jwtResponse.jwt,
+            permissions: permissionResponse
         }
 
-        localStorage.setItem('account', JSON.stringify(account));
+        console.log(account);
+
+        //localStorage.setItem('account', JSON.stringify(account));
 
         this.accountSubject.next(account);
         this.onLogin.emit(account);
 
         return account;
+    }
+
+    addTokenToHeader(jwt) : HttpHeaders{
+        return new HttpHeaders().set("Authorization", "Bearer " + jwt);
     }
 
     logout() {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Quizalot.Models.HttpDataModels
+namespace CartuningServerModels.HttpDataModels
 {
     public class DiscordUserDetailsModel
     {

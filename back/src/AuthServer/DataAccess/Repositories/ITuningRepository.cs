@@ -1,8 +1,8 @@
-﻿using AppServer.DataAccess.Entities;
+﻿using CartuningServer.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AppServer.DataAccess.Repositories
+namespace CartuningServer.DataAccess.Repositories
 {
     public interface ITuningRepository
     {

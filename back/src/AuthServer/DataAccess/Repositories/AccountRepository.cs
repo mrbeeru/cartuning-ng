@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Quizalot.DataAccess.Entities;
 using MongoDB.Bson;
+using CartuningServer.DataAccess.Entities;
 
-namespace Quizalot.DataAccess.Repositories
+namespace CartuningServer.DataAccess.Repositories
 {
     public class AccountRepository : RepositoryBase<AccountEntity>, IAccountRepository
     {

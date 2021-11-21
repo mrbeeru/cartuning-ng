@@ -4,23 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Quizalot.DataAccess.Entities;
-using Quizalot.DataAccess.Repositories;
-using Quizalot.Services.Account;
-using Quizalot.Models.HttpDataModels;
+using CartuningServerServices.Account;
+using CartuningServerModels.HttpDataModels;
 using Microsoft.AspNetCore.Authorization;
+using CartuningServer.DataAccess.Repositories;
 
-namespace Quizalot.Controllers
+namespace CartuningServer.Controllers
 {
     [Route("api/account")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService accountService;
+        private readonly IAccountPermissionRepository accountPermissionRepository;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IAccountPermissionRepository accountPermissionRepository)
         {
             this.accountService = accountService;
+            this.accountPermissionRepository = accountPermissionRepository;
         }
 
 
@@ -62,6 +63,14 @@ namespace Quizalot.Controllers
         [Authorize]
         public async Task<IActionResult> GetAccountDetails()
         {
+            return Ok();
+        }
+
+        [HttpGet("permissions")]
+        [Authorize]
+        public async Task<IActionResult> GetPermissions()
+        {
+            var id = Request.HttpContext.User.Claims?.FirstOrDefault(x => x.Type.Equals("id", StringComparison.OrdinalIgnoreCase))?.Value;
             return Ok();
         }
     }

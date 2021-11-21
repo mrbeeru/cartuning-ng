@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quizalot.Core.Authentication
+namespace CartuningServer.Middleware.Authentication
 {
     public class JwtAuthentication : IJwtAuthentication
     {

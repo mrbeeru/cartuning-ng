@@ -9,13 +9,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Quizalot.DataAccess.Entities;
-using Quizalot.DataAccess.Repositories;
-using Quizalot.Models.HttpDataModels;
-using Quizalot.Core.Authentication;
+using CartuningServerModels.HttpDataModels;
 using AuthServer.Models;
+using CartuningServer.DataAccess.Repositories;
+using CartuningServer.Middleware.Authentication;
+using CartuningServer.DataAccess.Entities;
 
-namespace Quizalot.Services.Account
+namespace CartuningServerServices.Account
 {
     public class AccountService : IAccountService
     {

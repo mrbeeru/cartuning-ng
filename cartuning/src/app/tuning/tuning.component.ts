@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CarBrand, CarEngine, CarGeneration, CarModel, TuningService } from '../_services/tuning.service';
 import { TuningEditDialogComponent } from './tuning-edit-dialog/tuning-edit-dialog.component';
 
+import { AccountService } from '../_services/account.service'
+
 @Component({
   selector: 'app-tuning',
   templateUrl: './tuning.component.html',
@@ -29,8 +31,9 @@ export class TuningComponent implements OnInit {
   @ViewChild('stepper') stepper:MatStepper;
 
   constructor(
-    public dialog: MatDialog,
-    private tuningService: TuningService
+    private dialog: MatDialog,
+    private tuningService: TuningService,
+    public accountService: AccountService
     ) { }
 
   async ngOnInit(): Promise<void> { 
