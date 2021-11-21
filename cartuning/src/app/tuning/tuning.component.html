@@ -7,7 +7,7 @@
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedCar != null ? selectedCar.name : "Brand"}}</ng-template>
 
-                <div class="mb-3 d-flex justify-content-between">
+                <div class="mb-3 d-flex justify-content-between" *ngIf='tuningService.canEditTuningTable()'>
                     <button mat-raised-button (click)="openAddCarBrandDialog()">Add Brand</button>
                     <button mat-mini-fab (click)="updateTuningTable()" color='primary'>
                         <span class="material-icons" >cloud_upload</span>
@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor='let car of carMap'>
                         <div class="car-card" (click)="selectCar(car); false">
-                            <div class="d-flex justify-content-end mr-2 mt-2">
+                            <div class="d-flex justify-content-end mr-2 mt-2" *ngIf='tuningService.canEditTuningTable()'>
                                 <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
                                     class="d-flex align-items-center justify-content-center" color='primary'
                                     [matMenuTriggerFor]="menu" clickStopPropagation>
@@ -47,14 +47,14 @@
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedModel != null ? selectedModel.name : "Model"}}</ng-template>
 
-                <div class="mb-3">
+                <div class="mb-3" *ngIf='tuningService.canEditTuningTable()'>
                     <button mat-raised-button (click)="openAddCarModelDialog()">Add Model</button>
                 </div>
 
                 <div class="row">
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor='let carModel of selectedCar?.models'>
                         <div class="car-card" (click)="selectModel(carModel)">
-                            <div class="d-flex justify-content-end mr-2 mt-2">
+                            <div class="d-flex justify-content-end mr-2 mt-2" *ngIf='tuningService.canEditTuningTable()'>
                                 <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
                                     class="d-flex align-items-center justify-content-center" color='primary'
                                     [matMenuTriggerFor]="menu" clickStopPropagation>
@@ -88,7 +88,7 @@
                 <ng-template matStepLabel>{{selectedGeneration != null ? (selectedGeneration.startYear + " - " +
                     selectedGeneration.endYear) : "Version"}}</ng-template>
 
-                <div class="mb-3">
+                <div class="mb-3" *ngIf='tuningService.canEditTuningTable()'>
                     <button mat-raised-button (click)="openAddCarMakeDialog()">Add Make</button>
                 </div>
 
@@ -96,7 +96,7 @@
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4"
                         *ngFor='let carMake of selectedModel?.generations'>
                         <div class="car-card" (click)="selectGeneration(carMake)">
-                            <div class="d-flex justify-content-end mr-2">
+                            <div class="d-flex justify-content-end mr-2" *ngIf='tuningService.canEditTuningTable()'>
                                 <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
                                     class="d-flex align-items-center justify-content-center" color="primary"
                                     [matMenuTriggerFor]="menu" clickStopPropagation>
@@ -215,9 +215,9 @@
                     </ng-container>
 
                     <tr mat-header-row
-                        *matHeaderRowDef="['engineName', 'original', 'tuned', 'symbol', 'price', 'actions']"></tr>
+                        *matHeaderRowDef='engineTableColumns'></tr>
                     <tr mat-row
-                        *matRowDef="let row; columns: ['engineName', 'original', 'tuned', 'symbol', 'price', 'actions'];">
+                        *matRowDef="let row; columns: engineTableColumns;">
                     </tr>
                 </table>
 
@@ -299,9 +299,9 @@
                     </ng-container>
 
                     <tr mat-header-row
-                        *matHeaderRowDef="['engineName', 'original', 'tuned', 'symbol', 'price', 'actions']"></tr>
+                        *matHeaderRowDef="engineTableColumns"></tr>
                     <tr mat-row
-                        *matRowDef="let row; columns: ['engineName', 'original', 'tuned', 'symbol', 'price', 'actions'];">
+                        *matRowDef="let row; columns: engineTableColumns;">
                     </tr>
                 </table>
 

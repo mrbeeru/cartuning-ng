@@ -16,7 +16,7 @@ import { AccountService } from '../_services/account.service'
 
 export class TuningComponent implements OnInit {
 
-  displayedColumns: string[] = ['engineName', 'original', 'tuned', 'symbol', 'price'];
+  engineTableColumns: string[] = ['engineName', 'original', 'tuned', 'symbol', 'price'];
   dieselEngineSource : MatTableDataSource<any>;
   petrolEngineSource : MatTableDataSource<any>;
 
@@ -32,14 +32,15 @@ export class TuningComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private tuningService: TuningService,
-    public accountService: AccountService
+    public tuningService: TuningService,
     ) { }
 
   async ngOnInit(): Promise<void> { 
     try {
       this.isTableLoading = true;
       this.carMap = await this.tuningService.getTuningTable();
+      if (this.tuningService.canEditTuningTable())
+        this.engineTableColumns.push('actions')
     } finally {
       this.isTableLoading = false
     }

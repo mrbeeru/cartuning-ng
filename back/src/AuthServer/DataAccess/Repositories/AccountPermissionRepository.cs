@@ -11,6 +11,9 @@ namespace CartuningServer.DataAccess.Repositories
         {
         }
 
-
+        public async Task<AccountPermissionEntity> FindByAccountIdAsync(ObjectId accountId)
+        {
+            return (await Collection.FindAsync(x => x.AccountId == accountId)).SingleOrDefault();
+        }
     }
 }

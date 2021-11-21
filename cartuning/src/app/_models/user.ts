@@ -5,11 +5,16 @@ export class Account {
     jwt: string;
     email: string;
 
-    permissions: Permission
+    permission: Permission
 }
 
 export class Permission {
-    permissionFlags: number;
+    flags: PermissionFlags;
+}
+
+export enum PermissionFlags {
+    None = 0,
+    CanEditTuningTable = 1,
 }
 
 export class User {

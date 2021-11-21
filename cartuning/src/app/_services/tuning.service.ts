@@ -1,11 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
+import { PermissionFlags } from "../_models/user";
+import { AccountService } from "./account.service";
 
 @Injectable({ providedIn: 'root' })
 export class TuningService {
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private accountService: AccountService,
     ) {
 
     }
@@ -17,6 +20,10 @@ export class TuningService {
     async getTuningTable() : Promise<CarBrand[]>
     {
         return await this.http.get<CarBrand[]>(`${environment.appUrl}/TuningCatalog`).toPromise();
+    }
+
+    canEditTuningTable(){
+        return this.accountService.hasPermission(PermissionFlags.CanEditTuningTable);
     }
 }
 

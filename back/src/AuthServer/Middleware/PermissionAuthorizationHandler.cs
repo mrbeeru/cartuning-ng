@@ -10,19 +10,22 @@ namespace CartuningServer.Middleware
 {
     public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
-        private readonly IAccountRepository accountRepository;
+        private readonly IAccountPermissionRepository accountPermissionRepository;
 
-        public PermissionAuthorizationHandler(IAccountRepository accountRepository)
+        public PermissionAuthorizationHandler(IAccountPermissionRepository accountPermissionRepository)
         {
-            this.accountRepository = accountRepository;
+            this.accountPermissionRepository = accountPermissionRepository;
         }
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-            var userId = context.User.Claims?.FirstOrDefault(x => x.Type.Equals("id", StringComparison.OrdinalIgnoreCase))?.Value;
-            var user = await accountRepository.FindByIdAsync(ObjectId.Parse(userId));
+            var accountId = context.User.Claims?.FirstOrDefault(x => x.Type.Equals("id", StringComparison.OrdinalIgnoreCase))?.Value;
+            var permission = await accountPermissionRepository.FindByAccountIdAsync(ObjectId.Parse(accountId));
 
-            context.Fail();
+            if ((permission.Permissions & requirement.Permission) == requirement.Permission)
+                context.Succeed(requirement);
+            else 
+                context.Fail();
         }
     }
 }

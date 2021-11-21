@@ -8,6 +8,8 @@ using CartuningServerServices.Account;
 using CartuningServerModels.HttpDataModels;
 using Microsoft.AspNetCore.Authorization;
 using CartuningServer.DataAccess.Repositories;
+using MongoDB.Bson;
+using CartuningServer.DataAccess.Entities;
 
 namespace CartuningServer.Controllers
 {
@@ -71,7 +73,9 @@ namespace CartuningServer.Controllers
         public async Task<IActionResult> GetPermissions()
         {
             var id = Request.HttpContext.User.Claims?.FirstOrDefault(x => x.Type.Equals("id", StringComparison.OrdinalIgnoreCase))?.Value;
-            return Ok();
+            var permissions = await accountPermissionRepository.FindByAccountIdAsync(ObjectId.Parse(id));
+
+            return Ok(new { Flags = permissions.Permissions });
         }
     }
 }

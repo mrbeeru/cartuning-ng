@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode'
 
 // import { environment } from '@environments/environment';
-import { User, Order, Account, Permission } from '../_models/user';
+import { User, Order, Account, Permission, PermissionFlags } from '../_models/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -42,10 +42,8 @@ export class AccountService {
             email: decodedJwt.email,
             id: decodedJwt.id,
             jwt: jwtResponse.jwt,
-            permissions: permissionResponse
+            permission: permissionResponse
         }
-
-        console.log(account);
 
         //localStorage.setItem('account', JSON.stringify(account));
 
@@ -118,6 +116,11 @@ export class AccountService {
         return this.http.delete(`${environment.authUrl}/user/orders/${order._id}`, options);
     }
 
+    hasPermission(permission: PermissionFlags)
+    {
+        if (this.accountValue == null)
+            return false;
 
-  
+        return (this.accountValue.permission.flags & permission) == permission;
+    }
 }
