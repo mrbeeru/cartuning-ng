@@ -20,6 +20,13 @@ namespace CartuningServer.Middleware
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
             var accountId = context.User.Claims?.FirstOrDefault(x => x.Type.Equals("id", StringComparison.OrdinalIgnoreCase))?.Value;
+
+            if (accountId == null)
+            {
+                context.Fail(new AuthorizationFailureReason(this, "Unauthorized"));
+                return;
+            }
+
             var permission = await accountPermissionRepository.FindByAccountIdAsync(ObjectId.Parse(accountId));
 
             if ((permission.Permissions & requirement.Permission) == requirement.Permission)

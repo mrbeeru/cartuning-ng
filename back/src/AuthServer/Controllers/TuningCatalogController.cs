@@ -40,8 +40,18 @@ namespace CartuningServer.Controllers
         [Authorize, Authorize(Policy = "CanEditTuningTable")]
         public async Task<IActionResult> Post(IEnumerable<CarBrandEntity> tuningStructure)
         {
-            await tuningRepository.SaveTuningStructure(tuningStructure);
-            return Ok();
+            try
+            {
+                await tuningRepository.SaveTuningStructure(tuningStructure);
+                return Ok();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            } catch (Exception)
+            {
+                return BadRequest("Server error");
+            }
         }
     }
 }

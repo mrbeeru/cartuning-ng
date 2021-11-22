@@ -4,8 +4,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
 import { CarBrand, CarEngine, CarGeneration, CarModel, TuningService } from '../_services/tuning.service';
 import { TuningEditDialogComponent } from './tuning-edit-dialog/tuning-edit-dialog.component';
-
-import { AccountService } from '../_services/account.service'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tuning',
@@ -33,14 +32,17 @@ export class TuningComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     public tuningService: TuningService,
-    ) { }
+    private snackBar: MatSnackBar,
+    ) {
+      if (this.tuningService.canEditTuningTable())
+        this.engineTableColumns.push('actions')
+     }
 
   async ngOnInit(): Promise<void> { 
     try {
       this.isTableLoading = true;
       this.carMap = await this.tuningService.getTuningTable();
-      if (this.tuningService.canEditTuningTable())
-        this.engineTableColumns.push('actions')
+
     } finally {
       this.isTableLoading = false
     }
@@ -260,12 +262,21 @@ export class TuningComponent implements OnInit {
 //#endregion
 
 
-  updateTuningTable()
+  async updateTuningTable()
   {
-    this.tuningService.updateTuningTable(this.carMap)
+    try {
+      await this.tuningService.updateTuningTableAsync(this.carMap);
+      this.showMessage("Table updated")
+    } catch (err)
+    {
+      this.showMessage("Update failed: " + err.statusText);
+    }
   }
 
-//#endregion
+  showMessage(message)
+  {
+    this.snackBar.open(message, "[ x ]", {duration: 5000, horizontalPosition: "center", verticalPosition: "top"})
+  }
 }
 
 

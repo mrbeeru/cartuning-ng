@@ -75,7 +75,7 @@ namespace CartuningServer.Controllers
             var id = Request.HttpContext.User.Claims?.FirstOrDefault(x => x.Type.Equals("id", StringComparison.OrdinalIgnoreCase))?.Value;
             var permissions = await accountPermissionRepository.FindByAccountIdAsync(ObjectId.Parse(id));
 
-            return Ok(new { Flags = permissions.Permissions });
+            return Ok(new { Flags = permissions?.Permissions });
         }
     }
 }

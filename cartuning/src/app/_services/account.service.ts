@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -22,12 +22,22 @@ export class AccountService {
         private router: Router,
         private http: HttpClient
     ) {
-        this.accountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('account')));
+        let storedAccount = JSON.parse(localStorage.getItem('account')) as Account;
+        
+        if (storedAccount != null)
+        {
+            this.getPermissions(storedAccount.jwt).then(p => {
+                storedAccount.permission = p
+                localStorage.setItem('account', JSON.stringify(storedAccount));
+            });
+        }
+
+        this.accountSubject = new BehaviorSubject<Account>(storedAccount);
         this.account = this.accountSubject.asObservable();
     }
 
     public get accountValue(): Account {
-        return this.accountSubject.value;
+        return this.accountSubject?.value;
     }
 
     async loginNewAsync(email: string, password: string) : Promise<Account>
@@ -35,17 +45,16 @@ export class AccountService {
         const jwtResponse = await this.http.post<{jwt: string}>(`${environment.authUrl}/account/auth/default`, { "email": email, "password": password }).toPromise();
         const decodedJwt : {email: string, id: string} = jwt_decode(jwtResponse.jwt);
 
-        const tokenHeader = this.addTokenToHeader(jwtResponse.jwt);
-        const permissionResponse = await this.http.get<Permission>(`${environment.authUrl}/account/permissions`, {headers: tokenHeader}).toPromise();
-
+        let permissions = await this.getPermissions(jwtResponse.jwt);
+        
         let account: Account = {
             email: decodedJwt.email,
             id: decodedJwt.id,
             jwt: jwtResponse.jwt,
-            permission: permissionResponse
+            permission: permissions
         }
 
-        //localStorage.setItem('account', JSON.stringify(account));
+        localStorage.setItem('account', JSON.stringify(account));
 
         this.accountSubject.next(account);
         this.onLogin.emit(account);
@@ -114,6 +123,12 @@ export class AccountService {
                                     .append('Authorization', 'Bearer fake-jwt-token')}
 
         return this.http.delete(`${environment.authUrl}/user/orders/${order._id}`, options);
+    }
+
+    private async getPermissions(jwt: string) : Promise<Permission>
+    {
+        const tokenHeader = this.addTokenToHeader(jwt);
+        return await this.http.get<Permission>(`${environment.authUrl}/account/permissions`, {headers: tokenHeader}).toPromise();
     }
 
     hasPermission(permission: PermissionFlags)

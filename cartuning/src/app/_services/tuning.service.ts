@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { PermissionFlags } from "../_models/user";
@@ -13,8 +13,9 @@ export class TuningService {
 
     }
 
-    async updateTuningTable(cars : CarBrand[]) {
-        await this.http.post(`${environment.appUrl}/TuningCatalog`, cars).toPromise();
+    async updateTuningTableAsync(cars : CarBrand[]) {
+        var authHeader = this.addTokenToHeader(this.accountService.accountValue?.jwt)
+        await this.http.post(`${environment.appUrl}/TuningCatalog`, cars, {headers: authHeader}).toPromise();
     }
 
     async getTuningTable() : Promise<CarBrand[]>
@@ -24,6 +25,10 @@ export class TuningService {
 
     canEditTuningTable(){
         return this.accountService.hasPermission(PermissionFlags.CanEditTuningTable);
+    }
+
+    addTokenToHeader(jwt) : HttpHeaders{
+        return new HttpHeaders().set("Authorization", "Bearer " + jwt);
     }
 }
 

@@ -96,7 +96,7 @@ namespace Quizalot
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quizalot v1"));
             }
 
-            app.UseCors(policy => policy.AllowAnyMethod().WithOrigins("http://localhost:1337").AllowAnyHeader());
+            app.UseCors(policy => policy.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthentication();
