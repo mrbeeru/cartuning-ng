@@ -18,21 +18,25 @@
                 <div class="row">
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor='let car of carMap'>
                         <div class="car-card" (click)="selectCar(car); false">
-                            <div class="d-flex justify-content-end mr-2 mt-2" *ngIf='tuningService.canEditTuningTable()'>
-                                <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
-                                    class="d-flex align-items-center justify-content-center" color='primary'
-                                    [matMenuTriggerFor]="menu" clickStopPropagation>
-                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
-                                        style="font-size: 16px;">
-                                        expand_more
-                                    </span>
-                                </button>
-
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item (click)='openEditCarBrandDialog(car)'>Edit</button>
-                                    <button mat-menu-item (click)='deleteCarBrand(car)'>Delete</button>
-                                </mat-menu>
+                            <div style="height: 28px;">
+                                <div class="d-flex justify-content-end pr-2 pt-2" *ngIf='tuningService.canEditTuningTable()'>
+                                    <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
+                                        class="d-flex align-items-center justify-content-center" color='primary'
+                                        [matMenuTriggerFor]="menu" clickStopPropagation>
+                                        <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                            style="font-size: 16px;">
+                                            expand_more
+                                        </span>
+                                    </button>
+    
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)='openEditCarBrandDialog(car)'>Edit</button>
+                                        <button mat-menu-item (click)='deleteCarBrand(car)'>Delete</button>
+                                    </mat-menu>
+                                </div>
+                                
                             </div>
+                           
                             <div class="text-center">
                                 <img [src]="car.iconPath" style="width: 102px; height: 102px; margin: 0">
                             </div>
@@ -54,20 +58,22 @@
                 <div class="row">
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor='let carModel of selectedCar?.models'>
                         <div class="car-card" (click)="selectModel(carModel)">
-                            <div class="d-flex justify-content-end mr-2 mt-2" *ngIf='tuningService.canEditTuningTable()'>
-                                <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
-                                    class="d-flex align-items-center justify-content-center" color='primary'
-                                    [matMenuTriggerFor]="menu" clickStopPropagation>
-                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
-                                        style="font-size: 16px;">
-                                        expand_more
-                                    </span>
-                                </button>
-
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item (click)='openEditCarModelDialog(carModel)'>Edit</button>
-                                    <button mat-menu-item (click)='deleteCarModel(carModel)'>Delete</button>
-                                </mat-menu>
+                            <div style="height: 28px;">
+                                <div class="d-flex justify-content-end pr-2 pt-2" *ngIf='tuningService.canEditTuningTable()'>
+                                    <button mat-mini-fab style="cursor: pointer; width: 20px; height: 20px;"
+                                        class="d-flex align-items-center justify-content-center" color='primary'
+                                        [matMenuTriggerFor]="menu" clickStopPropagation>
+                                        <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                            style="font-size: 16px;">
+                                            expand_more
+                                        </span>
+                                    </button>
+    
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)='openEditCarModelDialog(carModel)'>Edit</button>
+                                        <button mat-menu-item (click)='deleteCarModel(carModel)'>Delete</button>
+                                    </mat-menu>
+                                </div>
                             </div>
                             <div class="text-center">
                                 <img [src]="carModel.iconPath" style="height: 102px; margin: 0">
@@ -96,21 +102,24 @@
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-12 mb-4"
                         *ngFor='let carMake of selectedModel?.generations'>
                         <div class="car-card" (click)="selectGeneration(carMake)">
-                            <div class="d-flex justify-content-end mr-2" *ngIf='tuningService.canEditTuningTable()'>
-                                <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
-                                    class="d-flex align-items-center justify-content-center" color="primary"
-                                    [matMenuTriggerFor]="menu" clickStopPropagation>
-                                    <span class="material-icons-round d-flex align-items-center justify-content-center"
-                                        style="font-size: 16px;">
-                                        expand_more
-                                    </span>
-                                </button>
-
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item (click)='openEditCarMakeDialog(carMake)'>Edit</button>
-                                    <button mat-menu-item (click)='deleteCarMake(carMake)'>Delete</button>
-                                </mat-menu>
+                            <div style="height: 28px;">
+                                <div class="d-flex justify-content-end pr-2 pt-2" *ngIf='tuningService.canEditTuningTable()'>
+                                    <button mat-mini-fab style="cursor: pointer; width: 24px; height: 24px;"
+                                        class="d-flex align-items-center justify-content-center" color="primary"
+                                        [matMenuTriggerFor]="menu" clickStopPropagation>
+                                        <span class="material-icons-round d-flex align-items-center justify-content-center"
+                                            style="font-size: 16px;">
+                                            expand_more
+                                        </span>
+                                    </button>
+    
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)='openEditCarMakeDialog(carMake)'>Edit</button>
+                                        <button mat-menu-item (click)='deleteCarMake(carMake)'>Delete</button>
+                                    </mat-menu>
+                                </div>
                             </div>
+                           
                             <div class="text-center">
                                 <img [src]="carMake.iconPath" style="height: 102px; margin: 0">
                             </div>
