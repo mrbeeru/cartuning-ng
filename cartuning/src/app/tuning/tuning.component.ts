@@ -26,6 +26,7 @@ export class TuningComponent implements OnInit {
   carMap : CarBrand[] = [];
 
   isTableLoading = false;
+  isTableSaving = false;
 
   @ViewChild('stepper') stepper:MatStepper;
 
@@ -265,11 +266,15 @@ export class TuningComponent implements OnInit {
   async updateTuningTable()
   {
     try {
+      this.isTableSaving = true;
+       await new Promise(resolve => setTimeout(resolve, 1000));
       await this.tuningService.updateTuningTableAsync(this.carMap);
       this.showMessage("Table updated")
     } catch (err)
     {
       this.showMessage("Update failed: " + err.statusText);
+    } finally {
+      this.isTableSaving = false;
     }
   }
 

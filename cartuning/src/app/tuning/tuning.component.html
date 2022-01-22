@@ -9,8 +9,12 @@
 
                 <div class="mb-3 d-flex justify-content-between" *ngIf='tuningService.canEditTuningTable()'>
                     <button mat-raised-button (click)="openAddCarBrandDialog()">Add Brand</button>
-                    <button mat-mini-fab (click)="updateTuningTable()" color='primary'>
-                        <span class="material-icons" >cloud_upload</span>
+                    <button mat-raised-button (click)="updateTuningTable()" color='primary' [disabled]='isTableSaving'>
+                        <div class="d-flex align-items-center">
+                            <span class="pr-1"> Save </span>
+                            <span *ngIf='!isTableSaving' class="material-icons">cloud_upload</span>
+                            <mat-spinner *ngIf='isTableSaving' diameter='20'></mat-spinner>
+                        </div>
                     </button>
                 </div>
                 <mat-progress-bar mode="indeterminate" class="mt-1" *ngIf='isTableLoading'></mat-progress-bar>
@@ -51,8 +55,15 @@
             <mat-step [completed]="false">
                 <ng-template matStepLabel>{{selectedModel != null ? selectedModel.name : "Model"}}</ng-template>
 
-                <div class="mb-3" *ngIf='tuningService.canEditTuningTable()'>
+                <div class="mb-3 d-flex justify-content-between" *ngIf='tuningService.canEditTuningTable()'>
                     <button mat-raised-button (click)="openAddCarModelDialog()">Add Model</button>
+                    <button mat-raised-button (click)="updateTuningTable()" color='primary' [disabled]='isTableSaving'>
+                        <div class="d-flex align-items-center">
+                            <span class="pr-1"> Save </span>
+                            <span *ngIf='!isTableSaving' class="material-icons">cloud_upload</span>
+                            <mat-spinner *ngIf='isTableSaving' diameter='20'></mat-spinner>
+                        </div>
+                    </button>
                 </div>
 
                 <div class="row">
@@ -86,7 +97,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button matStepperPrevious class="btn btn-outline-primary btn-lg">Back</button>
+                    <button mat-stroked-button matStepperPrevious color='primary'>Back</button>
                 </div>
             </mat-step>
 
@@ -94,8 +105,15 @@
                 <ng-template matStepLabel>{{selectedGeneration != null ? (selectedGeneration.startYear + " - " +
                     selectedGeneration.endYear) : "Version"}}</ng-template>
 
-                <div class="mb-3" *ngIf='tuningService.canEditTuningTable()'>
+                <div class="mb-3 d-flex justify-content-between" *ngIf='tuningService.canEditTuningTable()'>
                     <button mat-raised-button (click)="openAddCarMakeDialog()">Add Make</button>
+                    <button mat-raised-button (click)="updateTuningTable()" color='primary' [disabled]='isTableSaving'>
+                        <div class="d-flex align-items-center">
+                            <span class="pr-1"> Save </span>
+                            <span *ngIf='!isTableSaving' class="material-icons">cloud_upload</span>
+                            <mat-spinner *ngIf='isTableSaving' diameter='20'></mat-spinner>
+                        </div>
+                    </button>
                 </div>
 
                 <div class="row">
@@ -132,7 +150,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button matStepperPrevious class="btn btn-outline-primary btn-lg">Back</button>
+                    <button mat-stroked-button matStepperPrevious color='primary'>Back</button>
                 </div>
             </mat-step>
 
@@ -144,8 +162,15 @@
                     <input matInput (keyup)="applyFilter($event)">
                 </mat-form-field> -->
 
-                <div class="mb-3">
+                <div class="mb-3 d-flex justify-content-between">
                     <button mat-raised-button (click)="openAddCarEngineDialog()">Add Engine</button>
+                    <button mat-raised-button (click)="updateTuningTable()" color='primary' [disabled]='isTableSaving'>
+                        <div class="d-flex align-items-center">
+                            <span class="pr-1"> Save </span>
+                            <span *ngIf='!isTableSaving' class="material-icons">cloud_upload</span>
+                            <mat-spinner *ngIf='isTableSaving' diameter='20'></mat-spinner>
+                        </div>
+                    </button>
                 </div>
 
                 <!-- DIESEL ENGINES TABLE -->
@@ -316,8 +341,8 @@
 
                 <br><br>
                 <div class="text-center">
-                    <button matStepperPrevious class="btn btn-outline-primary btn-lg mr-3">Back</button>
-                    <button (click)="stepper.reset()" class="btn btn-outline-primary btn-lg">Reset</button>
+                    <button mat-stroked-button matStepperPrevious class="mr-3" color='primary'>Back</button>
+                    <button mat-stroked-button (click)="stepper.reset()" color='primary'>Reset</button>
                 </div>
             </mat-step>
 
