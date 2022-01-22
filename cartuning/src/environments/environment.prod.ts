@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  authUrl: "http://anbu2.go.ro:30001/api",
-  appUrl: "http://anbu2.go.ro:30001/api"
+  authUrl: "http://anbu2.go.ro:10000/api",
+  appUrl: "http://anbu2.go.ro:10000/api"
 };
