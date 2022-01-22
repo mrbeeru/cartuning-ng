@@ -6,6 +6,8 @@
 *.log
 node_modules
 
+cartuning/.angular
+
 # Include when developing application packages.
 pubspec.lock
 .c9
