@@ -9,8 +9,8 @@
   "AllowedHosts": "*",
   "Auth": {
     "Discord": {
-      "ClientSecret": "B8Oo9zWNdmOA9li6x49xVhZxyhr3malt",
-      "ClientId": "879779586970366043"
+      "ClientSecret": "discord client secret",
+      "ClientId": "discord client id"
     }
   },
   "MongoDbSettings": {
